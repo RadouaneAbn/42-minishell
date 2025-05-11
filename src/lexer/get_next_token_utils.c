@@ -93,7 +93,7 @@ void	set_word_token(t_token **token, char *line, size_t *position)
 			if (char_in_set(line[*position], "'\"") && !quoted)
 				quote = line[*position];
 			if (quote == line[*position])
-				quoted = (quoted + 1) % 2;
+				quoted = !quoted;
 			(*position)++;
 		}
 	}

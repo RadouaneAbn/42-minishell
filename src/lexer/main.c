@@ -11,13 +11,13 @@ int	main(int argc, char *argv[], char **env)
 	while (true)
 	{
 		line = readline(BLUE"minishell$ "RESET);
-		rl_redisplay();
+		//rl_redisplay();
 		if (!line)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		lexer(line);
-		//expand(line);
+		//lexer(line);
+		expand(line);
 		printf("\n");
 		free(line);
 	}

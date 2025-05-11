@@ -1,31 +1,43 @@
 #include <minishell.h>
 
+/*NOTE: 
+	you have two choces for now to handle malloc failure
+		first:
+			you can use a function that allocate using malloc 
+			and this func has a static so if malloc failed that var
+			will indicate that
+		second:
+			using a struct that contain a void pointer
+			and an indicator that has a value (for example: M_FAIL for malloc fail)
+		third:
+			use errno var to indicate the error*/
+
 void	expand(char *str)
 {
 	bool	quoted;
 	char	quote;
-	size_t	index;
+	size_t	len;
 
-	index = 0;
 	quoted = false;
-	while (str[index])
+	len = 0;
+	while (*str)
 	{
-		if (char_in_set(str[index], "'\"") && !quoted)
-			quote = str[index];
-		if (quote == str[index])
-			quoted = (quoted + 1) % 2;
-
-		if (!quoted && str[index] == '$' && char_in_set(str[index + 1], "'\""))
-			index++;
-		else if (((quoted && (quote == '"')) || !quoted) && str[index] == '$' && str[index + 1])
-			expand_word(str, &index);
-
+		if (char_in_set(*str, "'\"") && !quoted)
+			quote = *str;
+		if (quote == *str)
+			quoted = !quoted;
+		if (!quoted && *str == '$' && char_in_set(peakch(str), "'\""))
+			str++;
+		else if (((quoted && (quote == '"')) || !quoted) && *str == '$' && peakch(str))
+			expand_word(&str, &len);
 		else
 		{
-			printf("%c", str[index]);
-			index++;
+			printf("%c", *str);
+			len++;
+			str++;
 		}
 	}
+	printf("\nlen: %lu\n", len);
 }
 
 bool	valid_key_char(char c)
@@ -33,24 +45,51 @@ bool	valid_key_char(char c)
 	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }
 
-//to do: you have to handle "$"
-void	expand_word(char *str, size_t *index)
+//this function get a string and return first key inside
+//that string witout dollar sign
+//and this function allocates space for that key using malloc
+//so the user should free the pointer after using it
+//NOTE: just env varaibles not $?
+char	*get_key(char **str)
 {
-	if (!ft_isalpha(str[*index + 1]) && str[*index + 1] != '_')
+	char	*key;
+	size_t	len;
+
+	len = 0;
+	while (valid_key_char((*str)[len]))
+		len++;
+	key = ft_substr(*str, 0, len);
+	if (key == NULL)
+		return (NULL);
+	*str += len;
+	return (key);
+}
+
+//to do: you have to handle "$"
+//to do: you have to handle $?
+//to do: create a function that return the key to be expanded
+void	expand_word(char **str, size_t *len)
+{
+	if (peakch(*str) == '?')
 	{
-		printf("%c%c", str[*index], str[*index + 1]);	
-		*(index) += 2;
+		printf("["BLUE"expand: ?"RESET"]");
+		*len += ft_strlen("0");
+		(*str) += 2;
 		return ;
 	}
-	(*index)++;
-	printf("["BLUE"expand: ");
-	while (str[*index])
+	if (!ft_isalpha(peakch(*str)) && peakch(*str) != '_')
 	{
-		if (valid_key_char(str[*index]))
-			printf("%c", str[*index]);
-		else
-			break;
-		(*index)++;
+		printf("%c%c", **str, peakch(*str));	
+		(*str) += 2;
+		*len += 2;
+		return ;
 	}
+	(*str)++;
+	char *key = get_key(str);
+	if (key == NULL)
+		return ;
+	printf("["BLUE"expand: %s", key);
+	free(key);
+	*len += 7;
 	printf(RESET"]");
 }

@@ -33,3 +33,9 @@ run: $(TARGET)
 
 valgrind: re
 	valgrind ./$(TARGET)
+
+
+DATE = $(shell date +%F/%H/%M)
+
+push:
+	push "automatic push (minishell hsacr) $(DATE)"
