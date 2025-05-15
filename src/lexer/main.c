@@ -14,8 +14,12 @@ int	main(int argc, char *argv[], char **env)
 		//rl_redisplay();
 		if (!line)
 			break ;
-		if (line[0] != '\0')
-			add_history(line);
+		if (line[0] == '\0')
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
 		lexer(line);
 		//expand(line);
 		printf("%zu\n", expand_str_len(line));
