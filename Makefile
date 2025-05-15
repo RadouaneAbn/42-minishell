@@ -24,6 +24,7 @@ libft/libft.a:
 
 fclean: clean
 	$(RM) $(RM_OPTIONS) $(TARGET)
+	make fclean -C libft
 
 re: fclean $(TARGET)
 

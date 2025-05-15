@@ -16,9 +16,9 @@ int	main(int argc, char *argv[], char **env)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		//lexer(line);
-		expand(line);
-		printf("\n");
+		lexer(line);
+		//expand(line);
+		printf("%zu\n", expand_str_len(line));
 		free(line);
 	}
 	rl_clear_history();

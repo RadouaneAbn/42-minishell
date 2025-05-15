@@ -7,7 +7,7 @@
 
 t_token	*get_token(t_token **token, char *line, size_t *position)
 {
-	while (is_space(line[*position], "\t \n"))
+	while (char_in_set(line[*position], "\t \n"))
 		*position += 1;
 	if (token_is_operator(line, *position))
 		set_operator_token(token, line, position);
