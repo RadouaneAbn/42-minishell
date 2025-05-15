@@ -44,5 +44,6 @@ bool    strnmatch(const char *s1,  const char *s2, size_t n);
 int     ft_strcmp(const char *s1, const char *s2);
 bool    char_in_set(char c, char *set);
 char	peakch(char *str);
+bool	str_blank(char *str);
 #endif
 
