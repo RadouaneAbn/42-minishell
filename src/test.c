@@ -1,8 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 
-int main()
+int main(int ac , char ** av, char **env)
 {
-	printf("%d\n", strcmp("ab", "ac"));
-	printf("%d\n", strcmp("ab", "aa"));
+	printf("%p\n", env[0]);
+
+	return (1002);
 }

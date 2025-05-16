@@ -17,6 +17,15 @@ struct s_node
 	t_node *ordered_next;
 };
 
+struct s_env
+{
+	char **env;
+	t_map exports;
+	char **path;
+	unsigned char last_exit_status;
+};
+
+
 typedef struct s_map
 {
 	t_node *map[MAP_SIZE];
@@ -69,21 +78,28 @@ t_node *find_in_map(t_map *map, char *key)
 }
 
 // TODO: Find a better way to implement this function
-void append_to_ordered_list(t_map *map, t_list *node)
+void append_to_ordered_list(t_map *map, t_node *node)
 {
 	t_node *curr;
+	t_node *prev;
 
-	if (map->ordered_list == NULL)
+	curr = map->ordered_list;
+	prev = NULL;
+	while (curr && strcmp(curr->key, node->key) < 0)
+	{
+		prev = curr;
+		curr = curr->ordered_next;
+	}
+	if (curr == map->ordered_list)
+	{
+		node->ordered_next = map->ordered_list;
 		map->ordered_list = node;
+	}
 	else
 	{
-		curr = map->ordered_list;
-		while (curr->ordered_next)
-		{
-			if (strcmp(curr->key, node->key) < 0)
-				break;
-			curr = curr->ordered_next;
-		}
+		if (curr != NULL)
+			node->ordered_next = curr;
+		prev->ordered_next = node;
 	}
 }
 	
@@ -107,7 +123,22 @@ void add_to_map(t_map *map, char *key, char *value)
 		append_to_ordered_list(map, node);
 	}
 	else
+	{
+		free(node->value);
 		node->value = strdup(value);
+	}
+}
+
+void print_all_ordered(t_map *map)
+{
+	t_node *curr;
+
+	curr = map->ordered_list;
+	while (curr)
+	{
+		printf("%s=%s\n", curr->key, curr->value);
+		curr = curr->ordered_next;
+	}
 }
 
 int main()
@@ -153,8 +184,10 @@ int main()
 		}
 		else if (strcmp(exp[0], "all") == 0)
 		{
-			continue ;	
+			print_all_ordered(&map);
 		}
+		else if (strcmp(exp[0], "exit") == 0)
+			break;
 		else
 			printf("command not found !!!\n");
 	}
@@ -181,4 +214,6 @@ int main()
 		printf("\033[Aarr[%s] = %s\n", node->key, node->value);
 	}
 	*/
+
+	
 }
