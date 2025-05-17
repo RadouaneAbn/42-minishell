@@ -8,4 +8,7 @@
 # define PURPLE "\e[0;35m"
 # define CYAN "\e[0;36m"
 # define RESET "\e[00m"
+
+# define BACKLINE "\033[A"
+
 #endif
