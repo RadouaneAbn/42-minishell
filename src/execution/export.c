@@ -1,29 +1,14 @@
 #include "../../include/libft.h"
-#include "../../include/hash_map.h"
-
-t_map *get_map()
-{
-    static t_map *map;
-
-    if (map == NULL)
-    {
-        map = malloc(sizeof(t_map));
-        if (map == NULL)
-            return (NULL);
-        ft_bzero(map, sizeof(t_map));
-    }
-
-    return (map);
-}
+#include "../../include/env.h"
 
 int export(char *key, char *value)
 {
-    t_map *map;
+    t_info *info;
 
-    map = get_map();
-    if (map == NULL)
+    info = get_info();
+    if (info == NULL)
         return (-1);
-    add_to_map(map, key, value);
+    add_to_map(&(info->exports), key, value);
 }
 
 char *expand(char *key)

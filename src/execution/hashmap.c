@@ -1,9 +1,3 @@
-
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../include/libft.h"
 #include "../include/hash_map.h"
 
 int index_key(char *key)
@@ -88,28 +82,29 @@ void append_to_ordered_list(t_map *map, t_node *node)
 	}
 }
 	
-void add_to_map(t_map *map, char *key, char *value)
+int add_to_map(t_map *map, char *key, char *value)
 {
 	int idx;
 	t_node *node;
 
 	if (!key)
-		return ;
+		return (RETURN_FAILURE);
 	node = find_in_map(map, key);
 	if (node == NULL)
 	{
 		idx = index_key(key);
 		node = create_new_node(key, value);
 		if (node == NULL)
-			return ;
+			return (RETURN_FAILURE);
 		node->next = map->map[idx];
 		map->map[idx] = node;
 		append_to_ordered_list(map, node);
 	}
 	else if (value != NULL)
 	{
-		/* If the key already exists it wont the change the value if its NULL */
 		free(node->value);
 		node->value = ft_strdup(value);
 	}
+	return (1);
+	// return (add_to_env(key, value));
 }
