@@ -25,6 +25,9 @@ size_t	expand_word_len(char **str)
 	return (7);
 }
 
+//this function return the size of a str that has expanded words
+//gets the string: (char *)
+//returns len (size_t)
 size_t	expand_str_len(char *str)
 {
 	bool	quoted;

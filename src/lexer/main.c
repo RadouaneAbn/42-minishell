@@ -10,7 +10,7 @@ int	main(int argc, char *argv[], char **env)
 	(void)env;
 	while (true)
 	{
-		line = readline(BLUE"minishell$ "RESET);
+		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
 		//rl_redisplay();
 		if (!line)
 			break ;
