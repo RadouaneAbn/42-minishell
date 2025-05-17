@@ -1,0 +1,35 @@
+SOURCE_FILES = $(wildcard src/lexer/*.c)
+OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
+
+CC = cc
+CFLAGS = -Wall -Werror -Wextra -g
+
+INCLUDE = include
+TARGET = minishell
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECT_FILES) libft/libft.a
+	$(CC) $^ -o $@  -lreadline
+	
+
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $< -I $(INCLUDE)
+
+clean:
+	$(RM) $(RM_OPTIONS) $(OBJECT_FILES)
+
+libft/libft.a:
+	make -C libft
+
+fclean: clean
+	$(RM) $(RM_OPTIONS) $(TARGET)
+
+re: fclean $(TARGET)
+
+run: $(TARGET)
+	clear
+	./$(TARGET)
+
+valgrind: re
+	valgrind ./$(TARGET)
