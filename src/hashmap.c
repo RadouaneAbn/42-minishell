@@ -22,7 +22,8 @@ struct s_env
 	char **env;
 	t_map exports;
 	char **path;
-	unsigned char last_exit_status;
+	int last_exit_status;
+	int env_size;
 };
 
 
