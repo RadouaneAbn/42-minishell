@@ -21,9 +21,15 @@ typedef char*	t_token_value;
 
 typedef struct s_token
 {
-	t_token_type		type;
+	int		type;
 	char				*lexeme;
 }	t_token;
+
+typedef struct s_token_lst
+{
+	t_token	*token;
+	struct s_token_lst	*next;
+}	t_token_lst;
 
 void	lexer(char *line);
 void	get_next_token(t_token **token, char *line);
@@ -45,5 +51,12 @@ int     ft_strcmp(const char *s1, const char *s2);
 bool    char_in_set(char c, char *set);
 char	peakch(char *str);
 bool	str_blank(char *str);
+
+
+/*======================== token list manipulation functions=====================*/
+t_token_lst	*token_lstnew(t_token *token);
+t_token_lst	*token_lstlast(t_token_lst *lst);
+void	token_lstadd_back(t_token_lst	**lst, t_token_lst *new);
+
 #endif
 

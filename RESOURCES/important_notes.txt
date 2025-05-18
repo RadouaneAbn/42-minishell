@@ -1,0 +1,1 @@
+this is valid: echo hey |& grep hey and this means piping stdout and stderr
