@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char **env)
 		{
 			lexer(line);
 			//expand(line);
-			printf("%zu\n", expand_str_len(line));
+			//printf("%zu\n", expand_str_len(line));
 		}
 		free(line);
 	}

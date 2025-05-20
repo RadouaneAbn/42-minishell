@@ -1,4 +1,5 @@
 #include <lexer.h>
+#include <parser.h>
 
 void	token_printlst(t_token_lst *token_lst);
 void	lexer(char *line)
@@ -17,8 +18,8 @@ void	lexer(char *line)
 		new_node = token_lstnew(token);
 		token_lstadd_back(&token_lst, new_node);
 	}
-	//parser(token_lst);
 	token_printlst(token_lst);
+	parser(token_lst);
 }
 
 void	token_printlst(t_token_lst *token_lst)
