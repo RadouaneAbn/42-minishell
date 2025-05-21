@@ -13,7 +13,7 @@ char	*get_operator(int index)
 		fully[RED_IN] = "<";
 		fully[RED_OUT] = ">";
 		fully[PIPE] = "|";
-		fully[R_PAREN] = ")"
+		fully[R_PAREN] = ")";
 		fully[L_PAREN] = "(";
 	}
 	return (fully[index]);

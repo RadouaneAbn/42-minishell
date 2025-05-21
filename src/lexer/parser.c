@@ -35,35 +35,3 @@ void	get_subshell(t_token_lst	**token_lst)
 }
 
 
-t_tree	tree_getcommand(t_token_lst **token_lst)
-{
-	
-}
-
-t_tree tree_getpipeline(t_token_lst **token_lst)
-{
-	t_tree	*command;
-	t_tree	*pipeline;
-
-	command = tree_getcommand(token_lst);
-	pipeline = tree_getpipeline(token_lst);
-
-	return ();
-}
-
-t_tree	tree_getcompound_command(t_token_lst **token_lst)
-{
-	t_tree	pipeline;
-
-	pipeline = lstget_pipeline(token_lst);
-
-	compound_command = lstget_compound_command(token_lst);	
-
-	return ();
-}
-
-t_tree	*parser(t_token_lst *token_lst)
-{
-	return (lst_getcompound_command(token_lst));
-	return (NULL);
-}
