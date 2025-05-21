@@ -19,7 +19,8 @@ void	lexer(char *line)
 		token_lstadd_back(&token_lst, new_node);
 	}
 	token_printlst(token_lst);
-	parser(token_lst);
+	parse_simple_command(token_lst);
+	//parser(token_lst);
 }
 
 void	token_printlst(t_token_lst *token_lst)

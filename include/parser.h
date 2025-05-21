@@ -16,8 +16,8 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	t_list *cmd_arg;
-	t_file infiles;
-	t_file outfiles;
+	//t_file infiles;
+	//t_file outfiles;
 };
 
 /* MAIN AST STRUCT */
@@ -32,4 +32,5 @@ struct s_tree
 
 t_tree	*parser(t_token_lst *token_lst);
 void	get_subshell(t_token_lst	**token_lst);
+void    parse_simple_command(t_token_lst        *token_lst);
 #endif
