@@ -1,8 +1,8 @@
 SOURCE_FILES = $(wildcard src/lexer/*.c)  $(wildcard src/parser/*.c)
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CC = gcc
+#CFLAGS = -Wall -Werror -Wextra -g
 
 INCLUDE = include
 TARGET = minishell

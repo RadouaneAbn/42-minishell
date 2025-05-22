@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_manipulation_functions.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 19:16:39 by hsacr             #+#    #+#             */
+/*   Updated: 2025/05/22 19:36:48 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parser.h>
 
 t_tree	*tree_get_argument(t_token_lst	**token_lst)
@@ -6,7 +18,7 @@ t_tree	*tree_get_argument(t_token_lst	**token_lst)
 	int	data_type;
 	char	*parameter;
 
-	data_type = 2;
+	data_type = 20;
 	parameter = strdup((*token_lst)->token->lexeme);
 	new_arg = tree_create_new(data_type, parameter);
 	(*token_lst) = (*token_lst)->next;
@@ -28,12 +40,13 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 		parameter = strdup((*token_lst)->token->lexeme);
 		new_io_redirect = tree_create_new(data_type, parameter);
 	}
-	//else if ((*token_lst)->token->type == WORD && redirect_operator == HERE_DOC)
-	//{
-		////run_heredoc();
-		////new->data_type = redirect_operator;
-		////new->data = file_name;
-	//}
+	else if ((*token_lst)->token->type == WORD && redirect_operator == HERE_DOC)
+	{
+		//run_heredoc();
+		data_type = redirect_operator;
+		parameter = strdup((*token_lst)->token->lexeme);
+		new_io_redirect = tree_create_new(data_type, parameter);
+	}
 	else
 		printf ("syntax error near unexpected token '%s'\n", (*token_lst)->token->lexeme);
 	*token_lst = (*token_lst)->next;
@@ -68,15 +81,16 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 	//create argument list tree T_ARG_LIST T_SIMPLE_CMD
 	argument_list = tree_create_new(2, NULL);
 
+io_redirect_list = tree_create_new(2, NULL);;
 	// create simple command tree simple_command N=> argument_list S=> io_redirect_list
 	simple_command = tree_create_new(2, NULL);	
 
 	while (*token_lst)
 	{
 		if (is_output_redirection_operator((*token_lst)->token->type))
-			tree_add_back(&infiles, tree_get_io_redirect(token_lst));
-		else if (is_input_redirection_operator((*token_lst)->token->type))
 			tree_add_back(&outfiles, tree_get_io_redirect(token_lst));
+		else if (is_input_redirection_operator((*token_lst)->token->type))
+			tree_add_back(&infiles, tree_get_io_redirect(token_lst));
 		else if (is_token_word((*token_lst)->token->type))
 			tree_add_back(&args, tree_get_argument(token_lst));
 		else

@@ -16,7 +16,7 @@ MY_OBJECTS = ${MY_FILES:.c=.o}
 
 
 
-CC = gcc
+CC = cc
 
 CC_FLAGS = -c -Wall -Werror -Wextra
 
