@@ -32,5 +32,23 @@ struct s_tree
 
 t_tree	*parser(t_token_lst *token_lst);
 void	get_subshell(t_token_lst	**token_lst);
-void    parse_simple_command(t_token_lst        *token_lst);
+//void    parse_simple_command(t_token_lst        *token_lst);
+
+
+/* TREE */
+t_tree *tree_create_new(int data_type, void *parameter);
+t_tree	*tree_get_last(t_tree *tree);
+void	tree_add_back(t_tree **head, t_tree *new);
+t_tree	*tree_get_last_sibling(t_tree *tree);
+void	tree_add_sibling_back(t_tree **head, t_tree *new);
+
+
+/* parsing functions*/
+t_tree	*tree_get_argument(t_token_lst	**token_lst);
+t_tree	*tree_get_io_redirect(t_token_lst	**token_lst);
+bool	is_output_redirection_operator(int	operator);
+bool	is_input_redirection_operator(int	operator);
+bool	is_token_word(int	operator);
+t_tree	*parse_simple_command(t_token_lst	**token_lst);
+void	print_tree(t_tree *tree);
 #endif
