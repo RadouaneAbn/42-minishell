@@ -6,7 +6,7 @@ t_tree	*tree_get_argument(t_token_lst	**token_lst)
 	int	data_type;
 	char	*parameter;
 
-	data_type = 20;
+	data_type = 3;
 	parameter = strdup((*token_lst)->token->lexeme);
 	new_arg = tree_create_new(data_type, parameter);
 	(*token_lst) = (*token_lst)->next;
@@ -18,29 +18,20 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 	t_tree	*new_io_redirect;
 	int	data_type;
 	char	*parameter;
-	int redirect_operator;
 
-	redirect_operator = (*token_lst)->token->type;
+	data_type = is_output_redirection_operator((*token_lst)->token->type) == true;
 	*token_lst = (*token_lst)->next;
 	new_io_redirect = NULL;
 	if (*token_lst)
 	{
-		if ((*token_lst)->token->type == WORD && redirect_operator != HERE_DOC)
+		if ((*token_lst)->token->type == WORD)
 		{
-			data_type = redirect_operator; 
-			parameter = strdup((*token_lst)->token->lexeme);
-			new_io_redirect = tree_create_new(data_type, parameter);
-		}
-		else if ((*token_lst)->token->type == WORD && redirect_operator == HERE_DOC)
-		{
-			//run_heredoc();
-			data_type = redirect_operator;
 			parameter = strdup((*token_lst)->token->lexeme);
 			new_io_redirect = tree_create_new(data_type, parameter);
 		}
 		else
 			printf ("syntax error near unexpected token '%s'\n", (*token_lst)->token->lexeme);
-	*token_lst = (*token_lst)->next;
+		*token_lst = (*token_lst)->next;
 	}
 	else
 		printf ("syntax error near unexpected token '\n''");
@@ -73,11 +64,11 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 	t_tree	*outfiles = NULL;
 
 	//create argument list tree T_ARG_LIST T_SIMPLE_CMD
-	argument_list = tree_create_new(2, NULL);
+	argument_list = tree_create_new(4, NULL);
 
-	io_redirect_list = tree_create_new(2, NULL);;
+	io_redirect_list = tree_create_new(6, NULL);;
 	// create simple command tree simple_command N=> argument_list S=> io_redirect_list
-	simple_command = tree_create_new(2, NULL);	
+	simple_command = tree_create_new(5, NULL);	
 
 	while (*token_lst)
 	{
