@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tree_manipulation_functions.c                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 19:16:39 by hsacr             #+#    #+#             */
-/*   Updated: 2025/05/22 19:36:48 by hsacr            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <parser.h>
 
 t_tree	*tree_get_argument(t_token_lst	**token_lst)
@@ -28,28 +16,34 @@ t_tree	*tree_get_argument(t_token_lst	**token_lst)
 t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 {
 	t_tree	*new_io_redirect;
-
 	int	data_type;
 	char	*parameter;
-	int redirect_operator = (*token_lst)->token->type;
-	*token_lst = (*token_lst)->next;
+	int redirect_operator;
 
-	if ((*token_lst)->token->type == WORD && redirect_operator != HERE_DOC)
+	redirect_operator = (*token_lst)->token->type;
+	*token_lst = (*token_lst)->next;
+	new_io_redirect = NULL;
+	if (*token_lst)
 	{
-		data_type = redirect_operator; 
-		parameter = strdup((*token_lst)->token->lexeme);
-		new_io_redirect = tree_create_new(data_type, parameter);
-	}
-	else if ((*token_lst)->token->type == WORD && redirect_operator == HERE_DOC)
-	{
-		//run_heredoc();
-		data_type = redirect_operator;
-		parameter = strdup((*token_lst)->token->lexeme);
-		new_io_redirect = tree_create_new(data_type, parameter);
+		if ((*token_lst)->token->type == WORD && redirect_operator != HERE_DOC)
+		{
+			data_type = redirect_operator; 
+			parameter = strdup((*token_lst)->token->lexeme);
+			new_io_redirect = tree_create_new(data_type, parameter);
+		}
+		else if ((*token_lst)->token->type == WORD && redirect_operator == HERE_DOC)
+		{
+			//run_heredoc();
+			data_type = redirect_operator;
+			parameter = strdup((*token_lst)->token->lexeme);
+			new_io_redirect = tree_create_new(data_type, parameter);
+		}
+		else
+			printf ("syntax error near unexpected token '%s'\n", (*token_lst)->token->lexeme);
+	*token_lst = (*token_lst)->next;
 	}
 	else
-		printf ("syntax error near unexpected token '%s'\n", (*token_lst)->token->lexeme);
-	*token_lst = (*token_lst)->next;
+		printf ("syntax error near unexpected token '\n''");
 
 	return (new_io_redirect);
 }
@@ -81,7 +75,7 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 	//create argument list tree T_ARG_LIST T_SIMPLE_CMD
 	argument_list = tree_create_new(2, NULL);
 
-io_redirect_list = tree_create_new(2, NULL);;
+	io_redirect_list = tree_create_new(2, NULL);;
 	// create simple command tree simple_command N=> argument_list S=> io_redirect_list
 	simple_command = tree_create_new(2, NULL);	
 
@@ -101,7 +95,10 @@ io_redirect_list = tree_create_new(2, NULL);;
 	tree_add_back(&argument_list, args);
 
 	// add infiles and outfiles to input/output redirect list
-	tree_add_back(&io_redirect_list, outfiles);
+	if (outfiles)
+		tree_add_back(&io_redirect_list, outfiles);
+	else if (infiles)
+		tree_add_back(&io_redirect_list, infiles);
 	tree_add_sibling_back(&outfiles, infiles);
 
 	// and finally add both of them to simple command
