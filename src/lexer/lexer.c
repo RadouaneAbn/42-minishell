@@ -1,5 +1,4 @@
-#include <lexer.h>
-#include <parser.h>
+#include <minishell.h>
 
 void	token_printlst(t_token_lst *token_lst);
 void	lexer(char *line)

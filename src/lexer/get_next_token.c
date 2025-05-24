@@ -1,4 +1,4 @@
-#include <lexer.h>
+#include <minishell.h>
 
 //NOTE: you can use something like a struct that has members: value and type
 //and those values will be the actuall values like && not the enum

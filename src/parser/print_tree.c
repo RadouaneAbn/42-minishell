@@ -1,4 +1,4 @@
-#include <parser.h>
+#include <minishell.h>
 
 void	print_tree_(t_tree *tree)
 {
@@ -29,11 +29,16 @@ void	print_tree(t_tree *tree)
 		"SIMPLE COMMAND",
 		"IO REDIRECT LIST"
 	};
+			printf("\t");
 	while (tree)
 	{
-		print_tree(tree->sibling);
 		printf("%s "BLUE"%s"RESET"\n", data_type[tree->data_type], (char *)tree->data);
-		tree = tree->next;
+		if (tree->next)
+		{
+			printf("\t");
+			print_tree(tree->next);
+		}
+		tree = tree->sibling;
 	}
 }
 

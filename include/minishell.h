@@ -10,5 +10,6 @@
 # include <libft.h>
 # include <string.h>
 # include <lexer.h>
+# include <parser.h>
 # include <expansion.h>
 #endif

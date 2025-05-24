@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <lexer.h>
+#include <minishell.h>
 /* MAIN FILE STRUCTURE*/
 typedef struct s_file t_file;
 struct s_file
