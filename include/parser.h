@@ -30,7 +30,7 @@ struct s_tree
 	void	*data;
 };
 
-t_tree	*parser(t_token_lst *token_lst);
+t_tree	*parser(t_token_lst **token_lst);
 void	get_subshell(t_token_lst	**token_lst);
 //void    parse_simple_command(t_token_lst        *token_lst);
 
@@ -56,4 +56,5 @@ void	print_tree(t_tree *tree, int n);
 void	consume(t_token_lst **token_lst);
 t_tree	*tree_get_command(t_token_lst **token_lst);
 t_tree	*tree_get_pipeline(t_token_lst **token_lst);
+t_tree	*tree_get_compound_command(t_token_lst **token_lst);
 #endif

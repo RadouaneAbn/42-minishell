@@ -14,7 +14,6 @@ t_tree	*tree_get_pipeline(t_token_lst **token_lst)
 		while ((*token_lst))
 		{
 			command = tree_get_command(token_lst);
-			if (command->next
 			tree_add_sibling_back(&commands, command);
 			if ((*token_lst) && (*token_lst)->token->type == PIPE)
 				consume(token_lst);
