@@ -18,8 +18,9 @@ void	print_tree_(t_tree *tree)
 	}
 }
 
-void	print_tree(t_tree *tree)
+void	print_tree(t_tree *tree, int n)
 {
+	int	i = 0;
 	char *data_type[] = {
 		"FILE IN",
 		"FILE OUT",
@@ -27,17 +28,21 @@ void	print_tree(t_tree *tree)
 		"CMD ARG",
 		"ARGUMENT LIST",
 		"SIMPLE COMMAND",
-		"IO REDIRECT LIST"
+		"IO REDIRECT LIST",
+		"SUBSHELL",
+		"COMMAND",
+		"PIPELINE"
 	};
-			printf("\t");
 	while (tree)
 	{
-		printf("%s "BLUE"%s"RESET"\n", data_type[tree->data_type], (char *)tree->data);
-		if (tree->next)
+		i = 0;
+		while (i < n)
 		{
+			i++;
 			printf("\t");
-			print_tree(tree->next);
 		}
+		printf("└──%s "BLUE"%s"RESET"\n", data_type[tree->data_type], (char *)tree->data);
+		print_tree(tree->next, n + 1);
 		tree = tree->sibling;
 	}
 }

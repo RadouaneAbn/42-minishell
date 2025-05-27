@@ -34,7 +34,7 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 		*token_lst = (*token_lst)->next;
 	}
 	else
-		printf ("syntax error near unexpected token '\n''");
+		printf ("syntax error near unexpected token '\\n''");
 
 	return (new_io_redirect);
 }
@@ -47,6 +47,11 @@ bool	is_output_redirection_operator(int	operator)
 bool	is_input_redirection_operator(int	operator)
 {
 	return (operator == RED_IN || operator == HERE_DOC);
+}
+
+bool	is_redirect_operator(int operator)
+{
+	return (is_input_redirection_operator(operator) ||  is_output_redirection_operator(operator));
 }
 
 bool	is_token_word(int	operator)

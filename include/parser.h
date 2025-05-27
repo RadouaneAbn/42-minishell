@@ -48,10 +48,12 @@ t_tree	*tree_get_argument(t_token_lst	**token_lst);
 t_tree	*tree_get_io_redirect(t_token_lst	**token_lst);
 bool	is_output_redirection_operator(int	operator);
 bool	is_input_redirection_operator(int	operator);
+bool	is_redirect_operator(int operator);
 bool	is_token_word(int	operator);
 t_tree	*parse_simple_command(t_token_lst	**token_lst);
-void	print_tree(t_tree *tree);
+void	print_tree(t_tree *tree, int n);
 
 void	consume(t_token_lst **token_lst);
 t_tree	*tree_get_command(t_token_lst **token_lst);
+t_tree	*tree_get_pipeline(t_token_lst **token_lst);
 #endif
