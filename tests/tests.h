@@ -9,5 +9,6 @@
 #include <string.h>
 
 void hash_map_tests(char **env);
+void realloc_tests();
 
 #endif

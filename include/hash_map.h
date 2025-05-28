@@ -1,9 +1,13 @@
 #ifndef HASH_MAP_H
 #define HASH_MAP_H
 
-#define MAP_SIZE 1000
-#define TRUE 1
-#define FALSE 0
+# define MAP_SIZE 1000
+# define TRUE 1
+# define FALSE 0
+# define RETURN_SUCCESS 0
+# define RETURN_FAILURE 1
+
+# include "defs.h"
 
 typedef struct s_node t_node;
 
@@ -26,7 +30,7 @@ int index_key(char *key);
 t_node *create_new_node(char *key, char *value);
 t_node *find_in_map(t_map *map, char *key);
 void append_to_ordered_list(t_map *map, t_node *node);
-void add_to_map(t_map *map, char *key, char *value);
-void remove_from_map(t_map *map, char *key);
+int add_to_map(t_map *map, char *key, char *value);
+int remove_from_map(t_map *map, char *key);
 
 #endif
