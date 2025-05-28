@@ -7,6 +7,7 @@ int main(int ac, char **av, char **env)
 
     hash_map_tests(env);
     realloc_tests();
+    test_echo(env);
 
     return (0);
 }
