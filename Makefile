@@ -40,12 +40,13 @@ run: $(TARGET)
 	clear
 	./$(TARGET)
 
-test : $(TESTS)
-
-$(TESTS): $(OBJECT_TEST_FILE) $() libft/libft.a
+$(TESTS): $(OBJECT_TEST_FILE) libft/libft.a
 	@$(CC) $^ -o $@
-	./$(TESTS)
 	@$(RM) $(OBJECT_TEST_FILE)
+
+test: $(TESTS)
+	./$(TESTS)
+	
 
 valgrind: re
 	valgrind ./$(TARGET)
