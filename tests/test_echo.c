@@ -3,7 +3,7 @@
 void no_expanding_tests()
 {
     int i;
-    char *vec[][10] = {
+    char *vec[][11] = {
         {"hello", "world", NULL},
         {"-", "-", "-", NULL},
         {"-n", "-> NO new line", NULL},
@@ -13,6 +13,7 @@ void no_expanding_tests()
         {"-nh", "unkown flag", NULL},
         {"-n", "-h", "no new line and unkown flag", NULL},
         {"-h", "-n", "unkown flag", NULL},
+        {"", "", "", NULL},
         {"-n", NULL},
         {"", NULL},
         {NULL}
