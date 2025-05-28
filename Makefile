@@ -1,6 +1,12 @@
 SOURCE_FILES = $(wildcard src/lexer/*.c)
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
-TEST_FILES = tests/main.c tests/hash_map.c src/execution//hashmap.c
+TEST_FILES = tests/main.c \
+	tests/hash_map.c \
+	src/execution/hashmap.c \
+	tests/test_echo.c \
+	src/execution/echo.c
+
+UTILS = $(wildcard src/utils/*.c)
 OBJECT_TEST_FILE = $(TEST_FILES:%.c=%.o)
 
 CC = cc
@@ -36,7 +42,7 @@ run: $(TARGET)
 
 test : $(TESTS)
 
-$(TESTS): $(OBJECT_TEST_FILE) libft/libft.a
+$(TESTS): $(OBJECT_TEST_FILE) $() libft/libft.a
 	@$(CC) $^ -o $@
 	./$(TESTS)
 	@$(RM) $(OBJECT_TEST_FILE)

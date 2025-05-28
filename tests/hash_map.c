@@ -41,7 +41,7 @@ void hash_map_tests(char **env)
 		{"EXP", "1337"},
 		{"SCHOOL", "42 Network"},
 		{"age", "27"},
-		{NULL, NULL}
+		{NULL}
 	};
     char *non_existing_keys[] = {
         "fpwofjoe",

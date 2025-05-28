@@ -4,3 +4,4 @@
 res
 *.swo
 *.swp
+.vscode/
