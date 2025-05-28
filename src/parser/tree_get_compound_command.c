@@ -10,16 +10,18 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst)
 	if ((*token_lst))
 	{
 		pipelines = NULL;
-		compound_command = tree_create_new(9, NULL);
 		while ((*token_lst))
 		{
 			pipeline = tree_get_pipeline(token_lst);
+			if (pipeline == NULL)
+				return (NULL);
 			tree_add_sibling_back(&pipelines, pipeline);
-			if ((*token_lst) && ((*token_lst)->token->type == AND || (*token_lst)->token->type == OR))
+			if ((*token_lst) && ((*token_lst)->token->type == AND || (*token_lst)->token->type == OR) && (*token_lst)->next)
 				consume(token_lst);
 			else
 				break ;
 		}
+		compound_command = tree_create_new(9, NULL);
 		tree_add_back(&compound_command, pipelines);
 	}
 	return (compound_command);

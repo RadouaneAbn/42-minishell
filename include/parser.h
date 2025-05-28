@@ -30,6 +30,13 @@ struct s_tree
 	void	*data;
 };
 
+/**/
+//typdef	s_type
+//{
+//;	
+//}	t_type;
+
+
 t_tree	*parser(t_token_lst **token_lst);
 void	get_subshell(t_token_lst	**token_lst);
 //void    parse_simple_command(t_token_lst        *token_lst);
