@@ -26,13 +26,13 @@ $(TARGET): $(OBJECT_FILES) libft/libft.a
 	@$(CC) $(CFLAGS) -o $@ -c $< -I $(INCLUDE)
 
 clean:
-	$(RM) $(RM_OPTIONS) $(OBJECT_FILES)
+	$(RM) $(RM_OPTIONS) $(OBJECT_FILES) $(OBJECT_TEST_FILE)
 
 libft/libft.a:
 	make -C libft
 
 fclean: clean
-	$(RM) $(RM_OPTIONS) $(TARGET)
+	$(RM) $(RM_OPTIONS) $(TARGET) $(TESTS)
 
 re: fclean $(TARGET)
 
