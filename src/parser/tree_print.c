@@ -31,7 +31,8 @@ void	print_tree(t_tree *tree, int n)
 		"IO REDIRECT LIST",
 		"SUBSHELL",
 		"COMMAND",
-		"PIPELINE"
+		"PIPELINE",
+		"COMPOUND COMMAND"
 	};
 	while (tree)
 	{

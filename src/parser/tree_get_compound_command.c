@@ -21,7 +21,7 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst)
 			else
 				break ;
 		}
-		compound_command = tree_create_new(9, NULL);
+		compound_command = tree_create_new(10, NULL);
 		tree_add_back(&compound_command, pipelines);
 	}
 	return (compound_command);
@@ -33,6 +33,7 @@ t_tree *parser(t_token_lst **token_lst)
 	if (*token_lst)
 	{
 		printf("error [%s]\n", (*token_lst)->token->lexeme);
+		return (NULL);
 	}
 	return (compound_command);
 }

@@ -42,11 +42,9 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 
 t_tree	*parse_simple_command(t_token_lst	**token_lst)
 {
-	t_tree	*argument_list = NULL;
-	t_tree	*io_redirect_list = NULL;
-	t_tree	*simple_command = NULL;
 	t_tree	*args = NULL;
 	t_tree	*io_files = NULL;
+	t_tree	*simple_command;
 	while (*token_lst)
 	{
 		if (is_redirect_operator((*token_lst)->token->type))
@@ -56,26 +54,11 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 		else
 			break ;
 	}
+
 	if (!args && !io_files)
 		return (NULL);
 
-	//create argument list tree T_ARG_LIST T_SIMPLE_CMD
-	argument_list = tree_create_new(4, NULL);
-
-	io_redirect_list = tree_create_new(6, NULL);;
-	// create simple command tree simple_command N=> argument_list S=> io_redirect_list
-	simple_command = tree_create_new(5, NULL);	
-
-
-	// add args to argument_list
-	tree_add_back(&argument_list, args);
-
-	// add infiles and outfiles to input/output redirect list
-		tree_add_back(&io_redirect_list, io_files);
-
-	// and finally add both of them to simple command
-	tree_add_back(&simple_command, argument_list);
-	tree_add_sibling_back(&argument_list, io_redirect_list);
-
+	tree_add_sibling_back(&args, io_files);
+	simple_command = args;
 	return (simple_command);
 }
