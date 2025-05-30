@@ -2,4 +2,5 @@
 *.out
 */*.swp
 */*.swo
+*/*.swn
 res
