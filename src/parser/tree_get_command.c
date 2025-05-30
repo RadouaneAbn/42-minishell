@@ -8,7 +8,7 @@ t_tree	*tree_get_io_redirect_list(t_token_lst	**token_lst)
 	io_files = NULL;
 	while ((*token_lst))
 	{
-		if (is_redirect_operator((*token_lst)->token->type))
+		if (is_redirect_operator((*token_lst)->token.type))
 			tree_add_back(&io_files, tree_get_io_redirect(token_lst));
 		else
 			break ;
@@ -29,7 +29,7 @@ t_tree	*parse_subshell(t_token_lst	**token_lst)
 		compound_command = tree_get_compound_command(token_lst);
 		if (compound_command == NULL)
 			printf("error expected '('");
-		if ((*token_lst) && (*token_lst)->token->type == R_PAREN)
+		if ((*token_lst) && (*token_lst)->token.type == R_PAREN)
 			consume(token_lst);
 		else
 			printf("error expected '('");
@@ -56,7 +56,7 @@ t_tree	*tree_get_command(t_token_lst **token_lst)
 		command = tree_create_new(T_COMMAND, NULL);
 		simple_command = NULL;
 		//for subshell: consume '(' and call tree_getcommand_list and then consume ')'
-		if ((*token_lst)->token->type == L_PAREN)
+		if ((*token_lst)->token.type == L_PAREN)
 		{
 			subshell = parse_subshell(token_lst);
 			tree_add_back(&command, subshell);

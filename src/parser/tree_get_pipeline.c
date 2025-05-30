@@ -16,7 +16,7 @@ t_tree	*tree_get_pipeline(t_token_lst **token_lst)
 			if (command == NULL)
 				return (NULL);
 			tree_add_sibling_back(&commands, command);
-			if ((*token_lst) && (*token_lst)->token->type == PIPE && (*token_lst)->next)
+			if ((*token_lst) && (*token_lst)->token.type == PIPE && (*token_lst)->next)
 				consume(token_lst);
 			else
 				break ;

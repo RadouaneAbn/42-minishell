@@ -24,9 +24,9 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst)
 			if (pipeline == NULL)
 				return (NULL);
 			tree_add_sibling_back(&pipelines, pipeline);
-			if ((*token_lst) && ((*token_lst)->token->type == AND || (*token_lst)->token->type == OR) && (*token_lst)->next)
+			if ((*token_lst) && ((*token_lst)->token.type == AND || (*token_lst)->token.type == OR) && (*token_lst)->next)
 			{
-				pipeline_relation = tree_create_new(get_pipeline_relation((*token_lst)->token->type), NULL);
+				pipeline_relation = tree_create_new(get_pipeline_relation((*token_lst)->token.type), NULL);
 				consume(token_lst);
 			}
 			else

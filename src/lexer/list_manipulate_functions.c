@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_token_lst	*token_lstnew(t_token *token)
+t_token_lst	*token_lstnew(t_token token)
 {
 	t_token_lst	*new_node;
 
