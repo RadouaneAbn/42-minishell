@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	here_doc(char *delimiter)
+char	*here_doc(char *delimiter)
 {
 	int	fd;
 	char	*addr;
@@ -25,4 +25,5 @@ void	here_doc(char *delimiter)
 		free(line);
 	}
 	printf("%s\n", file_name);
+	return (file_name);
 }

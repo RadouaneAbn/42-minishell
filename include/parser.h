@@ -77,5 +77,5 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst);
 
 /**/
 char    *utoa(size_t num);
-void	here_doc(char *delimiter);
+char	*here_doc(char *delimiter);
 #endif
