@@ -1,6 +1,5 @@
 #include <minishell.h>
 
-void	token_printlst(t_token_lst *token_lst);
 void	lexer(char *line)
 {
 	t_token	*token;
@@ -18,7 +17,7 @@ void	lexer(char *line)
 		token_lstadd_back(&token_lst, new_node);
 	}
 	//token_printlst(token_lst);
-	t_tree *tree = parser(&token_lst);
+	t_tree *tree = parser(token_lst);
 	print_tree(tree, 0);
 	//parser(token_lst);
 }
@@ -31,3 +30,12 @@ void	token_printlst(t_token_lst *token_lst)
 		token_lst = token_lst->next;
 	}
 }
+
+//void	token_printlst(t_token_lst *token_lst)
+//{
+	//while (token_lst)
+	//{
+		//free(token_lst->
+		//token_lst = token_lst->next;
+	//}
+//}

@@ -42,6 +42,7 @@ void	set_word_token(t_token **token, char *line, size_t *position);
 void    set_operator_token(t_token **token, char *line, size_t *position);
 int     get_operator_type(char *line, size_t *position);
 bool    token_is_operator(char *line, size_t position);
+void	token_printlst(t_token_lst *token_lst);
 
 
 /*======================== SOME USEFUL FUNCTIONS=====================*/

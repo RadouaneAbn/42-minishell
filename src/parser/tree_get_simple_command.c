@@ -1,13 +1,12 @@
 #include <minishell.h>
 
-
 t_tree	*tree_get_argument(t_token_lst	**token_lst)
 {
 	t_tree	*new_arg;
 	int	data_type;
 	char	*parameter;
 
-	data_type = 3;
+	data_type = T_CMD_ARG;
 	parameter = strdup((*token_lst)->token->lexeme);
 	new_arg = tree_create_new(data_type, parameter);
 	(*token_lst) = (*token_lst)->next;
@@ -20,7 +19,7 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 	int	data_type;
 	char	*parameter;
 
-	data_type = is_output_redirection_operator((*token_lst)->token->type) == true;
+	data_type = (*token_lst)->token->type;
 	*token_lst = (*token_lst)->next;
 	new_io_redirect = NULL;
 	if (*token_lst)

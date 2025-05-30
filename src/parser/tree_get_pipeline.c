@@ -21,7 +21,7 @@ t_tree	*tree_get_pipeline(t_token_lst **token_lst)
 			else
 				break ;
 		}
-		pipeline = tree_create_new(9, NULL);
+		pipeline = tree_create_new(T_PIPELINE, NULL);
 		tree_add_back(&pipeline, commands);
 	}
 	return (pipeline);
