@@ -1,5 +1,5 @@
 *.o
 *.out
-*.swp
-*.swo
+*/*.swp
+*/*.swo
 res
