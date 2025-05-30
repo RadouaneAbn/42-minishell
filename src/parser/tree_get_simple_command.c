@@ -26,6 +26,8 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 	{
 		if ((*token_lst)->token.type == WORD)
 		{
+			if (data_type == HERE_DOC)
+				here_doc((*token_lst)->token.lexeme);
 			parameter = strdup((*token_lst)->token.lexeme);
 			new_io_redirect = tree_create_new(data_type, parameter);
 		}
