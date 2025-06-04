@@ -1,5 +1,4 @@
 #include <minishell.h>
-
 /*NOTE: 
 	you have two choces for now to handle malloc failure
 		first:
@@ -11,8 +10,9 @@
 			and an indicator that has a value (for example: M_FAIL for malloc fail)
 		third:
 			use errno var to indicate the error*/
+//
 
-void	expand(char *str)
+void	expand(char *str, char *complete_string)
 {
 	bool	quoted;
 	char	quote;
@@ -29,57 +29,33 @@ void	expand(char *str)
 		if (!quoted && *str == '$' && char_in_set(peakch(str), "'\""))
 			str++;
 		else if (((quoted && (quote == '"')) || !quoted) && *str == '$' && peakch(str))
-			expand_word(&str, &len);
+			expand_word(&str, &len, complete_string);
 		else
 		{
-			printf("%c", *str);
+			complete_string[len] = *str;
 			len++;
 			str++;
 		}
 	}
-	printf("\nlen: %lu\n", len);
-}
-
-bool	valid_key_char(char c)
-{
-	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
-}
-
-//this function get a string and return first key inside
-//that string witout dollar sign
-//and this function allocates space for that key using malloc
-//so the user should free the pointer after using it
-//NOTE: just env varaibles not $?
-char	*get_key(char **str)
-{
-	char	*key;
-	size_t	len;
-
-	len = 0;
-	while (valid_key_char((*str)[len]))
-		len++;
-	key = ft_substr(*str, 0, len);
-	if (key == NULL)
-		return (NULL);
-	*str += len;
-	return (key);
+	complete_string[len] = 0;
 }
 
 //to do: you have to handle "$"
 //to do: you have to handle $?
 //to do: create a function that return the key to be expanded
-void	expand_word(char **str, size_t *len)
+void	expand_word(char **str, size_t *len, char *complete_string)
 {
 	if (peakch(*str) == '?')
 	{
-		printf("["BLUE"expand: ?"RESET"]");
+		complete_string[*len] = '0';
 		*len += ft_strlen("0");
 		(*str) += 2;
 		return ;
 	}
 	if (!ft_isalpha(peakch(*str)) && peakch(*str) != '_')
 	{
-		printf("%c%c", **str, peakch(*str));	
+		complete_string[*len] = (*str)[0];
+		complete_string[*len + 1] = (*str)[1];
 		(*str) += 2;
 		*len += 2;
 		return ;
@@ -88,8 +64,7 @@ void	expand_word(char **str, size_t *len)
 	char *key = get_key(str);
 	if (key == NULL)
 		return ;
-	printf("["BLUE"expand: %s", key);
+	ft_memcpy(complete_string + *len, "hey hey", 7);
 	free(key);
 	*len += 7;
-	printf(RESET"]");
 }

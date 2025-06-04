@@ -20,11 +20,7 @@ int	main(int argc, char *argv[], char **env)
 		}
 		add_history(line);
 		if (!str_blank(line))
-		{
 			lexer(line);
-			//expand(line);
-			//printf("%zu\n", expand_str_len(line));
-		}
 		free(line);
 	}
 	rl_clear_history();
