@@ -17,9 +17,11 @@ void	expand(char *str, char *complete_string)
 	bool	quoted;
 	char	quote;
 	size_t	len;
+	int	index;
 
 	quoted = false;
 	len = 0;
+	index = 0;
 	while (*str)
 	{
 		if (char_in_set(*str, "'\"") && !quoted)

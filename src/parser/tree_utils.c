@@ -14,6 +14,21 @@ t_tree *tree_create_new(int data_type, void *parameter)
 	return (new);
 }
 
+int	tree_get_size(t_tree *list)
+{
+	int	len;
+
+	if (list == NULL)
+		return (0);
+	len = 0;
+	while (list != NULL)
+	{
+		list = list->next;
+		len++;
+	}
+	return (len);
+}
+
 t_tree	*tree_get_last(t_tree *tree)
 {
 	while (tree->next)

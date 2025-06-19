@@ -58,7 +58,7 @@ t_tree	*tree_get_last(t_tree *tree);
 void	tree_add_back(t_tree **head, t_tree *new);
 t_tree	*tree_get_last_sibling(t_tree *tree);
 void	tree_add_sibling_back(t_tree **head, t_tree *new);
-
+int	tree_get_size(t_tree *list);
 
 /* parsing functions*/
 t_tree	*tree_get_argument(t_token_lst	**token_lst);

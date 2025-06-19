@@ -1,26 +1,33 @@
 #include <minishell.h>
 
+int	hey(int len)
+{
+	int	size;
+
+	size = len / 4 + ((len - (len / 4 * 4)) != 0);
+	return (size);
+}
+
 void	tree_expand_simple_command(t_tree *simple_command)
 {
-	char	*str;
-	char	*command;
-	//size_t	*quote_list;
 	size_t	len;
 	char *node;
+	int	index;
+	char	**whole_string;
+	char	**quote_array;
 
+	index = 0;
 	len = 0;
-	t_tree	*tmp = simple_command;
+	whole_string = malloc(sizeof(char *) * tree_get_size(simple_command));
+	quote_array = malloc(sizeof(char *) * tree_get_size(simple_command));
 	while (simple_command)
 	{
-		str = malloc(sizeof(char) * (expand_str_len(node)) + 1);
 		node = simple_command->data;
-		len += expand_str_len(node);
-		printf("%s => %zu\n", node, len);
+		whole_string[index] = malloc(sizeof(char) * (expand_str_len(node)) + 1);
+		quote_array[index] = malloc(sizeof(char) * hey(expand_str_len(node)));
+		expand(node, whole_string[index]);
+		ft_bzero(quote_array[index], hey(expand_str_len(node)));
 		simple_command = simple_command->next;
-		free(str);
+		index++;
 	}
-	printf("%zu\n", len);
-	command = malloc(sizeof(char) * len);
-	expand(tmp->data, command);
-	printf("%s\n", command);
 }
