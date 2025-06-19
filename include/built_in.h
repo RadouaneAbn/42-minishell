@@ -8,5 +8,6 @@ int     echo(char **vec);
 int     export(char *key, char *value);
 int     unset(char *key);
 char    *expand(char *key);
+int     pre_export(char *exported);
 
 #endif
