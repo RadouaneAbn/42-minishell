@@ -5,6 +5,7 @@
 #include <string.h>
 #include "../include/libft.h"
 #include "../include/hash_map.h"
+#include "../include/utils.h"
 
 int index_key(char *key)
 {
@@ -56,7 +57,7 @@ t_node *find_in_map(t_map *map, char *key)
 	curr = map->map[idx];
 	while (curr)
 	{
-		if (strcmp(curr->key, key) == 0)
+		if (ft_strcmp(curr->key, key) == 0)
 			return (curr);
 		curr = curr->next;
 	}
@@ -70,7 +71,7 @@ void append_to_ordered_list(t_map *map, t_node *node)
 
 	curr = map->ordered_list;
 	prev = NULL;
-	while (curr && strcmp(curr->key, node->key) < 0)
+	while (curr && ft_strcmp(curr->key, node->key) < 0)
 	{
 		prev = curr;
 		curr = curr->ordered_next;
@@ -102,7 +103,7 @@ void add_to_map(t_map *map, char *key, char *value)
 		node = create_new_node(key, value);
 		if (node == NULL)
 			return ;
-		node->next = map->map[idx];
+		node->next = NULL;
 		map->map[idx] = node;
 		append_to_ordered_list(map, node);
 	}
@@ -112,4 +113,24 @@ void add_to_map(t_map *map, char *key, char *value)
 		free(node->value);
 		node->value = ft_strdup(value);
 	}
+}
+
+void remove_from_ordered_list(t_map *map, char *key)
+{
+	t_node *current_node;
+	t_node *prev;
+
+	current_node = map->ordered_list;
+	prev = NULL;
+	while (current_node)
+	{
+		if (ft_strcmp(current_node->key, key) == 0)
+			break ;
+		prev = current_node;
+		current_node = current_node->ordered_next;
+	}
+	if (current_node != map->ordered_list)
+		prev->ordered_next = current_node->ordered_next;
+	else
+		map->ordered_list = map->ordered_list->ordered_next;
 }

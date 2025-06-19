@@ -28,5 +28,6 @@ t_node *find_in_map(t_map *map, char *key);
 void append_to_ordered_list(t_map *map, t_node *node);
 void add_to_map(t_map *map, char *key, char *value);
 void remove_from_map(t_map *map, char *key);
+void remove_from_ordered_list(t_map *map, char *key);
 
 #endif

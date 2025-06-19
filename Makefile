@@ -1,13 +1,20 @@
 SOURCE_FILES = $(wildcard src/lexer/*.c)
+SOURCE_FILES_2 = $(wildcard src/execution/*.c)
+
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
+OBJECT_FILES_2 = $(SOURCE_FILES_2:%.c=%.o)
+
 TEST_FILES = tests/main.c \
 	tests/hash_map.c \
 	src/execution/hashmap.c \
 	tests/test_echo.c \
 	src/execution/echo.c
+OBJECT_TEST_FILE = $(TEST_FILES:%.c=%.o)
+
+CONSOLE_FILES = tests/console.c
 
 UTILS = $(wildcard src/utils/*.c)
-OBJECT_TEST_FILE = $(TEST_FILES:%.c=%.o)
+UTILS_OBJ = $(UTILS:%.c=%.o)
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
@@ -16,6 +23,7 @@ INCLUDE = include
 TARGET = minishell
 
 TESTS = minitest
+CONSOLE = console_bin
 
 all: $(TARGET)
 
@@ -46,7 +54,13 @@ $(TESTS): $(OBJECT_TEST_FILE) libft/libft.a
 
 test: $(TESTS)
 	./$(TESTS)
-	
+
+$(CONSOLE): $(OBJECT_FILES_2) $(UTILS_OBJ) $(CONSOLE_FILES) libft/libft.a
+	@$(CC) -g3 $^ -o $@
+	@$(RM) $(OBJECT_FILES_2)
+
+console: $(CONSOLE)
+	valgrind --leak-check=full --show-leak-kinds=all -s ./$(CONSOLE)
 
 valgrind: re
 	valgrind ./$(TARGET)

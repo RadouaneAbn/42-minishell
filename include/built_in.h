@@ -1,6 +1,11 @@
 #ifndef BUILT_IN_H
 #define BUILT_IN_H
 
-int echo(char **vec);
+t_map   *get_map();
+
+int     echo(char **vec);
+int     export(char *key, char *value);
+int     unset(char *key);
+char    *expand(char *key);
 
 #endif
