@@ -100,10 +100,7 @@ int main()
             continue;
         buffer[s - 1] = 0;
         args = ft_split(buffer, ' ');
-        if (args[1])
-            var = ft_split(args[1], '=');
-        else
-            var = NULL;
+        var = split_export_args(args[1]);
         if (ft_strcmp(args[0], "export") == 0 && var)
             export(var[0], var[1]);
         else if (ft_strcmp(args[0], "unset") == 0)

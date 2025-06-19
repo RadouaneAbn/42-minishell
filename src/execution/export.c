@@ -87,3 +87,30 @@ int unset(char *key)
     remove_env_variable(map, key);
     return (0);
 }
+
+
+char **split_export_args(char *arg)
+{
+    int idx;
+    char **arr;
+
+    if (arg == NULL)
+        return (NULL);
+    arr = malloc(sizeof(char *) * 3);
+    if (arr == NULL)
+        return (NULL);
+    idx = ft_index_of(arg, '=');
+    if (idx != -1)
+    {
+        arr[0] = ft_substr(arg, 0, idx);
+        arr[1] = ft_substr(arg, idx + 1, ft_strlen(arg) - idx);
+        arr[2] = NULL;
+    }
+    else
+    {
+        arr[0] = ft_strdup(arg);
+        arr[1] = NULL;
+        arr[2] = NULL;
+    }
+    return (arr);
+}

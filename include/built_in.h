@@ -2,6 +2,7 @@
 #define BUILT_IN_H
 
 t_map   *get_map();
+char **split_export_args(char *arg);
 
 int     echo(char **vec);
 int     export(char *key, char *value);
