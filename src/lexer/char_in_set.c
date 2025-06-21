@@ -1,4 +1,4 @@
-#include <lexer.h>
+#include <minishell.h>
 
 bool	char_in_set(char c, char *set)
 {

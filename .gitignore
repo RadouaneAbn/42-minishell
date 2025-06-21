@@ -1,7 +1,9 @@
-*.o
-*.a
-*.out
 res
-*.swo
-*.swp
 .vscode/
+**/*.swo
+**/*.out
+**/*.swp
+**/*.a
+**/*.o
+**/.*
+minishell

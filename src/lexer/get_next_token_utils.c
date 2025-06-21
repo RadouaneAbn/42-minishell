@@ -1,4 +1,4 @@
-#include <lexer.h>
+#include <minishell.h>
 
 char	*get_operator(int index)
 {
@@ -13,8 +13,8 @@ char	*get_operator(int index)
 		fully[RED_IN] = "<";
 		fully[RED_OUT] = ">";
 		fully[PIPE] = "|";
-		fully[L_PAREN] = ")";
-		fully[R_PAREN] = "(";
+		fully[L_PAREN] = "(";
+		fully[R_PAREN] = ")";
 	}
 	return (fully[index]);
 }
@@ -55,7 +55,7 @@ bool	token_is_operator(char *line, size_t position)
 	return (false);
 }
 
-void	set_operator_token(t_token **token, char *line, size_t *position)
+void	set_operator_token(t_token *token, char *line, size_t *position)
 {
 	size_t	len;
 	int		index;
@@ -68,15 +68,14 @@ void	set_operator_token(t_token **token, char *line, size_t *position)
 		index = get_operator_type(line, position);
 		token_value = get_operator(index);
 		len = ft_strlen(token_value);
-		*token = malloc(sizeof(t_token));
-		(*token)->type = index;
-		(*token)->lexeme = ft_strdup(token_value);
+		token->type = index;
+		token->lexeme = ft_strdup(token_value);
 		*position += len;
 		return ;
 	}
 }
 
-void	set_word_token(t_token **token, char *line, size_t *position)
+void	set_word_token(t_token *token, char *line, size_t *position)
 {
 	bool	quoted;
 	size_t	start;
@@ -84,24 +83,23 @@ void	set_word_token(t_token **token, char *line, size_t *position)
 
 	quoted = false;
 	start = *position;
-	if (!token_is_operator(line, *position))
-	{
-		while (((!quoted && !(token_is_operator(line, *position)
+	while (((!quoted && !(token_is_operator(line, *position)
 						|| is_space(line[*position], "\t \n")))
 				|| (quoted)) && line[*position] != '\0')
+	{
+		if (char_in_set(line[*position], "'\"") && !quoted)
 		{
-			if (char_in_set(line[*position], "'\"") && !quoted)
-				quote = line[*position];
-			if (quote == line[*position])
-				quoted = (quoted + 1) % 2;
-			(*position)++;
+			quote = line[*position];
+			quoted = true;
 		}
+		else if (char_in_set(line[*position], "'\"") && quote == line[*position])
+			quoted = false;
+		(*position)++;
 	}
 	if (start != *position)
 	{
-		*token = malloc(sizeof(t_token));
-		(*token)->lexeme = ft_substr(line, start, *position - start);
-		(*token)->type = WORD;
+		token->lexeme = ft_substr(line, start, *position - start);
+		token->type = WORD;
 	}
 	if (quoted)
 		printf("WARNING: quote");

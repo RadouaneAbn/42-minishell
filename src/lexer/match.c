@@ -1,4 +1,4 @@
-#include <lexer.h>
+#include <minishell.h>
 
 //NOTES: these function return 1 if s1 == s2 within the len n in the case of strnmatch
 // and 0 if not (very basic but powerful)

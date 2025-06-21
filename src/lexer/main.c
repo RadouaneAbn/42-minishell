@@ -1,5 +1,4 @@
 #include <minishell.h>
-#include <signal.h>
 
 int	main(int argc, char *argv[], char **env)
 {
@@ -10,15 +9,18 @@ int	main(int argc, char *argv[], char **env)
 	(void)env;
 	while (true)
 	{
-		line = readline(BLUE"minishell$ "RESET);
-		rl_redisplay();
+		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
+		//rl_redisplay();
 		if (!line)
 			break ;
-		if (line[0] != '\0')
-			add_history(line);
-		lexer(line);
-		//expand(line);
-		printf("\n");
+		if (line[0] == '\0')
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		if (!str_blank(line))
+			lexer(line);
 		free(line);
 	}
 	rl_clear_history();

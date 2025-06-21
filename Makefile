@@ -1,4 +1,4 @@
-SOURCE_FILES = $(wildcard src/lexer/*.c)
+SOURCE_FILES = $(wildcard src/lexer/*.c)  $(wildcard src/parser/*.c) $(wildcard src/heredoc/*.c)  $(wildcard src/expansion/*.c) 
 SOURCE_FILES_2 = $(wildcard src/execution/*.c)
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
@@ -41,10 +41,11 @@ libft/libft.a:
 
 fclean: clean
 	$(RM) $(RM_OPTIONS) $(TARGET) $(TESTS)
+	make fclean -C libft
 
 re: fclean $(TARGET)
 
-run: $(TARGET)
+run: $(TARGET) clean
 	clear
 	./$(TARGET)
 
@@ -64,3 +65,9 @@ console: $(CONSOLE)
 
 valgrind: re
 	valgrind ./$(TARGET)
+
+
+DATE = $(shell date +%F/%H/%M)
+
+push:
+	push "automatic push (minishell hsacr) $(DATE)"

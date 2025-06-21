@@ -1,0 +1,11 @@
+{
+   readline-leak
+   Memcheck:Leak
+   fun:malloc
+   fun:calloc
+   fun:readline
+   fun:*readline*
+   obj:/lib/*
+   obj:/usr/lib/*
+}
+
