@@ -1,0 +1,18 @@
+# SHELL COMMANDS
+
+Shell Commands
+This section describes the basic structure of shell commands. The following command descriptions each describe a format of the command that is only used to aid the reader in recognizing the command type, and does not formally represent the syntax. Each description discusses the semantics of the command; for a formal definition of the command language, consult Shell Grammar.
+
+A command is one of the following:
+
+Simple command (see Simple Commands)
+
+Pipeline (see Pipelines)
+
+List compound-list (see Lists)
+
+Compound command (see Compound Commands)
+
+Function definition (see Function Definition Command)
+
+Unless otherwise stated, the exit status of a command shall be that of the last simple command executed by the command. There shall be no limit on the size of any shell command other than that imposed by the underlying system (memory constraints, {ARG_MAX}, and so on).
