@@ -1,11 +1,7 @@
 *.o
 *.out
-<<<<<<< HEAD
 **/*.swp
 **/*.a
 **/*.o
 **/.*
 minishell
-=======
-res
->>>>>>> main
