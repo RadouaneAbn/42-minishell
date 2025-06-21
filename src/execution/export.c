@@ -1,6 +1,4 @@
-#include "../../include/libft.h"
-#include "../../include/hash_map.h"
-#include "../../include/utils.h"
+#include <minishell.h>
 
 t_map *get_map()
 {
@@ -94,7 +92,7 @@ void remove_from_map(t_map *map, char *key)
 	t_node *current_node;
 	t_node *prev;
 
-	idx = index_key(key);
+	idx = hash(key);
 	current_node = map->map[idx];
     while (current_node)
 	{

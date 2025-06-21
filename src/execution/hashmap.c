@@ -1,25 +1,17 @@
+#include <minishell.h>
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../include/libft.h"
-#include "../include/hash_map.h"
-#include "../include/utils.h"
-
-int index_key(char *key)
+unsigned int hash(const char *key)
 {
+    unsigned int hash = 5381;
 	int i;
-	int key_index;
 
 	i = 0;
-	key_index = 0;
-	while (key[i])
-	{
-		key_index = (key_index + (int) key[i]) % MAP_SIZE;
+    while (key[i]) {
+        hash = ((hash << 5) + hash) + s[i];
 		i++;
-	}
-	return (key_index);
+    }
+
+    return hash % MAP_SIZE;
 }
 
 t_node *create_new_node(char *key, char *value)
@@ -53,7 +45,7 @@ t_node *find_in_map(t_map *map, char *key)
 
 	if (key == NULL)
 		return (NULL);
-	idx = index_key(key);
+	idx = hash(key);
 	curr = map->map[idx];
 	while (curr)
 	{
@@ -99,7 +91,7 @@ void add_to_map(t_map *map, char *key, char *value)
 	node = find_in_map(map, key);
 	if (node == NULL)
 	{
-		idx = index_key(key);
+		idx = hash(key);
 		node = create_new_node(key, value);
 		if (node == NULL)
 			return ;
