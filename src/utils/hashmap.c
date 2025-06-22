@@ -67,20 +67,20 @@ void append_to_ordered_list(t_map *map, t_node *node)
 	}
 }
 	
-void add_to_map(t_map *map, char *key, char *value)
+int add_to_map(t_map *map, char *key, char *value)
 {
 	int idx;
 	t_node *node;
 
 	if (!key)
-		return ;
+		return (0);
 	node = find_in_map(map, key);
 	if (node == NULL)
 	{
 		idx = hash(key);
 		node = create_new_node(key, value);
 		if (node == NULL)
-			return ;
+			return (42);
 		node->next = NULL;
 		map->map[idx] = node;
 		append_to_ordered_list(map, node);
@@ -90,6 +90,8 @@ void add_to_map(t_map *map, char *key, char *value)
 		/* If the key already exists it wont the change the value if its NULL */
 		free(node->value);
 		node->value = ft_strdup(value);
+		if (node->value == NULL)
+			return (42);
 	}
 }
 

@@ -1,5 +1,8 @@
 #ifndef EXPANSION_H
 #define EXPANSION_H
+
+#include <parser.h>
+
 bool	valid_key_char(char c);
 void	expand_word(char **str, size_t *index, char *complete_string);
 void	expand_len(char *str);

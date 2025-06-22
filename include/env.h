@@ -3,7 +3,7 @@
 
 #include <hashmap.h>
 
-struct s_info
+typedef struct s_info
 {
 	t_map exports;
 	char **path;

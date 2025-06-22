@@ -16,5 +16,6 @@
 # include <built_in.h>
 # include <env.h>
 # include <expansion.h>
+# include <fcntl.h>
 
 #endif

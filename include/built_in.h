@@ -9,7 +9,9 @@ char **split_export_args(char *arg);
 int     echo(char **vec);
 int     export(char *key, char *value);
 int     unset(char *key);
-char    *expand(char *key);
+char    *expand_env(char *key);
 int     pre_export(char *exported);
+int print_env();
+int print_exports();
 
 #endif
