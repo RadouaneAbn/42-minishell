@@ -30,7 +30,7 @@ $(TARGET): $(OBJECT_FILES) libft/libft.a
 	$(CC) $(CFLAGS) -o $@ -c $< -I $(INCLUDE)
 
 clean:
-	$(RM) $(RM_OPTIONS) $(OBJECT_FILES) $(TEST_OBJECTS)
+	$(RM) $(RM_OPTIONS) $(OBJECT_FILES) $(TEST_OBJECTS) $(UTILS_OBJECTS) $(OBJECT_FILES_2)
 
 libft/libft.a:
 	make -C libft
