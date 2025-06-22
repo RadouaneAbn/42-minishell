@@ -64,6 +64,6 @@ int export(char *key, char *value)
 
     map = get_map();
     if (map == NULL)
-        return ;
+        return (1);
     return (add_to_map(map, key, value));
 }

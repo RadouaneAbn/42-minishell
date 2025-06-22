@@ -81,7 +81,7 @@ int add_to_map(t_map *map, char *key, char *value)
 		node = create_new_node(key, value);
 		if (node == NULL)
 			return (42);
-		node->next = NULL;
+		node->next = map->map[idx];
 		map->map[idx] = node;
 		append_to_ordered_list(map, node);
 	}
@@ -93,6 +93,7 @@ int add_to_map(t_map *map, char *key, char *value)
 		if (node->value == NULL)
 			return (42);
 	}
+	return (0);
 }
 
 void remove_from_ordered_list(t_map *map, char *key)

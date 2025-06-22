@@ -1,0 +1,192 @@
+adding: USER
+adding: LANGUAGE
+adding: XDG_SESSION_TYPE
+adding: SHLVL
+adding: HOME
+adding: DESKTOP_SESSION
+adding: GTK_MODULES
+adding: XDG_SEAT_PATH
+adding: MANAGERPID
+adding: SYSTEMD_EXEC_PID
+adding: DBUS_SESSION_BUS_ADDRESS
+adding: LIBVIRT_DEFAULT_URI
+adding: GIO_LAUNCHED_DESKTOP_FILE_PID
+adding: LOGNAME
+adding: GTK_IM_MODULE
+adding: JOURNAL_STREAM
+adding: XDG_SESSION_CLASS
+adding: FT_HOOK_PATHNAME
+adding: GNOME_DESKTOP_SESSION_ID
+adding: PATH
+adding: GDM_LANG
+adding: SESSION_MANAGER
+adding: INVOCATION_ID
+adding: XDG_RUNTIME_DIR
+adding: XDG_MENU_PREFIX
+adding: XDG_SESSION_PATH
+adding: DISPLAY
+adding: LANG
+adding: XDG_CURRENT_DESKTOP
+adding: XAUTHORITY
+adding: XDG_SESSION_DESKTOP
+adding: XMODIFIERS
+adding: SSH_AGENT_LAUNCHER
+adding: SSH_AUTH_SOCK
+adding: XDG_GREETER_DATA_DIR
+adding: SHELL
+adding: KRB5CCNAME
+adding: QT_ACCESSIBILITY
+adding: GDMSESSION
+adding: DOCKER_HOST
+adding: FT_HOOK_NAME
+adding: GPG_AGENT_INFO
+adding: QT_IM_MODULE
+adding: PWD
+adding: XDG_DATA_DIRS
+adding: XDG_CONFIG_DIRS
+adding: MANPATH
+adding: KITTY_WINDOW_ID
+adding: WINDOWID
+adding: TERM
+adding: COLORTERM
+adding: KITTY_PID
+adding: KITTY_PUBLIC_KEY
+adding: TERMINFO
+adding: KITTY_INSTALLATION_DIR
+adding: OLDPWD
+adding: ZSH
+adding: PAGER
+adding: LESS
+adding: LSCOLORS
+adding: LS_COLORS
+adding: MAIL
+adding: NVM_DIR
+adding: _
+0  : [null]
+1  : [null]
+2  : [null]
+3  : [null]
+4  : [null]
+5  : [null]
+6  : [null]
+7  : [null]
+8  : [null]
+9  : [KITTY_INSTALLATION_DIR] -> [KITTY_PID] -> [KITTY_PUBLIC_KEY] -> [KITTY_WINDOW_ID] -> [KRB5CCNAME] -> [LANG] -> [LANGUAGE] -> [LESS] -> [LIBVIRT_DEFAULT_URI] -> [LOGNAME] -> [LSCOLORS] -> [LS_COLORS] -> [MAIL] -> [MANAGERPID] -> [MANPATH] -> [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+10 : [null]
+11 : [null]
+12 : [null]
+13 : [null]
+14 : [null]
+15 : [null]
+16 : [null]
+17 : [null]
+18 : [null]
+19 : [null]
+20 : [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+21 : [null]
+22 : [null]
+23 : [null]
+24 : [null]
+25 : [null]
+26 : [null]
+27 : [null]
+28 : [null]
+29 : [null]
+30 : [null]
+31 : [null]
+32 : [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+33 : [null]
+34 : [null]
+35 : [null]
+36 : [null]
+37 : [null]
+38 : [null]
+39 : [null]
+40 : [null]
+41 : [null]
+42 : [null]
+43 : [null]
+44 : [null]
+45 : [null]
+46 : [null]
+47 : [null]
+48 : [null]
+49 : [null]
+50 : [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+51 : [null]
+52 : [null]
+53 : [null]
+54 : [null]
+55 : [null]
+56 : [null]
+57 : [null]
+58 : [null]
+59 : [null]
+60 : [null]
+61 : [null]
+62 : [null]
+63 : [null]
+64 : [null]
+65 : [null]
+66 : [null]
+67 : [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+68 : [null]
+69 : [null]
+70 : [null]
+71 : [null]
+72 : [null]
+73 : [null]
+74 : [null]
+75 : [INVOCATION_ID] -> [JOURNAL_STREAM] -> [KITTY_INSTALLATION_DIR] -> [KITTY_PID] -> [KITTY_PUBLIC_KEY] -> [KITTY_WINDOW_ID] -> [KRB5CCNAME] -> [LANG] -> [LANGUAGE] -> [LESS] -> [LIBVIRT_DEFAULT_URI] -> [LOGNAME] -> [LSCOLORS] -> [LS_COLORS] -> [MAIL] -> [MANAGERPID] -> [MANPATH] -> [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+76 : [null]
+77 : [null]
+78 : [null]
+79 : [null]
+80 : [null]
+81 : [null]
+82 : [null]
+83 : [null]
+84 : [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+85 : [null]
+86 : [null]
+87 : [null]
+88 : [null]
+89 : [null]
+90 : [null]
+91 : [null]
+92 : [GPG_AGENT_INFO] -> [GTK_IM_MODULE] -> [GTK_MODULES] -> [HOME] -> [INVOCATION_ID] -> [JOURNAL_STREAM] -> [KITTY_INSTALLATION_DIR] -> [KITTY_PID] -> [KITTY_PUBLIC_KEY] -> [KITTY_WINDOW_ID] -> [KRB5CCNAME] -> [LANG] -> [LANGUAGE] -> [LESS] -> [LIBVIRT_DEFAULT_URI] -> [LOGNAME] -> [LSCOLORS] -> [LS_COLORS] -> [MAIL] -> [MANAGERPID] -> [MANPATH] -> [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+93 : [null]
+94 : [null]
+95 : [null]
+96 : [KRB5CCNAME] -> [LANG] -> [LANGUAGE] -> [LESS] -> [LIBVIRT_DEFAULT_URI] -> [LOGNAME] -> [LSCOLORS] -> [LS_COLORS] -> [MAIL] -> [MANAGERPID] -> [MANPATH] -> [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+97 : [null]
+98 : [null]
+99 : [null]
+100: [null]
+101: [null]
+102: [null]
+103: [null]
+104: [LOGNAME] -> [LSCOLORS] -> [LS_COLORS] -> [MAIL] -> [MANAGERPID] -> [MANPATH] -> [NVM_DIR] -> [OLDPWD] -> [PAGER] -> [PATH] -> [PWD] -> [QT_ACCESSIBILITY] -> [QT_IM_MODULE] -> [SESSION_MANAGER] -> [SHELL] -> [SHLVL] -> [SSH_AGENT_LAUNCHER] -> [SSH_AUTH_SOCK] -> [SYSTEMD_EXEC_PID] -> [TERM] -> [TERMINFO] -> [USER] -> [WINDOWID] -> [XAUTHORITY] -> [XDG_CONFIG_DIRS] -> [XDG_CURRENT_DESKTOP] -> [XDG_DATA_DIRS] -> [XDG_GREETER_DATA_DIR] -> [XDG_MENU_PREFIX] -> [XDG_RUNTIME_DIR] -> [XDG_SEAT_PATH] -> [XDG_SESSION_CLASS] -> [XDG_SESSION_DESKTOP] -> [XDG_SESSION_PATH] -> [XDG_SESSION_TYPE] -> [XMODIFIERS] -> [ZSH] -> [_] -> [null]
+105: [null]
+106: [null]
+107: [null]
+108: [null]
+109: [null]
+110: [null]
+111: [null]
+112: [null]
+113: [null]
+114: [null]
+115: [null]
+116: [null]
+117: [null]
+118: [null]
+119: [null]
+120: [null]
+121: [null]
+122: [null]
+123: [null]
+124: [null]
+125: [null]
+126: [null]
+127: [null]
