@@ -5,3 +5,5 @@
 **/*.o
 **/.*
 minishell
+minitest
+debug

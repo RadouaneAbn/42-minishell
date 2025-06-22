@@ -51,51 +51,118 @@ t_status check_env(char **env)
 
 void print_total_result(t_status status)
 {
-    printf("Total: [S: %d, F: %d]\n", status.success, status.failure);
+    printf("\n> Total <: [S: %d, F: %d]\n\n", status.success, status.failure);
 }
 
-void print_env_r(char **env)
+void print_result(t_status status)
 {
-    t_node *node;
-    int i;
-
-    i = 0;
-    if (env == NULL)
-    {
-        node = get_map()->ordered_list;
-        while (node)
-        {
-            printf("%s=%s\n", node->key, node->value);
-            node = node->ordered_next;
-        }
-    }
-    else
-    {
-        while (env[i])
-            printf("%s\n", env[i++]);
-    }
+    printf("\nResult: [S: %d, F: %d]\n\n", status.success, status.failure);
 }
 
-void debug_hashmap()
+t_status test_existing_var(void)
 {
-    t_map *map = get_map();;
-    t_node **hashmap = map->map;
-    t_node *node;
+    char *test_env[] = {
+        "USER_1=HAMZA",
+        "ZSH=RED",
+        "a=b",
+        "b=",
+        "c",
+        NULL
+    };
     int i;
+    t_map *map;
+    char **arr;
+    char *value;
+    t_status status;
 
+    printf("Test expand existing values:\n");
+    status.failure = 0;
+    status.success = 0;
     i = 0;
-    while (i < MAP_SIZE)
+    map = get_map();
+    while (test_env[i])
     {
-        node = hashmap[i];
-        printf("%-3d: ", i);
-        while (node)
+        arr = split_export_args(test_env[i]);
+        pre_export(test_env[i]);
+        value = expand_env(arr[0]);
+        if (ft_strcmp(value, arr[1]) != 0)
         {
-            printf("[%s] -> ", node->key);
-            node = node->ordered_next;
+            printf("expand:\n\texpected: [%s]\n\tgot     : [%s]\n", arr[1], value);
+            status.failure++;
         }
-        printf("[null]\n");
+        else
+            status.success++;
         i++;
     }
+    return (status);
+}
+
+t_status test_non_existing_var(void)
+{
+    char *test_env[] = {
+        "NON_EXISTING_VAR",
+        "ZZSH",
+        "aa",
+        NULL
+    };
+    int i;
+    t_map *map;
+    char *value;
+    t_status status;
+
+    printf("Test expand non existing values:\n");
+    status.failure = 0;
+    status.success = 0;
+    i = 0;
+    map = get_map();
+    while (test_env[i])
+    {
+        value = expand_env(test_env[i]);
+        if (ft_strcmp(value, "") != 0)
+        {
+            printf("expand:\n\texpected: [%s]\n\tgot     : [%s]\n", "", value);
+            status.failure++;
+        }
+        else
+            status.success++;
+        i++;
+    }
+    return (status);
+}
+
+t_status test_updating_existing_keys(void)
+{
+    char *test_env[] = {
+        "USER=radouane",
+        "ZSH=minishell",
+        NULL
+    };
+    int i;
+    t_map *map;
+    char **arr;
+    char *value;
+    t_status status;
+
+    printf("Test updating existing values:\n");
+    status.failure = 0;
+    status.success = 0;
+    i = 0;
+    map = get_map();
+    while (test_env[i])
+    {
+        arr = split_export_args(test_env[i]);
+        pre_export(test_env[i]);
+        value = expand_env(arr[0]);
+        if (ft_strcmp(value, arr[1]) != 0)
+        {
+            printf("expand:\n\texpected: [%s]\n\tgot     : [%s]\n", arr[1], value);
+            status.failure++;
+        }
+        else
+            status.success++;
+        i++;
+    }
+    return (status);
 }
 
 void test_export(char **env)
@@ -108,14 +175,33 @@ void test_export(char **env)
 
     load_env(env);
 
-    // print_env_r(env);
-    // printf("\n\n");
-    // print_env_r(NULL);
     tmp = check_env(env);
+
+    print_result(tmp);
+
+    status.failure += tmp.failure;
+    status.success += tmp.success;
+
+    tmp = test_existing_var();
+
+    print_result(tmp);
+
+    status.failure += tmp.failure;
+    status.success += tmp.success;
+
+    tmp = test_non_existing_var();
+
+    print_result(tmp);
+
+    status.failure += tmp.failure;
+    status.success += tmp.success;
+
+    tmp = test_updating_existing_keys();
+
+    print_result(tmp);
 
     status.failure += tmp.failure;
     status.success += tmp.success;
 
     print_total_result(status);
-    // debug_hashmap();
 }

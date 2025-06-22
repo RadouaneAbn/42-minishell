@@ -29,7 +29,10 @@ int print_exports()
     node = map->ordered_list;
     while (node)
     {
-        printf("declare -x %s=%s\n", node->key, node->value);
+        if (node->value)
+            printf("declare -x %s=\"%s\"\n", node->key, node->value);
+        else
+            printf("declare -x %s=\n", node->key);
         node = node->ordered_next;
     }
     return (1);
