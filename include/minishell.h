@@ -11,7 +11,7 @@
 # include <libft.h>
 # include <string.h>
 # include <lexer.h>
-# include <hash_map.h>
+# include <hashmap.h>
 # include <utils.h>
 # include <built_in.h>
 # include <env.h>

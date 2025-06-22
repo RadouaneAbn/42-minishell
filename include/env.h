@@ -1,7 +1,7 @@
 #ifndef ENV_H
 #define ENV_H
 
-#include <hash_map.h>
+#include <hashmap.h>
 
 struct s_info
 {
