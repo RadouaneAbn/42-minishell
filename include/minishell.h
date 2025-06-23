@@ -17,5 +17,9 @@
 # include <env.h>
 # include <expansion.h>
 # include <fcntl.h>
+# include <execution.h>
+# include <debug.h>
+
+# define MALLOC_FAILURE 42
 
 #endif

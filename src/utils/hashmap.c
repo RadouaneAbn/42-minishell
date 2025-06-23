@@ -73,14 +73,14 @@ int add_to_map(t_map *map, char *key, char *value)
 	t_node *node;
 
 	if (!key)
-		return (0);
+		return (EXIT_SUCCESS);
 	node = find_in_map(map, key);
 	if (node == NULL)
 	{
 		idx = hash(key);
 		node = create_new_node(key, value);
 		if (node == NULL)
-			return (42);
+			return (EXIT_FAILURE);
 		node->next = map->map[idx];
 		map->map[idx] = node;
 		append_to_ordered_list(map, node);
@@ -91,9 +91,9 @@ int add_to_map(t_map *map, char *key, char *value)
 		free(node->value);
 		node->value = ft_strdup(value);
 		if (node->value == NULL)
-			return (42);
+			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void remove_from_ordered_list(t_map *map, char *key)

@@ -50,7 +50,7 @@ int pre_export(char *exported)
 
     args = split_export_args(exported);
     if (key_isvalid(args[0]) == FALSE)
-        return (1);
+        return (EXIT_FAILURE);
     status = export(args[0], args[1]);
     free(args[0]);
     free(args[1]);
@@ -64,6 +64,6 @@ int export(char *key, char *value)
 
     map = get_map();
     if (map == NULL)
-        return (1);
+        return (EXIT_FAILURE);
     return (add_to_map(map, key, value));
 }

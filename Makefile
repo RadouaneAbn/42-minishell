@@ -4,7 +4,7 @@ SOURCE_FILES = $(wildcard src/lexer/*.c) \
 	$(wildcard src/expansion/*.c)
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
 
-SOURCE_FILES_2 = $(wildcard src/built_in/*.c)
+SOURCE_FILES_2 = $(wildcard src/built_in/*.c) $(wildcard src/execution/*.c)
 OBJECT_FILES_2 = $(SOURCE_FILES_2:%.c=%.o)
 
 UTILS_FILES = $(wildcard src/utils/*.c)
@@ -23,7 +23,7 @@ MINITEST = minitest
 
 all: $(TARGET)
 
-$(TARGET): $(OBJECT_FILES) libft/libft.a
+$(TARGET): $(OBJECT_FILES) $(OBJECT_FILES_2) $(UTILS_OBJECTS) libft/libft.a
 	$(CC) $^ -o $@  -lreadline
 	
 %.o: %.c

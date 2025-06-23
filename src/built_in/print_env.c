@@ -25,7 +25,7 @@ int print_exports()
 
     map = get_map();
     if (map == NULL)
-        return (1);
+        return (EXIT_FAILURE);
     node = map->ordered_list;
     while (node)
     {
@@ -35,5 +35,5 @@ int print_exports()
             printf("declare -x %s=\n", node->key);
         node = node->ordered_next;
     }
-    return (1);
+    return (EXIT_SUCCESS);
 }
