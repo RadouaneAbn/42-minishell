@@ -35,7 +35,7 @@ char **get_full_command_from_tree(t_tree *tree)
 int execute_command_tree(t_tree *tree)
 {
     char **cmd_array;
-
+    
     cmd_array = get_full_command_from_tree(tree);
     // print_args_list(cmd_array);
     return (execute_command(cmd_array));
@@ -63,37 +63,45 @@ void print_sib(t_tree *tree)
         printf("type: [null]\n");
 }
 
+/*
+ls || pwd || cat && hey
+*/
+
 void execute_tree(t_tree *tree)
 {
     t_info *info;
+    int pipe_type;
 
     info = get_info();
+    pipe_type = T_COMMAND;
+    info->last_exit_status = 0;
     while (tree)
     {
         if (tree->data_type == T_COMPOUND_COMMAND || tree->data_type == T_PIPELINE)
         {
-            execute_tree(tree->next);
+            if (pipe_type == T_COMMAND || (pipe_type == T_AND && info->last_exit_status == 0) || 
+                (pipe_type == T_OR && info->last_exit_status != 0))
+                execute_tree(tree->next);
         }
         else if (tree->data_type == T_COMMAND)
         {
-            info->last_exit_status = execute_command_tree(tree->next);
-            
+            if (tree->next && tree->next->data_type == T_SUBSHELL)
+                execute_tree(tree->next->next);
+            else
+                info->last_exit_status = execute_command_tree(tree->next);
+            pipe_type = T_COMMAND;
         }
         if (tree->sibling != NULL && tree->sibling->data_type == T_AND)
         {
-            if (info->last_exit_status == 0)
-                tree = tree->sibling;
-            else
-                tree = tree->sibling->sibling;
+            pipe_type = T_AND;
+            tree = tree->sibling;
         }
         else if (tree->sibling != NULL && tree->sibling->data_type == T_OR)
         {
-            if (info->last_exit_status != 0)
-                tree = tree->sibling;
-            else
-                tree = tree->sibling->sibling;
+            pipe_type = T_OR;
+            tree = tree->sibling;
         }
         if (tree)
-            tree = tree->sibling;
+            tree = tree->sibling; 
     }
 }

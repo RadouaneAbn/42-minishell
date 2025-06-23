@@ -16,7 +16,7 @@ t_cmd_type get_command_type (char *cmd)
 
     if (cmd == NULL)
         return (FALSE);
-    i = 0;
+    i = RUN_EXPORT;
     while (built_ins[i])
     {
         if (ft_strcmp(built_ins[i], cmd) == 0)
@@ -26,17 +26,17 @@ t_cmd_type get_command_type (char *cmd)
     return (i);
 }
 
-t_func *get_exec_functions(void)
+t_func_ptr *get_exec_functions(void)
 {
-    static t_func exec_functions[8] = {
-        {.type = RUN_EXPORT, .f = run_export},
-        {.type = RUN_ENV, .f = run_env},
-        {.type = RUN_UNSET, .f = run_unset},
-        {.type = RUN_ECHO, .f = run_echo},
-        {.type = RUN_PWD, .f = run_pwd},
-        {.type = RUN_CD, .f = run_cd},
-        {.type = RUN_EXIT, .f = run_exit},
-        {.type = RUN_EXECUTABLE, .f = run_executable}
+    static t_func_ptr exec_functions[8] = {
+        run_export,
+        run_env,
+        run_unset,
+        run_echo,
+        run_pwd,
+        run_cd,
+        run_exit,
+        run_executable
     };
     return (exec_functions);
 }
@@ -44,18 +44,11 @@ t_func *get_exec_functions(void)
 int execute_command(char **cmdv)
 {
     t_cmd_type cmd_type;
-    t_func *exec_functions;
+    t_func_ptr *exec_functions;
     int i;
 
     cmd_type = get_command_type(cmdv[0]);
     exec_functions = get_exec_functions();
     i = 0;
-    while (i < TYPE_COUNT)
-    {
-        if (exec_functions[i].type == cmd_type)
-            return (exec_functions[i].f(cmdv));
-        i++;
-    }
-    printf("no exec function was executed for: [%s]\n", cmdv[0]);
-    return (1);
+    return (exec_functions[cmd_type](cmdv));
 }

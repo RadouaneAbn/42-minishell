@@ -32,7 +32,7 @@ int print_exports()
         if (node->value)
             printf("declare -x %s=\"%s\"\n", node->key, node->value);
         else
-            printf("declare -x %s=\n", node->key);
+            printf("declare -x %s\n", node->key);
         node = node->ordered_next;
     }
     return (EXIT_SUCCESS);

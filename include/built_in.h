@@ -16,6 +16,11 @@ typedef enum e_cmd_type
     TYPE_COUNT
 } t_cmd_type;
 
+
+/* echo flag */
+#define NO_FLAG 0
+#define NO_NL 1
+
 t_map   *get_map();
 char **split_export_args(char *arg);
 

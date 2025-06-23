@@ -3,11 +3,13 @@
 
 #include <parser.h>
 
-typedef struct s_func
-{
-	t_cmd_type	type;
-	int		(*f)(char **);
-}			t_func;
+// typedef struct s_func
+// {
+// 	t_cmd_type	type;
+// 	int		(*f)(char **);
+// }			t_func;
+
+typedef int (*t_func_ptr)(char **);
 
 void execute_tree(t_tree *tree);
 int execute_command(char **cmd);

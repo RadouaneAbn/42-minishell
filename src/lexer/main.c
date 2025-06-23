@@ -6,7 +6,7 @@ int	main(int argc, char *argv[], char **env)
 
 	(void)argc;
 	(void)argv;
-	(void)env;
+	load_env(env);
 	while (true)
 	{
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");

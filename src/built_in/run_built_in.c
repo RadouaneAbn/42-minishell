@@ -7,7 +7,7 @@ int run_export(char **vec)
     vec++;
     if (vec[0] == NULL)
         return (print_exports());
-    status = 0;
+    status = EXIT_SUCCESS;
     while (*vec)
     {
         status |= pre_export(*vec);
@@ -39,14 +39,13 @@ int run_unset(char **vec)
 int run_echo(char **vec)
 {
     vec++;
-    printf("running pwd\n");
-    return (EXIT_SUCCESS);
+    return (echo(vec));
 }
 
 int run_pwd(char **vec)
 {
     vec++;
-    printf("running pwd\n");
+    printf("%s\n", expand_env("PWD"));
     return (EXIT_SUCCESS);
 }
 
