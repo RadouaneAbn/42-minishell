@@ -79,10 +79,14 @@ int	get_fields_len(char **expand_strs, char **quote_mask)
 	while (expand_strs[str_index])
 	{
 		index = 0;
+		while (char_in_set(expand_strs[str_index][index], "\n\t "))
+			index++;
 		while (expand_strs[str_index][index])
 		{
 			//printf("%c %d\n", expand_strs[str_index][index], field_char_quoted(quote_mask, index));
-			if (((!char_in_set(expand_strs[str_index][index], "\t\n ") && !field_char_quoted(quote_mask[str_index], index)) || field_char_quoted(quote_mask[str_index], index)) && ((char_in_set(expand_strs[str_index][index + 1], "\t\n ") && !field_char_quoted(quote_mask[str_index], index + 1)) || !expand_strs[str_index][index + 1]))
+			if ((char_in_set(expand_strs[str_index][index + 1], "\t\n ")
+							&& !field_char_quoted(quote_mask[str_index], index + 1))
+					|| !expand_strs[str_index][index + 1])
 					field_len++;
 			index++;
 		}
@@ -92,12 +96,47 @@ int	get_fields_len(char **expand_strs, char **quote_mask)
 	return (field_len);
 }
 
-void	set_field(char *expand_str, char *quote_mask, size_t start, size_t end)
+void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end)
+{
+	size_t	exp_index;
+
+	exp_index = 0;
+	while (start < end)
+	{
+		if (!get_bit(quote_mask, start))
+		{
+			field[exp_index] = expand_str[start];
+			exp_index++;
+		}
+		index++;
+	}
+}
+
+size_t	get_field_len(expand_str, quote_mask)
+{
+	size_t	len;
+	size_t	index;
+
+	index = 0;
+	len = 0;
+	while (char_in_set(expand_str[index], "\t\n "))
+		index++;
+	while (char_in_set(expand_str[index]))
+	{
+		if (!get_bit(quote_mask, index))
+			len++;
+		index++;
+	}
+	return (len);
+}
+
+void	set_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end)
 {
 	size_t	len;
 
-	len = ;
-	expand_
+	len = get_field_len(expand_str, quote_mask);
+	field = malloc(sizeof(char) * (len + 1));
+	cp_field(field, expand_str, quote_mask, start, end);
 }
 
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask)
@@ -122,6 +161,7 @@ void	fill_fields(char **expand_strs, char **fields, char **quote_mask)
 					|| !expand_strs[str_index][index + 1])
 			{
 				set_field(expand_strs[str_index], quote_mask[str_index], start, index);
+				start = index;
 			}
 			index++;
 		}
