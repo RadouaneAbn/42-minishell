@@ -17,7 +17,7 @@ void	lexer(char *line)
 		new_node = token_lstnew(token);
 		token_lstadd_back(&token_lst, new_node);
 	}
-	//token_printlst(token_lst);
+	token_printlst(token_lst);
 	t_tree *tree = parser(token_lst);
 	print_tree(tree, 0);
 	tree_expand_simple_command(tree->next->next->next);

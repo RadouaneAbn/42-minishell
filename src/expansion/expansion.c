@@ -22,7 +22,7 @@ size_t	expand_word_len(char **str)
 	if (key == NULL)
 		return (0);
 	free(key);
-	return (7);
+	return (5);
 }
 
 //this function return the size of a str that has expanded words
@@ -40,7 +40,7 @@ size_t	expand_str_len(char *str)
 	{
 		if (char_in_set(*str, "'\"") && !quoted)
 			quote = *str;
-		if (quote == *str)
+		if (char_in_set(*str, "'\"") && quote == *str)
 			quoted = !quoted;
 		if (!quoted && *str == '$' && char_in_set(peakch(str), "'\""))
 			str++;
