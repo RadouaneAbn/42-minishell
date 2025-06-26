@@ -18,6 +18,7 @@ void	set_byte(char *quote_array, int size, char bit)
 
 	byte_index = size / 8;
 	quote_array[byte_index] = (quote_array[byte_index] << 1) | bit;
+	printf("%d\n", bit);
 }
 
 void	expand(char *str, char *complete_string, char *quote_array)
@@ -54,7 +55,7 @@ void	expand(char *str, char *complete_string, char *quote_array)
 			len++;
 			str++;
 		}
-		while (start < len - 1)
+		while (start < len)
 		{
 			set_byte(quote_array, start, 0);
 			start++;

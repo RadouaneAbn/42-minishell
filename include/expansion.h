@@ -9,6 +9,20 @@ size_t expand_word_len(char **str);
 size_t expand_str_len(char *str);
 void	print_bits(char *quote_array, int size);
 int	hey(int len);
+void	add_bits(char *quote_array, int size);
+
+
+/* field splitting functions */
+bool	field_char_quoted(char *quote_mask, int size);
+int	get_fields_len(char **expand_strs, char **quote_mask);
+unsigned char get_bit(char *quote_mask, size_t size);
+void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end);
+size_t	get_field_len(char *expand_str, char *quote_mask);
+void	set_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end);
+void	fill_fields(char **expand_strs, char **fields, char **quote_mask);
+void	filed_splitting(char **expand_strs, char **quote_mask);
+
+
 
 
 void	tree_expand_simple_command(t_tree *simple_command);
