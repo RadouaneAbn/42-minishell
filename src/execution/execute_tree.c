@@ -38,7 +38,7 @@ int execute_command_tree(t_tree *tree)
     
     cmd_array = get_full_command_from_tree(tree);
     // print_args_list(cmd_array);
-    return (execute_command(cmd_array));
+    return (execute_command(cmd_array, tree->sibling));
 }
 
 void print_sib(t_tree *tree)

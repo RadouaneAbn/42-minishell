@@ -15,7 +15,7 @@ t_cmd_type get_command_type (char *cmd)
     int i;
 
     if (cmd == NULL)
-        return (FALSE);
+        return (RUN_EXECUTABLE);
     i = RUN_EXPORT;
     while (built_ins[i])
     {
@@ -41,12 +41,46 @@ t_func_ptr *get_exec_functions(void)
     return (exec_functions);
 }
 
-int execute_command(char **cmdv)
+int handle_redirections(t_tree *tree, t_executable_data *data)
+{
+    int status;
+
+    while (tree)
+    {
+        if (tree->data_type == RED_IN)
+            status = redirect_input((char *)tree->data, data);
+        else if (tree->data_type == RED_OUT)
+            status = redirect_output((char *)tree->data, data);
+        else if (tree->data_type == APPEND_OUT)
+            status = append_output((char *)tree->data, data);
+        else if (tree->data_type == HERE_DOC)
+            status = here_doc_input((char *)tree->data, data);
+        if (status == -1)
+            return (-1);
+        tree = tree->next;
+    }
+    return (0);
+}
+
+void init_executable_data(t_executable_data *data)
+{
+    data->fd_in = -1;
+    data->fd_out = -1;
+    data->fds = NULL;
+    data->lst = NULL;
+}
+
+int execute_command(char **cmdv, t_tree *tree)
 {
     t_cmd_type cmd_type;
     t_func_ptr *exec_functions;
+    // t_executable_data data;
+    (void) tree;
 
     cmd_type = get_command_type(cmdv[0]);
     exec_functions = get_exec_functions();
+    // init_executable_data(&data);
+    // if (handle_redirections(tree, &data) == -1)
+    //     return (-1); // RECHECK
     return (exec_functions[cmd_type](cmdv));
 }

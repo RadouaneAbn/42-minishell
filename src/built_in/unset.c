@@ -12,6 +12,7 @@ static void remove_env_variable(t_map *map, char *key)
     free(wanted_node->key);
 	free(wanted_node->value);
 	free(wanted_node);
+    map->size--;
 }
 
 int unset(char *key)

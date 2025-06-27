@@ -61,9 +61,13 @@ int pre_export(char *exported)
 int export(char *key, char *value)
 {
     t_map *map;
+    int status;
 
     map = get_map();
     if (map == NULL)
         return (EXIT_FAILURE);
-    return (add_to_map(map, key, value));
+    status = add_to_map(map, key, value);
+    if (status != EXIT_FAILURE)
+        map->size++;
+    return (status);
 }
