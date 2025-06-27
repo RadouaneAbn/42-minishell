@@ -19,10 +19,11 @@ size_t	expand_word_len(char **str)
 	}
 	(*str)++;
 	key = get_key(str);
+	char *value = get_value(key);
 	if (key == NULL)
 		return (0);
-	free(key);
-	return (5);
+	//free(key);
+	return (ft_strlen(value));
 }
 
 //this function return the size of a str that has expanded words

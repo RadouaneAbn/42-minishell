@@ -64,6 +64,21 @@ void	expand(char *str, char *complete_string, char *quote_array)
 	complete_string[len] = 0;
 }
 
+char	*get_value(char *key)
+{
+	if (strmatch(key, "var"))
+		return ("hey");
+	else if (strmatch(key, "cwd"))
+		return ("hey hey hey");
+	else if (strmatch(key, "but"))
+		return ("");
+	else if (strmatch(key, "var1"))
+		return ("\"\"");
+	else if (strmatch(key, "var2"))
+		return ("'");
+	return ("");
+}
+
 //to do: you have to handle "$"
 //to do: you have to handle $?
 //to do: create a function that return the key to be expanded
@@ -88,7 +103,8 @@ void	expand_word(char **str, size_t *len, char *complete_string)
 	char *key = get_key(str);
 	if (key == NULL)
 		return ;
-	ft_memcpy(complete_string + *len, "ha za", 5);
+	char *value = get_value(key);
+	ft_memcpy(complete_string + *len, value, ft_strlen(value));
 	free(key);
-	*len += 5;
+	*len += ft_strlen(value);
 }

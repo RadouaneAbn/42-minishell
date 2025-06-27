@@ -10,6 +10,8 @@ size_t expand_str_len(char *str);
 void	print_bits(char *quote_array, int size);
 int	hey(int len);
 void	add_bits(char *quote_array, int size);
+char	*get_value(char *key);
+
 
 
 /* field splitting functions */
