@@ -44,11 +44,9 @@ int get_flag(char **vec, int *start)
 
 int echo(char **vec)
 {
-    int i;
     int start;
     int t_flag;
 
-    i = 0;
     start = 0;
     t_flag = get_flag(vec, &start);
     while (vec[start])

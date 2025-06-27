@@ -45,10 +45,8 @@ int execute_command(char **cmdv)
 {
     t_cmd_type cmd_type;
     t_func_ptr *exec_functions;
-    int i;
 
     cmd_type = get_command_type(cmdv[0]);
     exec_functions = get_exec_functions();
-    i = 0;
     return (exec_functions[cmd_type](cmdv));
 }

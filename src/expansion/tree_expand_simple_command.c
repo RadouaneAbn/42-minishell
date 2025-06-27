@@ -10,14 +10,14 @@ int	hey(int len)
 
 void	tree_expand_simple_command(t_tree *simple_command)
 {
-	size_t	len;
+	// size_t	len;
 	char *node;
 	int	index;
 	char	**whole_string;
 	char	**quote_array;
 
 	index = 0;
-	len = 0;
+	// len = 0;
 	whole_string = malloc(sizeof(char *) * tree_get_size(simple_command));
 	quote_array = malloc(sizeof(char *) * tree_get_size(simple_command));
 	while (simple_command)

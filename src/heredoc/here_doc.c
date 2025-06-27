@@ -3,11 +3,11 @@
 char	*here_doc(char *delimiter)
 {
 	int	fd;
-	char	*addr;
+	// char	*addr;
 	char	*file_name;
 	char 	*line;
 
-	 addr = utoa((size_t)&fd);
+	//  addr = utoa((size_t)&fd);
 	//file_name = ft_strjoin("/tmp/file-minishell--", addr);
 	
 	file_name = "./file.txt";
