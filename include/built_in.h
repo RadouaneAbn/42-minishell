@@ -2,6 +2,7 @@
 #define BUILT_IN_H
 
 #include <hashmap.h>
+#include <execution.h>
 
 typedef enum e_cmd_type
 {
@@ -32,12 +33,14 @@ int     pre_export(char *exported);
 int print_env();
 int print_exports();
 
-int run_export(char **vec);
-int run_env(char **vec);
-int run_unset(char **vec);
-int run_echo(char **vec);
-int run_pwd(char **vec);
-int run_cd(char **vec);
-int run_exit(char **vec);
+int run_export(t_executable_data *data);
+int run_env(t_executable_data *data);
+int run_unset(t_executable_data *data);
+int run_echo(t_executable_data *data);
+int run_pwd(t_executable_data *data);
+int run_cd(t_executable_data *data);
+int run_exit(t_executable_data *data);
+
+t_cmd_type get_command_type (char *cmd);
 
 #endif

@@ -32,13 +32,28 @@ char **get_full_command_from_tree(t_tree *tree)
     return (args);
 }
 
-int execute_command_tree(t_tree *tree)
+void execute_command_tree(t_tree *tree)
 {
     char **cmd_array;
-    
+    int status;
+    pid_t pid;
+
     cmd_array = get_full_command_from_tree(tree);
-    // print_args_list(cmd_array);
-    return (execute_command(cmd_array, tree->sibling));
+    pid = -1;
+    if (get_command_type((char *) tree->data) == RUN_EXECUTABLE)
+        pid = fork();
+    else
+        execute_command_2(cmd_array, tree->sibling);
+    if (pid == 0)
+        execute_command(cmd_array, tree->sibling);
+    if (pid != -1)
+    {
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            set_exit_status(WEXITSTATUS(status));
+        else if (WIFSIGNALED(status))
+            set_exit_status(128 + WTERMSIG(status));
+    }
 }
 
 void print_sib(t_tree *tree)
@@ -74,7 +89,6 @@ void execute_tree(t_tree *tree)
 
     info = get_info();
     pipe_type = T_COMMAND;
-    info->last_exit_status = 0;
     while (tree)
     {
         if (tree->data_type == T_COMPOUND_COMMAND || tree->data_type == T_PIPELINE)
@@ -88,7 +102,7 @@ void execute_tree(t_tree *tree)
             if (tree->next && tree->next->data_type == T_SUBSHELL)
                 execute_tree(tree->next->next);
             else
-                info->last_exit_status = execute_command_tree(tree->next);
+                execute_command_tree(tree->next);
             pipe_type = T_COMMAND;
         }
         if (tree->sibling != NULL && tree->sibling->data_type == T_AND)

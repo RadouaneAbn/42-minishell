@@ -1,9 +1,11 @@
 #include <minishell.h>
 
-int run_export(char **vec)
+int run_export(t_executable_data *data)
 {
     int status;
+    char **vec;
 
+    vec = data->lst;
     vec++;
     if (vec[0] == NULL)
         return (print_exports());
@@ -16,16 +18,21 @@ int run_export(char **vec)
     return (status);
 }
 
-int run_env(char **vec)
+int run_env(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
     vec++;
     return (print_env());
 }
 
-int run_unset(char **vec)
+int run_unset(t_executable_data *data)
 {
     int status;
+    char **vec;
 
+    vec = data->lst;
     vec++;
     status = EXIT_SUCCESS;
     while (*vec)
@@ -36,31 +43,39 @@ int run_unset(char **vec)
     return (status);
 }
 
-int run_echo(char **vec)
+int run_echo(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
     vec++;
     return (echo(vec));
 }
 
-int run_pwd(char **vec)
+int run_pwd(t_executable_data *data)
 {
-    vec++;
+    (void) data;
     printf("%s\n", expand_env("PWD"));
     return (EXIT_SUCCESS);
 }
 
-int run_cd(char **vec)
+int run_cd(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
     vec++;
     printf("running cd\n");
     return (EXIT_SUCCESS);
 }
 
-int run_exit(char **vec)
+int run_exit(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
     vec++;
-    printf("running exit\n");
-    return (EXIT_SUCCESS);
+    exit(42);
 }
 
 int command_is_empty(char *cmd)
@@ -167,11 +182,16 @@ char **build_env(void)
             env[i++] = node_to_string(node);
         node = node->ordered_next;
     }
+    env[i] = NULL;
     return (env);
 }
 
-int execute_command_exec(char **vec)
+int execute_command_exec(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
+    // print_args_list(build_env());
     if (execve(vec[0], vec, build_env()) == -1)
     {
         perror("execve");
@@ -180,11 +200,14 @@ int execute_command_exec(char **vec)
     return (TRUE);
 }
 
-int run_executable(char **vec)
+int run_executable(t_executable_data *data)
 {
+    char **vec;
+
+    vec = data->lst;
     if (command_is_empty(vec[0]))
         exit(127);
     if (ft_strchr(vec[0], '/') == NULL)
         vec[0] = find_file(vec[0]);
-    return (execute_command_exec(vec));
+    return (execute_command_exec(data));
 }

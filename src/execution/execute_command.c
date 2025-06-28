@@ -2,7 +2,7 @@
 
 t_cmd_type get_command_type (char *cmd)
 {
-    char *built_ins[] = {
+    static char *built_ins[8] = {
         "export",
         "env",
         "unset",
@@ -70,17 +70,41 @@ void init_executable_data(t_executable_data *data)
     data->lst = NULL;
 }
 
-int execute_command(char **cmdv, t_tree *tree)
+void execute_command(char **cmdv, t_tree *tree)
 {
     t_cmd_type cmd_type;
     t_func_ptr *exec_functions;
-    // t_executable_data data;
-    (void) tree;
+    t_executable_data data;
+    int status;
 
     cmd_type = get_command_type(cmdv[0]);
     exec_functions = get_exec_functions();
-    // init_executable_data(&data);
-    // if (handle_redirections(tree, &data) == -1)
-    //     return (-1); // RECHECK
-    return (exec_functions[cmd_type](cmdv));
+    init_executable_data(&data);
+    if (handle_redirections(tree, &data) == -1)
+        exit (2); // RECHECK
+    data.lst = cmdv;
+    data.fds = tree;
+    status = exec_functions[cmd_type](&data);
+    exit(status);
+}
+
+void execute_command_2(char **cmdv, t_tree *tree)
+{
+    t_cmd_type cmd_type;
+    t_func_ptr *exec_functions;
+    t_executable_data data;
+    int status;
+
+    cmd_type = get_command_type(cmdv[0]);
+    exec_functions = get_exec_functions();
+    init_executable_data(&data);
+    if (handle_redirections(tree, &data) == -1)
+    {
+        set_exit_status(2);
+        return ; // RECHECK
+    }
+    data.lst = cmdv;
+    data.fds = tree;
+    status = exec_functions[cmd_type](&data);
+    set_exit_status(status);
 }

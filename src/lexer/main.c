@@ -7,8 +7,10 @@ int	main(int argc, char *argv[], char **env)
 	(void)argc;
 	(void)argv;
 	load_env(env);
+	set_exit_status(0);
 	while (true)
 	{
+		printf("[%d]-", get_exit_status());
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
 		//rl_redisplay();
 		if (!line)

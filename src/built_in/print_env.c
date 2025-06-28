@@ -15,7 +15,7 @@ int print_env()
             printf("%s=%s\n", node->key, node->value);
         node = node->ordered_next;
     }
-    return (1);
+    return (0);
 }
 
 int print_exports()

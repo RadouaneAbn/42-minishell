@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_map *get_map()
+t_map *get_map(void)
 {
     t_info *info;
 
