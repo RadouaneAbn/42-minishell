@@ -8,7 +8,7 @@ int run_export(t_executable_data *data)
     vec = data->lst;
     vec++;
     if (vec[0] == NULL)
-        return (print_exports());
+        return (print_exports(data->fd_out));
     status = EXIT_SUCCESS;
     while (*vec)
     {
@@ -24,7 +24,7 @@ int run_env(t_executable_data *data)
 
     vec = data->lst;
     vec++;
-    return (print_env());
+    return (print_env(data->fd_out));
 }
 
 int run_unset(t_executable_data *data)
@@ -49,7 +49,7 @@ int run_echo(t_executable_data *data)
 
     vec = data->lst;
     vec++;
-    return (echo(vec));
+    return (echo(vec, data->fd_out));
 }
 
 int run_pwd(t_executable_data *data)
@@ -209,5 +209,9 @@ int run_executable(t_executable_data *data)
         exit(127);
     if (ft_strchr(vec[0], '/') == NULL)
         vec[0] = find_file(vec[0]);
+    if (data->fd_in != -1)
+        dup2(data->fd_in, STDIN_FILENO);
+    if (data->fd_out != -1)
+        dup2(data->fd_out, STDOUT_FILENO);
     return (execute_command_exec(data));
 }

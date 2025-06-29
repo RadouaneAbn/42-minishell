@@ -53,6 +53,8 @@ void execute_command_tree(t_tree *tree)
             set_exit_status(WEXITSTATUS(status));
         else if (WIFSIGNALED(status))
             set_exit_status(128 + WTERMSIG(status));
+        else
+            set_exit_status(EXIT_FAILURE);
     }
 }
 
@@ -82,6 +84,13 @@ void print_sib(t_tree *tree)
 ls || pwd || cat && hey
 */
 
+void run_pipe_line(t_tree *tree)
+{
+    (void) tree;
+    printf("this is a pipe line\n");
+    return ;
+}
+
 void execute_tree(t_tree *tree)
 {
     t_info *info;
@@ -102,7 +111,12 @@ void execute_tree(t_tree *tree)
             if (tree->next && tree->next->data_type == T_SUBSHELL)
                 execute_tree(tree->next->next);
             else
-                execute_command_tree(tree->next);
+            {
+                if (tree->sibling)
+                    run_pipe_line(tree);
+                else
+                    execute_command_tree(tree->next);
+            }
             pipe_type = T_COMMAND;
         }
         if (tree->sibling != NULL && tree->sibling->data_type == T_AND)

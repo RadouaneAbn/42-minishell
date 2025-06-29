@@ -81,7 +81,7 @@ void execute_command(char **cmdv, t_tree *tree)
     exec_functions = get_exec_functions();
     init_executable_data(&data);
     if (handle_redirections(tree, &data) == -1)
-        exit (2); // RECHECK
+        exit (1); // RECHECK
     data.lst = cmdv;
     data.fds = tree;
     status = exec_functions[cmd_type](&data);

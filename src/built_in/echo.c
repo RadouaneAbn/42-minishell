@@ -42,21 +42,23 @@ int get_flag(char **vec, int *start)
     return (t_flag);
 }
 
-int echo(char **vec)
+int echo(char **vec, int fd)
 {
     int start;
     int t_flag;
 
     start = 0;
     t_flag = get_flag(vec, &start);
+    if (fd == -1)
+        fd = 1;
     while (vec[start])
     {
-        write(1, vec[start], ft_strlen(vec[start]));
+        write(fd, vec[start], ft_strlen(vec[start]));
         if (vec[start + 1] != NULL)
-            write(1, " ", 1);
+            write(fd, " ", 1);
         start++;
     }
     if (t_flag != NO_NL)
-        write(1, "\n", 1);
+        write(fd, "\n", 1);
     return (0);
 }
