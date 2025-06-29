@@ -76,6 +76,7 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, siz
 		}
 		start++;
 	}
+	field[index] = '\0';
 }
 
 size_t	get_field_len(char *expand_str, char *quote_mask)
@@ -150,5 +151,8 @@ void	filed_splitting(char **expand_strs, char **quote_mask)
 	fill_fields(expand_strs, fields, quote_mask);
 	fields[fields_len] = NULL;
 	while (fields[index])
-		printf("[%s]\n", fields[index++]);
+	{
+		printf("[%s]\n", fields[index]);
+		index++;
+	}
 }

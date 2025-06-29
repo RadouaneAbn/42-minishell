@@ -1,9 +1,5 @@
 #include <minishell.h>
 
-// this function check if str has only spaces: newline, tab, blank_space
-// and return true if so and false if not
-// get [char *]
-// return [bool]
 bool	str_blank(char *str)
 {
 	size_t	index;

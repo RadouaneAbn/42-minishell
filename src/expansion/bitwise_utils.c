@@ -8,26 +8,27 @@ int	hey(int len)
 	return (size);
 }
 
-void print_bit(unsigned char byte)
+void	print_bit(unsigned char byte)
 {
-		int	index;
-		unsigned char bit;
+	int				index;
+	unsigned char	bit;
 
-		index = 0;
-		while (index < 8)
-		{
-			bit = byte >> 7;
-			byte = byte << 1;
-			printf("%d ", bit);
-			index++;
-		}
+	index = 0;
+	while (index < 8)
+	{
+		bit = byte >> 7;
+		byte = byte << 1;
+		printf("%d ", bit);
+		index++;
 	}
+}
+
 void	print_bits(char *quote_array, int size)
 {
 	int	index;
 
 	index = 0;
-	while(index < size)
+	while (index < size)
 	{
 		print_bit(quote_array[index]);
 		index++;
