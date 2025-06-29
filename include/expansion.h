@@ -11,6 +11,11 @@ void	print_bits(char *quote_array, int size);
 int	hey(int len);
 void	add_bits(char *quote_array, int size);
 char	*get_value(char *key);
+bool	first_key_ch(char c);
+bool	key_ch(char c);
+
+void	shift_bits(char *quote_array, int size);
+
 
 
 
@@ -20,7 +25,7 @@ int	get_fields_len(char **expand_strs, char **quote_mask);
 unsigned char get_bit(char *quote_mask, size_t size);
 void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end);
 size_t	get_field_len(char *expand_str, char *quote_mask);
-void	set_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end);
+void	set_field(char **field, char *expand_str, char *quote_mask, size_t start, size_t end);
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask);
 void	filed_splitting(char **expand_strs, char **quote_mask);
 

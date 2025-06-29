@@ -40,12 +40,9 @@ int	get_fields_len(char **expand_strs, char **quote_mask)
 		{
 			current_ch_quoted = quoted_char(quote_mask[str_index], index);
 			next_ch_quoted = quoted_char(quote_mask[str_index], index + 1);
-			//printf("char: %c current: %d\n", expand_strs[str_index][index], current_ch_quoted);
 			if ((current_ch_quoted || (!current_ch_quoted && !char_in_set(expand_strs[str_index][index], "\t\n ")))
 					&& ((char_in_set(expand_strs[str_index][index + 1], "\t\n ") && !next_ch_quoted) || !expand_strs[str_index][index + 1]))
-			{
 				field_len++;
-			}
 			index++;
 		}
 		str_index++;
@@ -72,7 +69,6 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, siz
 	index = 0;
 	while (start < end)
 	{
-		//printf("(%c)", expand_str[start]);
 		if (!get_bit(quote_mask, start))
 		{
 			field[index] = expand_str[start];
@@ -101,15 +97,13 @@ size_t	get_field_len(char *expand_str, char *quote_mask)
 	return (len);
 }
 
-void	set_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end)
+void	set_field(char **field, char *expand_str, char *quote_mask, size_t start, size_t end)
 {
 	size_t	len;
 
 	len = get_field_len(expand_str, quote_mask);
-	//printf("hey %zu\n", len);
-	field = malloc(sizeof(char) * (len + 1));
-	cp_field(field, expand_str, quote_mask, start, end);
-	printf("[%s]", field);
+	*field = malloc(sizeof(char) * (len + 1));
+	cp_field(*field, expand_str, quote_mask, start, end);
 }
 
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask)
@@ -125,14 +119,13 @@ void	fill_fields(char **expand_strs, char **fields, char **quote_mask)
 	{
 		index = 0;
 		start = 0;
-	//printf("%s\n", expand_strs[str_index]);
 		while (expand_strs[str_index][index])
 		{
 			if (expand_strs[str_index][index] && ((char_in_set(expand_strs[str_index][index + 1], "\t\n ")
 						&& !quoted_char(quote_mask[str_index], index + 1))
 					|| !expand_strs[str_index][index + 1]))
 			{
-				set_field(fields[field_index], expand_strs[str_index], quote_mask[str_index], start, index + 1);
+				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], start, index + 1);
 				field_index++;
 			}
 			index++;
@@ -150,9 +143,12 @@ void	filed_splitting(char **expand_strs, char **quote_mask)
 {
 	int	fields_len;
 	char	**fields;
+	int	index = 0;
 
 	fields_len = get_fields_len(expand_strs, quote_mask);
-	printf("fields_len: %d\n", fields_len);
 	fields = malloc(sizeof(char *) * (fields_len + 1));
 	fill_fields(expand_strs, fields, quote_mask);
+	fields[fields_len] = NULL;
+	while (fields[index])
+		printf("[%s]\n", fields[index++]);
 }
