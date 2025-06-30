@@ -56,16 +56,7 @@ int run_pwd(t_executable_data *data)
 {
     (void) data;
     printf("%s\n", expand_env("PWD"));
-    return (EXIT_SUCCESS);
-}
-
-int run_cd(t_executable_data *data)
-{
-    char **vec;
-
-    vec = data->lst;
-    vec++;
-    printf("running cd\n");
+    // or get from getcwd
     return (EXIT_SUCCESS);
 }
 

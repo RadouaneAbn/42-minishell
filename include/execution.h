@@ -32,4 +32,7 @@ int redirect_output(char *path, t_executable_data *data);
 int append_output(char *path, t_executable_data *data);
 int here_doc_input(char *path, t_executable_data *data);
 
+/* Printing errors */
+int print_cmd_error(char *error);
+
 #endif

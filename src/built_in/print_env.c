@@ -17,7 +17,7 @@ int print_env(int fd)
         {
             ft_putstr_fd(node->key, fd);
             ft_putstr_fd("=", fd);
-            ft_putstr_fd(node->key, fd);
+            ft_putstr_fd(node->value, fd);
             ft_putstr_fd("\n", fd);
         }
         node = node->ordered_next;
@@ -43,7 +43,7 @@ int print_exports(int fd)
         if (node->value)
         {
             ft_putstr_fd("=\"", fd);
-            ft_putstr_fd(node->key, fd);
+            ft_putstr_fd(node->value, fd);
             ft_putstr_fd("\"", fd);
         }
         ft_putstr_fd("\n", fd);
