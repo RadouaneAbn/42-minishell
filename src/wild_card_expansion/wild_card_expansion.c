@@ -1,10 +1,20 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <dirent.h>
 
-int	main(int argc, char **argv)
-{
-		(void)argc;
-		(void)argv;
+int main (void) {
+	struct dirent *pDirent;
+	DIR *pDir;
+	char	*var = ".";
 
-			return (0);
+	pDir = opendir (var);
+	if (pDir == NULL) {
+		printf ("Cannot open directory '%s'\n", var);
+		return 1;
+	}
+	while ((pDirent = readdir(pDir)) != NULL) {
+		if (strncmp(pDirent->d_name, "c", 1) == 0)
+			printf ("[%s]\n", pDirent->d_name);
+	}
+	closedir (pDir);
+	return 0;
 }

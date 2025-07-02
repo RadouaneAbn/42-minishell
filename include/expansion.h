@@ -1,5 +1,7 @@
 #ifndef EXPANSION_H
 #define EXPANSION_H
+#define REINITIALIZE true
+#define RESUME false
 bool	valid_key_char(char c);
 void	expand_word(char **str, size_t *index, char *complete_string);
 void	expand_len(char *str);
@@ -8,7 +10,7 @@ bool	valid_key_char(char c);
 size_t expand_word_len(char **str);
 size_t expand_str_len(char *str);
 void	print_bits(char *quote_array, int size);
-int	hey(int len);
+int	get_byte_len(int len);
 void	add_bits(char *quote_array, int size);
 char	*get_value(char *key);
 bool	first_key_ch(char c);

@@ -16,7 +16,7 @@ void	tree_expand_simple_command(t_tree *simple_command)
 	{
 		node = simple_command->data;
 		expand_str[index] = malloc(sizeof(char) * (expand_str_len(node)) + 1);
-		quote_array[index] = ft_calloc(hey(expand_str_len(node)), sizeof(char));
+		quote_array[index] = ft_calloc(get_byte_len(expand_str_len(node)), sizeof(char));
 		expand(node, expand_str[index], quote_array[index]);
 		shift_bits(quote_array[index], expand_str_len(node));
 		simple_command = simple_command->next;

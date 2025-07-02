@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-int	hey(int len)
+int	get_byte_len(int len)
 {
 	int	size;
 
@@ -40,7 +40,7 @@ void	shift_bits(char *quote_array, int size)
 	int	index;
 	int	rest;
 
-	index = hey(size) - 1;
+	index = get_byte_len(size) - 1;
 	if (size % 8 != 0)
 	{
 		rest = 8 - (size % 8);
