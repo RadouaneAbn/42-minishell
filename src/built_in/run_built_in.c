@@ -55,18 +55,44 @@ int run_echo(t_executable_data *data)
 int run_pwd(t_executable_data *data)
 {
     (void) data;
-    printf("%s\n", expand_env("PWD"));
-    // or get from getcwd
+    char *path;
+
+    path = expand_env("PWD");
+    if (path[0] == '\0')
+    {
+        path = getcwd(NULL, 0);
+        if (path == NULL)
+            return (perror("minishell: pwd"), EXIT_FAILURE);
+        printf("%s\n", path);
+        free(path);
+    }
+    else
+        printf("%s\n", path);
     return (EXIT_SUCCESS);
 }
 
 int run_exit(t_executable_data *data)
 {
     char **vec;
-
+    char *exit_str;
+    long exit_status;
+    
     vec = data->lst;
-    vec++;
-    exit(42);
+    exit_str = vec[1];
+    if (exit_str == NULL)
+        exit_status = get_exit_status();
+    else
+    {
+        exit_status = convert_exist_status(exit_str);
+        if (exit_status == -1)
+        {
+            ft_putstr_fd("minishell: exit: ", 2);
+            ft_putstr_fd(exit_str, 2);
+            ft_putendl_fd(": numeric argument required", 2);
+            exit_status = 2;
+        }
+    }
+    exit(exit_status);
 }
 
 int command_is_empty(char *cmd)

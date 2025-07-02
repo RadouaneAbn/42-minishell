@@ -44,6 +44,8 @@ int run_pwd(t_executable_data *data);
 int run_cd(t_executable_data *data);
 int run_exit(t_executable_data *data);
 
+long convert_exist_status(char *arg);
+
 t_cmd_type get_command_type (char *cmd);
 
 #endif

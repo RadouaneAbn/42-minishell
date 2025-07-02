@@ -50,7 +50,18 @@ int pre_export(char *exported)
 
     args = split_export_args(exported);
     if (key_isvalid(args[0]) == FALSE)
+    {
+        // bash: export: `1=2': not a valid identifier
+        ft_putstr_fd("minishell: export: `", 2);
+        ft_putstr_fd(args[0], 2);
+        if (args[1])
+        {
+            ft_putstr_fd("=", 2);
+            ft_putstr_fd(args[1], 2);
+        }
+        ft_putendl_fd("': not a valid identifier", 2);
         return (EXIT_FAILURE);
+    }
     status = export(args[0], args[1]);
     free(args[0]);
     free(args[1]);

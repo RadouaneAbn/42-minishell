@@ -80,17 +80,6 @@ void print_sib(t_tree *tree)
         printf("type: [null]\n");
 }
 
-/*
-ls || pwd || cat && hey
-*/
-
-void run_pipe_line(t_tree *tree)
-{
-    (void) tree;
-    printf("this is a pipe line\n");
-    return ;
-}
-
 void execute_tree(t_tree *tree)
 {
     t_info *info;
@@ -113,7 +102,10 @@ void execute_tree(t_tree *tree)
             else
             {
                 if (tree->sibling)
+                {
                     run_pipe_line(tree);
+                    return;
+                }
                 else
                     execute_command_tree(tree->next);
             }

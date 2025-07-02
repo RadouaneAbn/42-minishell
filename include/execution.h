@@ -3,6 +3,7 @@
 
 #include <parser.h>
 # include <sys/wait.h>
+# include <built_in.h>
 
 
 # define CMD_NOT_FOUND "command not found"
@@ -34,5 +35,13 @@ int here_doc_input(char *path, t_executable_data *data);
 
 /* Printing errors */
 int print_cmd_error(char *error);
+
+/* Pipe */
+void run_pipe_line(t_tree *tree);
+
+t_func_ptr *get_exec_functions(void);
+int handle_redirections(t_tree *tree, t_executable_data *data);
+void init_executable_data(t_executable_data *data);
+char **get_full_command_from_tree(t_tree *tree);
 
 #endif

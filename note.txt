@@ -4,3 +4,5 @@ export @s
 
 the error should stop the here-here_doc
 <>< cat << lim 
+
+ ls | ls
