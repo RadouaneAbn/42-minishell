@@ -1,9 +1,5 @@
-askljdfasdf
-askljdflaksdf
-alkjsdflasdf
-aslkdjflkasdf
+laksjdf
+aslkdjf
 alksjdf
-askldjf
-askjldf
-askljdf
-akljsdf
+lskd
+$cwd
