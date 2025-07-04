@@ -26,6 +26,7 @@ int run_executable(t_executable_data *data);
 
 int get_exit_status(void);
 void set_exit_status(int status);
+void store_child_exit_status(int status);
 
 /* Redirection handling functions */
 int redirect_input(char *path, t_executable_data *data);
