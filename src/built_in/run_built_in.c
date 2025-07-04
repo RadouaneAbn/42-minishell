@@ -222,6 +222,8 @@ int run_executable(t_executable_data *data)
     char **vec;
 
     vec = data->lst;
+    if (vec[0] == NULL)
+        exit(0);
     if (command_is_empty(vec[0]))
         exit(127);
     if (ft_strchr(vec[0], '/') == NULL)

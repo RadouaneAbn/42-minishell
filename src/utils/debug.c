@@ -6,13 +6,9 @@ void print_args_list(char **args)
     int i;
 
     i = 0;
-    printf("{");
     while (args[i])
     {
-        printf("\"%s\"", args[i]);
-        if (args[i + 1] != NULL)
-            printf(", ");
+        printf("%s\n", args[i]);
         i++;
     }
-    printf("}\n");
 }

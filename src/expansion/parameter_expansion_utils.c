@@ -1,9 +1,13 @@
 #include <minishell.h>
 
-//check if char in word after $ is valid
-bool	valid_key_char(char c)
+bool	first_key_ch(char c)
 {
-	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
+	return (ft_isalpha(c) || c == '_' || c == '?');
+}
+
+bool	key_ch(char c)
+{
+	return (ft_isalpha(c) || c == '_' || ft_isdigit(c));
 }
 
 char	*get_key(char **str)
@@ -12,7 +16,7 @@ char	*get_key(char **str)
 	size_t	len;
 
 	len = 0;
-	while (valid_key_char((*str)[len]))
+	while (key_ch((*str)[len]))
 		len++;
 	key = ft_substr(*str, 0, len);
 	if (key == NULL)

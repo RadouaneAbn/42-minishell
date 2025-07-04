@@ -49,7 +49,7 @@ pid_t execute_command_tree_piped(t_tree *tree, int fd_in, int fd_out)
     char **cmd_array;
     pid_t pid;
 
-    cmd_array = get_full_command_from_tree(tree);
+    cmd_array = tree_expand_simple_command(tree);
     pid = fork();
     if (pid == 0)
         execute_command_piped(cmd_array, tree->sibling, fd_in, fd_out);

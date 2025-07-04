@@ -15,14 +15,14 @@ int	main(int argc, char *argv[], char **env)
 		//rl_redisplay();
 		if (!line)
 			break ;
-		if (line[0] == '\0')
+		if (str_blank(line))
 		{
 			free(line);
 			continue ;
 		}
 		add_history(line);
-		if (!str_blank(line))
-			lexer(line);
+		//if (!str_blank(line))
+		lexer(line);
 		free(line);
 	}
 	rl_clear_history();

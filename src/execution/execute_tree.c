@@ -38,7 +38,9 @@ void execute_command_tree(t_tree *tree)
     int status;
     pid_t pid;
 
-    cmd_array = get_full_command_from_tree(tree);
+    // cmd_array = get_full_command_from_tree(tree);
+    cmd_array = tree_expand_simple_command(tree);
+    // print_args_list(cmd_array);
     pid = -1;
     if (get_command_type((char *) tree->data) == RUN_EXECUTABLE)
         pid = fork();
