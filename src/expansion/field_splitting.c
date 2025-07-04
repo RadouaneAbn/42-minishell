@@ -39,7 +39,10 @@ int	get_fields_len(char **expand_strs, char **quote_mask)
 		while (expand_strs[str_index][index])
 		{
 			current_ch_quoted = quoted_char(quote_mask[str_index], index);
-			next_ch_quoted = quoted_char(quote_mask[str_index], index + 1);
+			if (expand_strs[str_index][index + 1])
+				next_ch_quoted = quoted_char(quote_mask[str_index], index + 1);
+			else
+				next_ch_quoted = false;
 			if ((current_ch_quoted || (!current_ch_quoted && !char_in_set(expand_strs[str_index][index], "\t\n ")))
 					&& ((char_in_set(expand_strs[str_index][index + 1], "\t\n ") && !next_ch_quoted) || !expand_strs[str_index][index + 1]))
 				field_len++;
