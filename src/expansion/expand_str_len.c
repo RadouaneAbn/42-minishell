@@ -10,11 +10,11 @@ size_t	expand_word_len(char **str)
 	len = 0;
 	if (peakch(*str) == '?')
 	{
-		exit_code = "100";
+		exit_code = ft_itoa(get_exit_status());
 		exit_code_len = ft_strlen(exit_code);
 		len += exit_code_len;
 		*str += 2;
-		//free(exit_code);
+		free(exit_code);
 		return (len);
 	}
 	(*str)++;

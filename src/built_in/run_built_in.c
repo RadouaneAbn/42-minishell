@@ -57,17 +57,20 @@ int run_pwd(t_executable_data *data)
     (void) data;
     char *path;
 
+    if (data->fd_out == -1)
+        data->fd_out = STDOUT_FILENO;
     path = expand_env("PWD");
     if (path[0] == '\0')
     {
         path = getcwd(NULL, 0);
         if (path == NULL)
             return (perror("minishell: pwd"), EXIT_FAILURE);
-        printf("%s\n", path);
+        // printf("%s\n", path);
+        ft_putendl_fd(path, data->fd_out);
         free(path);
     }
     else
-        printf("%s\n", path);
+        ft_putendl_fd(path, data->fd_out);
     return (EXIT_SUCCESS);
 }
 

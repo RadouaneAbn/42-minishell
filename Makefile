@@ -41,7 +41,7 @@ fclean: clean
 
 re: fclean $(TARGET)
 
-run: $(TARGET) clean
+run: $(TARGET)
 	clear
 	./$(TARGET)
 

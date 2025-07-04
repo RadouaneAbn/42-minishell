@@ -65,12 +65,7 @@ void wait_for_children(pid_t last_pid)
     while ((wpid = waitpid(-1, &status, 0)) > 0)         
     {
         if (wpid == last_pid) {                        
-            if (WIFEXITED(status))
-                set_exit_status(WEXITSTATUS(status));
-            else if (WIFSIGNALED(status))
-                set_exit_status(128 + WTERMSIG(status));   
-            else
-                set_exit_status(1);
+            store_child_exit_status(status);
         }
     }
 }

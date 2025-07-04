@@ -100,7 +100,7 @@ void execute_command_2(char **cmdv, t_tree *tree)
     init_executable_data(&data);
     if (handle_redirections(tree, &data) == -1)
     {
-        set_exit_status(2);
+        set_exit_status(1);
         return ;
     }
     data.lst = cmdv;

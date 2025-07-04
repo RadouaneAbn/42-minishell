@@ -71,12 +71,12 @@ void	expand_word(char **str, size_t *len, char *expand_str)
 
 	if (peakch(*str) == '?')
 	{
-		exit_code = "100";
+		exit_code = ft_itoa(get_exit_status());
 		exit_code_len = ft_strlen(exit_code);
 		ft_memcpy(expand_str + *len, exit_code, exit_code_len);
 		*len += exit_code_len;
 		(*str) += 2;
-		//free(exit_code);
+		free(exit_code);
 		return ;
 	}
 	(*str)++;
