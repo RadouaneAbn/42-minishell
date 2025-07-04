@@ -56,12 +56,21 @@ int main (int argc, char *argv[])
 	struct dirent *child_file;
 	DIR *pDir;
 	char	*var = argv[1];
+	bool	expanded;
+	char	**ptr;
 
-	pDir = opendir (".");
+	ptr = ft_split(var, '/');
+	expanded = false;
+	pDir = opendir (ptr[0]);
 	while ((child_file = readdir(pDir)) != NULL) {
 		if (check_pattern(child_file->d_name, var))
+		{
+			expanded = true;
 			printf("%s\n", child_file->d_name);
+		}
 	}
 	closedir (pDir);
+	if (!expanded)
+		printf("%s\n", var);
 	return 0;
 }
