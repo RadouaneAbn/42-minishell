@@ -85,6 +85,9 @@ void	get_child_files(char *dir, char **pattern, int number)
 			//if (strcmp(dir, ".") == 0)
 				//folder = NULL;
 			//else
+			if (dir == NULL)
+				folder = ft_strjoin(".", "/");
+			else
 				folder = ft_strjoin(dir, "/");
 			get_child_files(ft_strjoin(folder, child_file->d_name), pattern, number + 1);
 		}
