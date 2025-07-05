@@ -27,6 +27,8 @@ bool	check_pattern(char *filename, char *pattern)
 	index = 0;
 	offset = 0;
 	strings = ft_split(pattern, '*');
+	if (filename[0] == '.' && pattern[0] != '.')
+		return (false);
 	while (filename[offset] && strings[index])
 	{
 		if ((index == 0 && pattern[0] != '*') && strncmp(filename, strings[index], ft_strlen(strings[index])) != 0)
@@ -44,33 +46,62 @@ bool	check_pattern(char *filename, char *pattern)
 		}
 		offset++;
 	}
-	int j;
-	j = 0;
 	if (strings[index] == NULL)
 		return (true);
 	return (false);
 }
 
-int main (int argc, char *argv[])
+void	print_list(t_list *list)
 {
+	while (list)
+	{
+		printf("%s\n", (char *)list->content);
+		list = list->next;
+	}
+}
+
+void	get_child_files(char *dir, char **pattern, int number)
+{
+	//t_list	*list = NULL;
 	struct dirent *child_file;
 	DIR *pDir;
-	char	*var = argv[1];
-	bool	expanded;
-	char	**ptr;
+	char *folder;
 
-	ptr = ft_split(var, '/');
-	expanded = false;
-	pDir = opendir (ptr[0]);
-	while ((child_file = readdir(pDir)) != NULL) {
-		if (check_pattern(child_file->d_name, var))
+	if (dir == NULL)
+		pDir = opendir (".");
+	else
+		pDir = opendir (dir);
+	while (pattern[number] && pDir && (child_file = readdir(pDir)) != NULL) {
+		if (check_pattern(child_file->d_name, pattern[number]))
 		{
-			expanded = true;
-			printf("%s\n", child_file->d_name);
+			if (pattern[number + 1] == NULL)
+			{
+				if (dir == NULL)
+					printf("[%s]\n", child_file->d_name);
+				else
+					printf("[%s]/[%s]\n", dir, child_file->d_name);
+			}
+			//ft_lstadd_back(&list, ft_lstnew(ft_strdup(child_file->d_name)));
+			//if (strcmp(dir, ".") == 0)
+				//folder = NULL;
+			//else
+				folder = ft_strjoin(dir, "/");
+			get_child_files(ft_strjoin(folder, child_file->d_name), pattern, number + 1);
 		}
 	}
 	closedir (pDir);
-	if (!expanded)
-		printf("%s\n", var);
+}
+
+int main (int argc, char *argv[])
+{
+	char	**patterns;
+
+	patterns = ft_split(argv[1], '/');
+	if (argv[1][0] == '/')
+		get_child_files("/", patterns, 0);
+	else if (strcmp(patterns[0], ".") == 0 || strcmp(patterns[0], "..") == 0)
+		get_child_files(patterns[0], patterns + 1, 0);
+	else
+		get_child_files(NULL, patterns, 0);
 	return 0;
 }
