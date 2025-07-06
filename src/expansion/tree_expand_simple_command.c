@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	tree_expand_simple_command(t_tree *simple_command)
+char **tree_expand_simple_command(t_tree *simple_command)
 {
 	size_t	len;
 	char *node;
@@ -23,5 +23,5 @@ void	tree_expand_simple_command(t_tree *simple_command)
 		index++;
 	}
 	expand_str[index] = NULL;
-	filed_splitting(expand_str, quote_mask);
+	return (field_splitting(expand_str, quote_mask));
 }

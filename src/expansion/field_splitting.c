@@ -189,7 +189,7 @@ void	print_fields(char **fields, t_list *star_mask)
 	}
 }
 
-void	filed_splitting(char **expand_strs, char **quote_mask)
+char	**field_splitting(char **expand_strs, char **quote_mask)
 {
 	size_t	fields_len;
 	char	**fields;
@@ -201,4 +201,5 @@ void	filed_splitting(char **expand_strs, char **quote_mask)
 	fill_fields(expand_strs, fields, quote_mask, &star_mask);
 	fields[fields_len] = NULL;
 	print_fields(fields, star_mask);
+	return (fields);
 }

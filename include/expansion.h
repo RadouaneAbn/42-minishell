@@ -46,12 +46,12 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_
 size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start);
 void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask);
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask);
-void	filed_splitting(char **expand_strs, char **quote_mask);
+char **field_splitting(char **expand_strs, char **quote_mask);
 
 
 
 
-void	tree_expand_simple_command(t_tree *simple_command);
+char **tree_expand_simple_command(t_tree *simple_command);
 void	expand(char *str, char *complete_string, char *quote_array);
 
 
