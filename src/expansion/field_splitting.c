@@ -122,62 +122,53 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_
 	set_star_mask(field, star_mask, quote_mask, (t_range){start_tmp, index});
 }
 
-size_t	get_field_len(char *expand_str, char *quote_mask)
+size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start)
 {
 	size_t	len;
-	size_t	index;
 
-	index = 0;
 	len = 0;
-	while (char_in_set(expand_str[index], "\t\n "))
-		index++;
-	while (expand_str[index] && !(char_in_set(expand_str[index], "\t\n ")
-			&& !quoted_char(quote_mask, index)))
+	while (expand_str[*start] && !(char_in_set(expand_str[*start], "\t\n ")
+			&& !quoted_char(quote_mask, *start)))
 	{
-		if (!get_bit(quote_mask, index))
+		if (!get_bit(quote_mask, *start))
 			len++;
-		index++;
+		(*start)++;
 	}
 	return (len);
 }
 
 void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
-	range.len = get_field_len(expand_str + range.start, quote_mask);
-	printf("range len: %zu start: %zu\n", range.len, range.start);
+	printf("range len: %zu start: %zu char: %c\n", range.len, range.start, expand_str[range.start]);
 	*field = malloc(sizeof(char) * (range.len + 1));
 	cp_field(*field, expand_str, quote_mask, range, star_mask);
 }
 
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask)
 {
-	int	str_index;
+	size_t	str_index;
 	size_t index;
-	int	field_index;
+	size_t	field_index;
 	size_t	start;
+	size_t	len;
 
 	str_index = 0;
 	field_index = 0;
 	while (expand_strs[str_index])
 	{
 		index = 0;
-		start = 0;
 		while (expand_strs[str_index][index])
 		{
-			if (expand_strs[str_index][index] && ((char_in_set(expand_strs[str_index][index + 1], "\t\n ")
-						&& !quoted_char(quote_mask[str_index], index + 1))
-					|| !expand_strs[str_index][index + 1]))
+			if (expand_strs[str_index][index] && !(char_in_set(expand_strs[str_index][index], "\t\n ")
+					&& !quoted_char(quote_mask[str_index], index)))
 			{
-
-				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], (t_range){start, 0}, star_mask);
+				start = index;
+				len = get_field_len(expand_strs[str_index], quote_mask[str_index], &index);
+				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], (t_range){start, len}, star_mask);
 				field_index++;
 			}
-			index++;
-			while (char_in_set(expand_strs[str_index][index], "\n\t ") && !quoted_char(quote_mask[str_index], index))
-			{
+			else
 				index++;
-				start = index;
-			}
 		}
 		str_index++;
 	}
