@@ -66,60 +66,60 @@ unsigned char get_bit(char *quote_mask, size_t size)
 }
 
 
-char *get_star_mask (char *field, char *quote_mask, size_t start, size_t	len)
+char *get_star_mask (char *field, char *quote_mask, t_range range)
 {
 	char	*star_mask;
 	size_t	index;
 
 	index = 0;
-	star_mask = malloc(get_byte_len(len) * sizeof(char));
-	while (index < len)
+	star_mask = malloc(get_byte_len(range.len) * sizeof(char));
+	while (index < range.len)
 	{
-		if (!get_bit(quote_mask, start))
+		if (!get_bit(quote_mask, range.start))
 		{
-			if (!quoted_char(quote_mask, start) && field[index] == '*')
+			if (!quoted_char(quote_mask, range.start) && field[index] == '*')
 				set_mask_byte(star_mask, index, 1);
 			else
 				set_mask_byte(star_mask, index, 0);
 			index++;
 		}
-		start++;
+		range.start++;
 	}
-	shift_bits(star_mask, len);
+	shift_bits(star_mask, range.len);
 	return (star_mask);
 }
 
-void	set_star_mask(char *field, t_list **star_mask, char *quote_mask, size_t start_tmp, size_t	len)
+void	set_star_mask(char *field, t_list **star_mask, char *quote_mask, t_range range)
 {
 	char	*mask;
 	t_list	*mask_node;
 
 	if (ft_strchr(field, '*'))
-		mask = get_star_mask(field, quote_mask, start_tmp, len);
+		mask = get_star_mask(field, quote_mask, range);
 	else
 		mask = NULL;
 	mask_node = ft_lstnew(mask);
 	ft_lstadd_back(star_mask, mask_node);
 }
 
-void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end, t_list **star_mask)
+void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
 	size_t	index;
 	size_t	start_tmp;
 
 	index = 0;
-	start_tmp = start;
-	while (start < end)
+	start_tmp = range.start;
+	while (index < range.len)
 	{
-		if (!get_bit(quote_mask, start))
+		if (!get_bit(quote_mask, range.start))
 		{
-			field[index] = expand_str[start];
+			field[index] = expand_str[range.start];
 			index++;
 		}
-		start++;
+		range.start++;
 	}
 	field[index] = '\0';
-	set_star_mask(field, star_mask, quote_mask, start_tmp, start);
+	set_star_mask(field, star_mask, quote_mask, (t_range){start_tmp, index});
 }
 
 size_t	get_field_len(char *expand_str, char *quote_mask)
@@ -141,13 +141,12 @@ size_t	get_field_len(char *expand_str, char *quote_mask)
 	return (len);
 }
 
-void	set_field(char **field, char *expand_str, char *quote_mask, size_t start, size_t end, t_list **star_mask)
+void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
-	size_t	len;
-
-	len = get_field_len(expand_str, quote_mask);
-	*field = malloc(sizeof(char) * (len + 1));
-	cp_field(*field, expand_str, quote_mask, start, end, star_mask);
+	range.len = get_field_len(expand_str + range.start, quote_mask);
+	printf("range len: %zu start: %zu\n", range.len, range.start);
+	*field = malloc(sizeof(char) * (range.len + 1));
+	cp_field(*field, expand_str, quote_mask, range, star_mask);
 }
 
 void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask)
@@ -170,7 +169,7 @@ void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **
 					|| !expand_strs[str_index][index + 1]))
 			{
 
-				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], start, index + 1, star_mask);
+				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], (t_range){start, 0}, star_mask);
 				field_index++;
 			}
 			index++;
@@ -184,7 +183,7 @@ void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **
 	}
 }
 
-void	print_fields(char **fields, t_list **star_mask)
+void	print_fields(char **fields, t_list *star_mask)
 {
 	size_t	index;
 
@@ -210,4 +209,5 @@ void	filed_splitting(char **expand_strs, char **quote_mask)
 	fields = malloc(sizeof(char *) * (fields_len + 1));
 	fill_fields(expand_strs, fields, quote_mask, &star_mask);
 	fields[fields_len] = NULL;
+	print_fields(fields, star_mask);
 }
