@@ -139,7 +139,7 @@ size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start)
 
 void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
-	printf("range len: %zu start: %zu char: %c\n", range.len, range.start, expand_str[range.start]);
+	//printf("range len: %zu start: %zu char: %c\n", range.len, range.start, expand_str[range.start]);
 	*field = malloc(sizeof(char) * (range.len + 1));
 	cp_field(*field, expand_str, quote_mask, range, star_mask);
 }
