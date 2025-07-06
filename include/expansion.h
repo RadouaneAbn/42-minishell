@@ -24,6 +24,7 @@ bool	first_key_ch(char c);
 bool	key_ch(char c);
 
 void	shift_bits(char *quote_array, int size);
+void	set_mask_byte(char *quote_array, int size, char bit);
 
 
 
@@ -32,10 +33,10 @@ void	shift_bits(char *quote_array, int size);
 bool	field_char_quoted(char *quote_mask, int size);
 int	get_fields_len(char **expand_strs, char **quote_mask);
 unsigned char get_bit(char *quote_mask, size_t size);
-void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end);
+void	cp_field(char *field, char *expand_str, char *quote_mask, size_t start, size_t end, t_list **star_mask);
 size_t	get_field_len(char *expand_str, char *quote_mask);
-void	set_field(char **field, char *expand_str, char *quote_mask, size_t start, size_t end);
-void	fill_fields(char **expand_strs, char **fields, char **quote_mask);
+void	set_field(char **field, char *expand_str, char *quote_mask, size_t start, size_t end, t_list **star_mask);
+void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask);
 void	filed_splitting(char **expand_strs, char **quote_mask);
 
 

@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-static void	set_mask_byte(char *quote_array, int size, char bit)
+void	set_mask_byte(char *quote_array, int size, char bit)
 {
 	int	byte_index;
 

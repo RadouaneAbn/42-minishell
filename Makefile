@@ -20,7 +20,7 @@ clean:
 	$(RM) $(RM_OPTIONS) $(OBJECT_FILES)
 
 libft/libft.a:
-	make -C libft
+	make -C libft bonus
 
 fclean: clean
 	$(RM) $(RM_OPTIONS) $(TARGET)
@@ -32,8 +32,8 @@ run: $(TARGET) clean
 	clear
 	./$(TARGET)
 
-valgrind: re
-	valgrind ./$(TARGET)
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
 
 
 DATE = $(shell date +%F/%H/%M)
