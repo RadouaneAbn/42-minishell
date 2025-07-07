@@ -43,7 +43,7 @@ char	*utoa(size_t num)
 	ptr = (char *)malloc((length + 1) * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
-	*(ptr + length) = '\0';
+	ptr[length] = '\0';
 	utoa_fill(ptr, num, length - 1, start);
 	return (ptr);
 }

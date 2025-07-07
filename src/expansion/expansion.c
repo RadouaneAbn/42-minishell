@@ -52,7 +52,7 @@ void	expand(char *str, char *expand_str, char *quote_array)
 char	*get_value(char *key)
 {
 	if (strmatch(key, "var"))
-		return ("hey");
+		return (" hey");
 	else if (strmatch(key, "cwd"))
 		return ("hey hey hey");
 	else if (strmatch(key, "but"))
