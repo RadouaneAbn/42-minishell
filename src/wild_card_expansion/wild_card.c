@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <dirent.h>
 #include "libft.h"
+
 char	get_last_char(char *str)
 {
 	size_t	index;
@@ -60,7 +61,7 @@ void	print_list(t_list *list)
 	}
 }
 
-void	get_child_files(char *dir, char *pattern, t_list **wild_card_list)
+void	get_child_files(char *pattern, )
 {
 	struct dirent *child_file;
 	DIR *pDir;
@@ -82,14 +83,19 @@ void	get_child_files(char *dir, char *pattern, t_list **wild_card_list)
 }
 
 
-int main (int argc, char *argv[])
+t_tree	**wild_card_expansion(char **fields, t_list **star_mask)
 {
-	char *var;
-	t_list	*wild_card_list;
+	t_tree	*tree;
+	size_t	index;
 
-	wild_card_list = NULL;
-	var = argv[1];
-	get_child_files(".", var, &wild_card_list);
-	print_list(wild_card_list);
+	tree = NULL;
+	index = 0;
+	while (fields[index])
+	{
+		if (!star_mask[index])
+			get_child_files(fields[index], &tree);
+		else
+			;
+	}
 	return 0;
 }

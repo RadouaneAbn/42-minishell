@@ -28,4 +28,3 @@ void	print_tree(t_tree *tree, int n)
 		tree = tree->sibling;
 	}
 }
-

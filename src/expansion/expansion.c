@@ -20,7 +20,7 @@ void	expand(char *str, char *expand_str, char *quote_array)
 	start = 0;
 	while (*str)
 	{
-		if (char_in_set(*str, "'\""))
+		if (is_quote(*str))
 		{
 			if (!quoted)
 				quote = *str;

@@ -43,8 +43,8 @@ size_t	get_fields_len(char **expand_strs, char **quote_mask)
 				next_ch_quoted = quoted_char(quote_mask[str_index], index + 1);
 			else
 				next_ch_quoted = false;
-			if ((current_ch_quoted || (!current_ch_quoted && !char_in_set(expand_strs[str_index][index], "\t\n ")))
-					&& ((char_in_set(expand_strs[str_index][index + 1], "\t\n ") && !next_ch_quoted) || !expand_strs[str_index][index + 1]))
+			if ((current_ch_quoted || (!current_ch_quoted && !is_space(expand_strs[str_index][index])))
+					&& ((is_space(expand_strs[str_index][index + 1]) && !next_ch_quoted) || !expand_strs[str_index][index + 1]))
 				field_len++;
 			index++;
 		}
@@ -127,7 +127,7 @@ size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start)
 	size_t	len;
 
 	len = 0;
-	while (expand_str[*start] && !(char_in_set(expand_str[*start], "\t\n ")
+	while (expand_str[*start] && !(is_space(expand_str[*start])
 			&& !quoted_char(quote_mask, *start)))
 	{
 		if (!get_bit(quote_mask, *start))
@@ -159,7 +159,7 @@ void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **
 		index = 0;
 		while (expand_strs[str_index][index])
 		{
-			if (expand_strs[str_index][index] && !(char_in_set(expand_strs[str_index][index], "\t\n ")
+			if (expand_strs[str_index][index] && !(is_space(expand_strs[str_index][index])
 					&& !quoted_char(quote_mask[str_index], index)))
 			{
 				start = index;
@@ -189,25 +189,6 @@ void	print_fields(char **fields, t_list *star_mask)
 	}
 }
 
-void	print_star_list(char **parts);
-char	**field_splitting(char **expand_strs, char **quote_mask)
-{
-	size_t	fields_len;
-	char	**fields;
-	t_list *star_mask;
-
-	star_mask = NULL;
-	fields_len = get_fields_len(expand_strs, quote_mask);
-	fields = malloc(sizeof(char *) * (fields_len + 1));
-	fill_fields(expand_strs, fields, quote_mask, &star_mask);
-	fields[fields_len] = NULL;
-	print_fields(fields, star_mask);
-	char **parts = get_star_fields(fields[0], star_mask->content);
-	print_star_list(parts);
-	(void)parts;
-	return (fields);
-}
-
 void	print_star_list(char **parts)
 {
 	size_t	index;
@@ -220,4 +201,20 @@ void	print_star_list(char **parts)
 	}
 }
 
+char	**field_splitting(char **expand_strs, char **quote_mask)
+{
+	size_t	fields_len;
+	char	**fields;
+	t_list *star_mask;
 
+	star_mask = NULL;
+	fields_len = get_fields_len(expand_strs, quote_mask);
+	fields = malloc(sizeof(char *) * (fields_len + 1));
+	fill_fields(expand_strs, fields, quote_mask, &star_mask);
+	fields[fields_len] = NULL;
+	print_fields(fields, star_mask);
+	//char **parts = get_star_fields(fields[0], star_mask->content);
+	//print_star_list(parts);
+	//(void)parts;
+	return (fields);
+}

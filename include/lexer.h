@@ -34,7 +34,7 @@ typedef struct s_token_lst
 void	lexer(char *line);
 void	get_next_token(t_token *token, char *line);
 void	print_token(t_token token);
-bool	is_space(char c, char *spaces);
+bool	is_space(char character);
 
 //lexer util functions
 char *get_operator(int	index);
@@ -44,15 +44,6 @@ int     get_operator_type(char *line, size_t *position);
 void	get_token(t_token *token, char *line, size_t *position);
 bool    token_is_operator(char *line, size_t position);
 void	token_printlst(t_token_lst *token_lst);
-
-
-/*======================== SOME USEFUL FUNCTIONS=====================*/
-bool    strmatch(const char *s1,  const char *s2);
-bool    strnmatch(const char *s1,  const char *s2, size_t n);
-int     ft_strcmp(const char *s1, const char *s2);
-bool    char_in_set(char c, char *set);
-char	peakch(char *str);
-bool	str_blank(char *str);
 
 
 /*======================== token list manipulation functions=====================*/

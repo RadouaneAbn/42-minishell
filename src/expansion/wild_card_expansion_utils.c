@@ -41,7 +41,6 @@ void	set_star_fields(char **parts, char *str, char *star_mask)
 		if (!get_bit(star_mask, index))
 		{
 			define_star_field(parts + field_index, str, &index, star_mask);
-			//index++;
 			field_index++;
 		}
 		else

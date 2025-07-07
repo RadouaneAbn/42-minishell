@@ -84,15 +84,15 @@ void	set_word_token(t_token *token, char *line, size_t *position)
 	quoted = false;
 	start = *position;
 	while (((!quoted && !(token_is_operator(line, *position)
-						|| is_space(line[*position], "\t \n")))
+						|| is_space(line[*position])))
 				|| (quoted)) && line[*position] != '\0')
 	{
-		if (char_in_set(line[*position], "'\"") && !quoted)
+		if (is_quote(line[*position]) && !quoted)
 		{
 			quote = line[*position];
 			quoted = true;
 		}
-		else if (char_in_set(line[*position], "'\"") && quote == line[*position])
+		else if (is_quote(line[*position]) && quote == line[*position])
 			quoted = false;
 		(*position)++;
 	}

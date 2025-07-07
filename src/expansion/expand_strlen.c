@@ -36,7 +36,7 @@ size_t	expand_str_len(char *str)
 	len = 0;
 	while (*str)
 	{
-		if (char_in_set(*str, "'\""))
+		if (is_quote(*str))
 		{
 			if (!quoted)
 				quote = *str;

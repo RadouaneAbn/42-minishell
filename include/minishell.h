@@ -9,6 +9,7 @@
 # include <unistd.h>
 # include <colors.h>
 # include <libft.h>
+# include <utils.h>
 # include <string.h>
 # include <lexer.h>
 # include <parser.h>
