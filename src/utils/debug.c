@@ -8,7 +8,7 @@ void print_args_list(char **args)
     i = 0;
     while (args[i])
     {
-        printf("%s\n", args[i]);
+        printf("%d: %s\n", i, args[i]);
         i++;
     }
 }

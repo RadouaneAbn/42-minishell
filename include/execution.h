@@ -45,4 +45,8 @@ int handle_redirections(t_tree *tree, t_executable_data *data);
 void init_executable_data(t_executable_data *data);
 char **get_full_command_from_tree(t_tree *tree);
 
+
+
+
+void print_sib(t_tree *tree);
 #endif

@@ -45,7 +45,7 @@ run: $(TARGET)
 	clear
 	./$(TARGET)
 
-valgrind: re
+valgrind:
 	valgrind ./$(TARGET)
 
 test: $(MINITEST)

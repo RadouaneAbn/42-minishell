@@ -109,7 +109,9 @@ int command_is_empty(char *cmd)
             return (FALSE);
         i++;
     }
-    ft_putendl_fd(CMD_NOT_FOUND, 2);
+    ft_putstr_fd("minishell: ", 2);
+    ft_putstr_fd(cmd, 2);
+    ft_putendl_fd(": command not found", 2);
     return (TRUE);
 }
 
@@ -166,9 +168,10 @@ char *find_file(char *cmd)
         free(cmd_abs_path);
         i++;
     }
-    ft_putendl_fd(CMD_NOT_FOUND, 2);
+    ft_putstr_fd("minishell: ", 2);
+    ft_putstr_fd(cmd, 2);
+    ft_putendl_fd(": command not found", 2);
     exit(127);
-    return (NULL);
 }
 
 char *node_to_string(t_node *node)
@@ -206,15 +209,50 @@ char **build_env(void)
     return (env);
 }
 
+void print_error(char *m1, char *m2, char *m3, char *message)
+{
+    ft_putstr_fd("minishell: ", 2);
+    if (m1)
+    {
+        ft_putstr_fd(m1, 2);
+        ft_putstr_fd(": ", 2);
+    }
+    if (m2)
+    {
+        ft_putstr_fd(m2, 2);
+        ft_putstr_fd(": ", 2);
+    }
+    if (m3)
+    {
+        ft_putstr_fd(m3, 2);
+        ft_putstr_fd(": ", 2);
+    }
+    ft_putendl_fd(message, 2);
+}
+
+bool has_exec_perm(char *path)
+{
+    return (access(path, X_OK) == 0);
+}
+
 int execute_command_exec(t_executable_data *data)
 {
     char **vec;
 
     vec = data->lst;
-    // print_args_list(build_env());
+    if (has_exec_perm(data->lst[0]) == false)
+    {
+        print_error(data->lst[0], NULL, NULL, "Permission denied");
+        exit(126);
+    }
+    if (is_dir(data->lst[0]) == true)
+    {
+        print_error(data->lst[0], NULL, NULL, "Is a directory");
+        exit(126);
+    }
     if (execve(vec[0], vec, build_env()) == -1)
     {
-        perror("execve");
+        perror("minishell: execve");
         exit(1);
     }
     return (TRUE);

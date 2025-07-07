@@ -49,10 +49,23 @@ pid_t execute_command_tree_piped(t_tree *tree, int fd_in, int fd_out)
     char **cmd_array;
     pid_t pid;
 
-    cmd_array = tree_expand_simple_command(tree);
+    // print_sib(tree);
+    if (tree->data_type == T_CMD_ARG)
+        cmd_array = tree_expand_simple_command(tree);
+    else    
+    {
+        cmd_array = malloc(sizeof(char *));
+        cmd_array[0] = NULL;
+    }
     pid = fork();
     if (pid == 0)
-        execute_command_piped(cmd_array, tree->sibling, fd_in, fd_out);
+    {
+        if (tree->data_type == T_CMD_ARG)
+            execute_command_piped(cmd_array, tree->sibling, fd_in, fd_out);
+        else
+            execute_command_piped(cmd_array, tree, fd_in, fd_out);
+
+    }
     return (pid);
 }
 
