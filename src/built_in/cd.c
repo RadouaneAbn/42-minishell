@@ -20,8 +20,11 @@ int run_cd(t_executable_data *data)
     if (chdir(path) != 0)
         return (perror("minishell: cd"), EXIT_FAILURE);
     new_path = getcwd(NULL, 0);
+    if (new_path == NULL)
+        perror("minishell: getcwd");
     export("OLDPWD", expand_env("PWD"));
-    export("PWD", new_path);
+    if (new_path)
+        export("PWD", new_path);
     free(new_path);
     return (EXIT_SUCCESS);
 }
