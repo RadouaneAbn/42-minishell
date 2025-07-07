@@ -61,6 +61,8 @@ char	*get_value(char *key)
 		return ("\"\"");
 	else if (strmatch(key, "var2"))
 		return ("'");
+	else if (strmatch(key, "star"))
+		return ("*");
 	return ("");
 }
 

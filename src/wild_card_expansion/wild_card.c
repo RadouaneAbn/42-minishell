@@ -14,10 +14,11 @@ char	get_last_char(char *str)
 	return (str[index]);
 }
 
-bool	check_pattern(char *filename, char *pattern)
+bool	check_pattern(char *filename, char *pattern, char *star_mask)
 {
 	char	**strings;
 	int	index;
+	(void)star_mask;
 	size_t	offset;
 	size_t	start;
 
@@ -57,7 +58,7 @@ void	print_list(t_list *list)
 	}
 }
 
-void	get_child_files(t_tree **tree, char *pattern)
+void	get_child_files(t_tree **tree, char *pattern, char *star_mask)
 {
 	struct dirent *child_file;
 	DIR *pDir;
@@ -66,7 +67,7 @@ void	get_child_files(t_tree **tree, char *pattern)
 	match_found = false;
 		pDir = opendir (".");
 	while (pDir && (child_file = readdir(pDir)) != NULL) {
-		if (check_pattern(child_file->d_name, pattern))
+		if (check_pattern(child_file->d_name, pattern, star_mask))
 		{
 			match_found = true;
 			//ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(child_file->d_name)));
@@ -90,9 +91,10 @@ t_tree	*wild_card_expansion(char **fields, t_list *star_mask)
 	while (fields[index])
 	{
 		if (star_mask->content)
-			get_child_files(&tree, fields[index]);
+			get_child_files(&tree, fields[index], star_mask->content);
 		else
 			tree_add_back(&tree, tree_create_new(0, fields[index]));
+		star_mask = star_mask->next;
 		index++;
 	}
 	return (tree);

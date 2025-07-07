@@ -16,8 +16,14 @@ void expand_simple_command(char *str, t_tree **tree)
 	expand(str, expand_str, quote_mask);
 	shift_bits(quote_mask, expand_len);
 	fields = field_splitting(&expand_str, &quote_mask, &star_mask);
-	new_tree = wild_card_expansion(fields, star_mask);
-	tree_add_back(tree, new_tree);
+	//size_t	index;
+//
+	//index = 0;
+	//while (fields[index])
+	//{
+		new_tree = wild_card_expansion(fields, star_mask);
+		tree_add_back(tree, new_tree);
+	//}
 }
 
 t_tree *tree_expand_simple_command(t_tree *simple_command)
