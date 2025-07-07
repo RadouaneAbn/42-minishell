@@ -189,6 +189,7 @@ void	print_fields(char **fields, t_list *star_mask)
 	}
 }
 
+void	print_star_list(char **parts);
 char	**field_splitting(char **expand_strs, char **quote_mask)
 {
 	size_t	fields_len;
@@ -201,5 +202,22 @@ char	**field_splitting(char **expand_strs, char **quote_mask)
 	fill_fields(expand_strs, fields, quote_mask, &star_mask);
 	fields[fields_len] = NULL;
 	print_fields(fields, star_mask);
+	char **parts = get_star_fields(fields[0], star_mask->content);
+	print_star_list(parts);
+	(void)parts;
 	return (fields);
 }
+
+void	print_star_list(char **parts)
+{
+	size_t	index;
+
+	index = 0;
+	while (parts[index])
+	{
+		printf("[%s]\n", parts[index]);
+		index++;
+	}
+}
+
+

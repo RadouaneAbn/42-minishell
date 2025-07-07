@@ -63,4 +63,10 @@ size_t	get_unquoted_del_size(char *delimiter);
 t_expand_info	heredoc_expand_info(char *delimiter);
 char	*heredoc(char *delimiter);
 
+/* wild_card*/
+size_t	get_star_fields_len(char *str, char *star_mask);
+void	define_star_field(char **parts, char *str, size_t *index, char *star_mask);
+void	set_star_fields(char **parts, char *str, char *star_mask);
+char **get_star_fields(char *str, char *star_mask);
+
 #endif
