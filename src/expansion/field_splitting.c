@@ -23,32 +23,26 @@ bool	quoted_char(char *quote_mask, size_t size)
 	return (quoted | is_quote);
 }
 
-size_t	get_fields_len(char **expand_strs, char **quote_mask)
+size_t	get_fields_len(char *expand_str, char *quote_mask)
 {
 	size_t	field_len;
-	size_t str_index;
 	size_t	index;
 	bool current_ch_quoted;
 	bool next_ch_quoted;
 
 	field_len = 0;
-	str_index = 0;
-	while (expand_strs[str_index])
+	index = 0;
+	while (expand_str[index])
 	{
-		index = 0;
-		while (expand_strs[str_index][index])
-		{
-			current_ch_quoted = quoted_char(quote_mask[str_index], index);
-			if (expand_strs[str_index][index + 1])
-				next_ch_quoted = quoted_char(quote_mask[str_index], index + 1);
-			else
-				next_ch_quoted = false;
-			if ((current_ch_quoted || (!current_ch_quoted && !is_space(expand_strs[str_index][index])))
-					&& ((is_space(expand_strs[str_index][index + 1]) && !next_ch_quoted) || !expand_strs[str_index][index + 1]))
-				field_len++;
-			index++;
-		}
-		str_index++;
+		current_ch_quoted = quoted_char(quote_mask, index);
+		if (expand_str[index + 1])
+			next_ch_quoted = quoted_char(quote_mask, index + 1);
+		else
+			next_ch_quoted = false;
+		if ((current_ch_quoted || (!current_ch_quoted && !is_space(expand_str[index])))
+				&& ((is_space(expand_str[index + 1]) && !next_ch_quoted) || !expand_str[index + 1]))
+			field_len++;
+		index++;
 	}
 	return (field_len);
 }
@@ -128,7 +122,7 @@ size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start)
 
 	len = 0;
 	while (expand_str[*start] && !(is_space(expand_str[*start])
-			&& !quoted_char(quote_mask, *start)))
+				&& !quoted_char(quote_mask, *start)))
 	{
 		if (!get_bit(quote_mask, *start))
 			len++;
@@ -144,33 +138,27 @@ void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, 
 	cp_field(*field, expand_str, quote_mask, range, star_mask);
 }
 
-void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask)
+void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **star_mask)
 {
-	size_t	str_index;
 	size_t index;
-	size_t	field_index;
 	size_t	start;
 	size_t	len;
+	size_t	fields_len;
 
-	str_index = 0;
-	field_index = 0;
-	while (expand_strs[str_index])
+	index = 0;
+	fields_len = 0;
+	while (expand_str[index])
 	{
-		index = 0;
-		while (expand_strs[str_index][index])
+		if (expand_str[index] && !(is_space(expand_str[index])
+					&& !quoted_char(quote_mask, index)))
 		{
-			if (expand_strs[str_index][index] && !(is_space(expand_strs[str_index][index])
-					&& !quoted_char(quote_mask[str_index], index)))
-			{
-				start = index;
-				len = get_field_len(expand_strs[str_index], quote_mask[str_index], &index);
-				set_field(fields + field_index, expand_strs[str_index], quote_mask[str_index], (t_range){start, len}, star_mask);
-				field_index++;
-			}
-			else
-				index++;
+			start = index;
+			len = get_field_len(expand_str, quote_mask, &index);
+			set_field(fields + fields_len, expand_str, quote_mask, (t_range){start, len}, star_mask);
+			fields_len++;
 		}
-		str_index++;
+		else
+			index++;
 	}
 }
 
@@ -201,20 +189,15 @@ void	print_star_list(char **parts)
 	}
 }
 
-char	**field_splitting(char **expand_strs, char **quote_mask)
+char	**field_splitting(char **expand_strs, char **quote_mask, t_list **star_mask)
 {
 	size_t	fields_len;
 	char	**fields;
-	t_list *star_mask;
 
-	star_mask = NULL;
-	fields_len = get_fields_len(expand_strs, quote_mask);
+	fields_len = get_fields_len(*expand_strs, *quote_mask);
 	fields = malloc(sizeof(char *) * (fields_len + 1));
-	fill_fields(expand_strs, fields, quote_mask, &star_mask);
+	fill_fields(*expand_strs, fields, *quote_mask, star_mask);
 	fields[fields_len] = NULL;
-	print_fields(fields, star_mask);
-	//char **parts = get_star_fields(fields[0], star_mask->content);
-	//print_star_list(parts);
-	//(void)parts;
+	//print_fields(fields, *star_mask);
 	return (fields);
 }

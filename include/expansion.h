@@ -40,18 +40,18 @@ void	set_mask_byte(char *quote_array, int size, char bit);
 
 /* field splitting functions */
 bool	field_char_quoted(char *quote_mask, int size);
-size_t get_fields_len(char **expand_strs, char **quote_mask);
+size_t get_fields_len(char *expand_strs, char *quote_mask);
 unsigned char get_bit(char *quote_mask, size_t size);
 void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask);
 size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start);
 void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask);
-void	fill_fields(char **expand_strs, char **fields, char **quote_mask, t_list **star_mask);
-char **field_splitting(char **expand_strs, char **quote_mask);
+void	fill_fields(char *expand_strs, char **fields, char *quote_mask, t_list **star_mask);
+char **field_splitting(char **expand_strs, char **quote_mask, t_list **star_mask);
 
 
 
 
-char **tree_expand_simple_command(t_tree *simple_command);
+t_tree	*tree_expand_simple_command(t_tree *simple_command);
 void	expand(char *str, char *complete_string, char *quote_array);
 
 
@@ -64,9 +64,9 @@ t_expand_info	heredoc_expand_info(char *delimiter);
 char	*heredoc(char *delimiter);
 
 /* wild_card*/
-size_t	get_star_fields_len(char *str, char *star_mask);
-void	define_star_field(char **parts, char *str, size_t *index, char *star_mask);
-void	set_star_fields(char **parts, char *str, char *star_mask);
-char **get_star_fields(char *str, char *star_mask);
+//size_t	get_star_fields_len(char *str, char *star_mask);
+//void	define_star_field(char **parts, char *str, size_t *index, char *star_mask);
+//void	set_star_fields(char **parts, char *str, char *star_mask);
+//char **get_star_fields(char *str, char *star_mask);
 
 #endif

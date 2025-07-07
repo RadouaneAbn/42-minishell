@@ -7,6 +7,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <dirent.h>
 # include <colors.h>
 # include <libft.h>
 # include <utils.h>
@@ -14,4 +15,5 @@
 # include <lexer.h>
 # include <parser.h>
 # include <expansion.h>
+# include <wild_card_expansion.h>
 #endif

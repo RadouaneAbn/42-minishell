@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-#include <dirent.h>
-#include "libft.h"
+#include <minishell.h>
 
 char	get_last_char(char *str)
 {
@@ -61,11 +57,10 @@ void	print_list(t_list *list)
 	}
 }
 
-void	get_child_files(char *pattern, )
+void	get_child_files(t_tree **tree, char *pattern)
 {
 	struct dirent *child_file;
 	DIR *pDir;
-	char *folder;
 	bool	match_found;
 
 	match_found = false;
@@ -74,16 +69,18 @@ void	get_child_files(char *pattern, )
 		if (check_pattern(child_file->d_name, pattern))
 		{
 			match_found = true;
-			ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(child_file->d_name)));
+			//ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(child_file->d_name)));
+			tree_add_back(tree, tree_create_new(0, ft_strdup(child_file->d_name)));
 		}
 	}
 	if (!match_found)
-			ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(pattern)));
+			tree_add_back(tree, tree_create_new(0, pattern));
+	//ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(pattern)));
 	closedir (pDir);
 }
 
 
-t_tree	**wild_card_expansion(char **fields, t_list **star_mask)
+t_tree	*wild_card_expansion(char **fields, t_list *star_mask)
 {
 	t_tree	*tree;
 	size_t	index;
@@ -92,10 +89,11 @@ t_tree	**wild_card_expansion(char **fields, t_list **star_mask)
 	index = 0;
 	while (fields[index])
 	{
-		if (!star_mask[index])
-			get_child_files(fields[index], &tree);
+		if (star_mask->content)
+			get_child_files(&tree, fields[index]);
 		else
-			;
+			tree_add_back(&tree, tree_create_new(0, fields[index]));
+		index++;
 	}
-	return 0;
+	return (tree);
 }

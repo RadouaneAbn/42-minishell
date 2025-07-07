@@ -1,27 +1,35 @@
 #include <minishell.h>
 
-char **tree_expand_simple_command(t_tree *simple_command)
+void expand_simple_command(char *str, t_tree **tree)
 {
-	size_t	len;
-	char *node;
-	int	index;
-	char	**expand_str;
-	char	**quote_mask;
+	char	*expand_str;
+	char	*quote_mask;
+	char	**fields;
+	t_list	*star_mask;
+	size_t	expand_len;
+	t_tree	*new_tree;
 
-	index = 0;
-	len = 0;
-	expand_str = malloc(sizeof(char *) * (tree_get_size(simple_command) + 1));
-	quote_mask = malloc(sizeof(char *) * tree_get_size(simple_command));
+	expand_len = expand_str_len(str);
+	star_mask = NULL;
+	expand_str = malloc(sizeof(char) * (expand_len) + 1);
+	quote_mask = ft_calloc(get_byte_len(expand_len), sizeof(char));
+	expand(str, expand_str, quote_mask);
+	shift_bits(quote_mask, expand_len);
+	fields = field_splitting(&expand_str, &quote_mask, &star_mask);
+	new_tree = wild_card_expansion(fields, star_mask);
+	tree_add_back(tree, new_tree);
+}
+
+t_tree *tree_expand_simple_command(t_tree *simple_command)
+{
+	t_tree	*tree;
+
+	tree = NULL;
 	while (simple_command)
 	{
-		node = simple_command->data;
-		expand_str[index] = malloc(sizeof(char) * (expand_str_len(node)) + 1);
-		quote_mask[index] = ft_calloc(get_byte_len(expand_str_len(node)), sizeof(char));
-		expand(node, expand_str[index], quote_mask[index]);
-		shift_bits(quote_mask[index], expand_str_len(node));
+		expand_simple_command(simple_command->data, &tree);
 		simple_command = simple_command->next;
-		index++;
 	}
-	expand_str[index] = NULL;
-	return (field_splitting(expand_str, quote_mask));
+	print_tree(tree, 0);
+	return (NULL);
 }
