@@ -15,5 +15,5 @@
 # include <lexer.h>
 # include <parser.h>
 # include <expansion.h>
-# include <wild_card_expansion.h>
+# include <pathname_expansion.h>
 #endif

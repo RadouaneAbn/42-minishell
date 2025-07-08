@@ -18,8 +18,15 @@ typedef	struct s_range
 	size_t	len;
 }	t_range;	
 
+
+typedef struct s_fields_info
+{
+	char **fields;
+	t_list *star_mask;
+}	t_fields_info;
+
 bool	valid_key_char(char c);
-void	expand_word(char **str, size_t *index, char *complete_string);
+void	set_parameter_expand_value(char **str, size_t *index, char *complete_string);
 void	expand_len(char *str);
 char	*get_key(char **str);
 bool	valid_key_char(char c);
@@ -33,7 +40,10 @@ bool	first_key_ch(char c);
 bool	key_ch(char c);
 
 void	shift_bits(char *quote_array, int size);
-void	set_mask_byte(char *quote_array, int size, char bit);
+void	set_mask_bit(char *quote_array, int size, char bit);
+
+bool	quoted_char(char *quote_mask, size_t size);
+
 
 
 
@@ -52,7 +62,7 @@ char **field_splitting(char **expand_strs, char **quote_mask, t_list **star_mask
 
 
 t_tree	*tree_expand_simple_command(t_tree *simple_command);
-void	expand(char *str, char *complete_string, char *quote_array);
+void	parameter_expansion(char *str, char *complete_string, char *quote_array);
 
 
 /* HERE DOC FUNCTIONS */
@@ -63,10 +73,5 @@ size_t	get_unquoted_del_size(char *delimiter);
 t_expand_info	heredoc_expand_info(char *delimiter);
 char	*heredoc(char *delimiter);
 
-/* wild_card*/
-//size_t	get_star_fields_len(char *str, char *star_mask);
-//void	define_star_field(char **parts, char *str, size_t *index, char *star_mask);
-//void	set_star_fields(char **parts, char *str, char *star_mask);
-//char **get_star_fields(char *str, char *star_mask);
 
 #endif

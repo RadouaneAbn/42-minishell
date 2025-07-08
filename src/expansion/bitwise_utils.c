@@ -47,3 +47,23 @@ void	shift_bits(char *quote_array, int size)
 		quote_array[index] = quote_array[index] << rest;
 	}
 }
+
+void	set_mask_bit(char *quote_array, int size, char bit)
+{
+	int	byte_index;
+
+	byte_index = size / 8;
+	quote_array[byte_index] = (quote_array[byte_index] << 1) | bit;
+}
+
+unsigned char get_bit(char *quote_mask, size_t size)
+{
+	unsigned char bit;
+	size_t	char_index;
+	size_t	bit_index;
+
+	char_index = size / 8;
+	bit_index = size % 8;
+	bit = (unsigned char)(quote_mask[char_index] << bit_index) >> 7;
+	return (bit);
+}

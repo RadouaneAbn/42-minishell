@@ -1,14 +1,25 @@
 #include <minishell.h>
 
-void	set_mask_byte(char *quote_array, int size, char bit)
+char	*get_value(char *key)
 {
-	int	byte_index;
-
-	byte_index = size / 8;
-	quote_array[byte_index] = (quote_array[byte_index] << 1) | bit;
+	if (strmatch(key, "var"))
+		return (" hey");
+	if (strmatch(key, "blank"))
+		return ("              ");
+	else if (strmatch(key, "cwd"))
+		return ("hey hey hey");
+	else if (strmatch(key, "but"))
+		return ("");
+	else if (strmatch(key, "var1"))
+		return ("\"\"");
+	else if (strmatch(key, "var2"))
+		return ("'");
+	else if (strmatch(key, "star"))
+		return ("*");
+	return ("");
 }
 
-void	expand(char *str, char *expand_str, char *quote_array)
+void	parameter_expansion(char *str, char *expand_str, char *quote_array)
 {
 	bool	quoted;
 	char	quote;
@@ -26,14 +37,14 @@ void	expand(char *str, char *expand_str, char *quote_array)
 				quote = *str;
 			if (quote == *str)
 			{
-				set_mask_byte(quote_array, start, 1);
+				set_mask_bit(quote_array, start, 1);
 				start = len;
 				start++;
 				quoted = !quoted;
 			}
 		}
 		if (((quoted && (quote == '"')) || !quoted) && *str == '$' && first_key_ch(peakch(str)))
-			expand_word(&str, &len, expand_str);
+			set_parameter_expand_value(&str, &len, expand_str);
 		else
 		{
 			expand_str[len] = *str;
@@ -42,31 +53,14 @@ void	expand(char *str, char *expand_str, char *quote_array)
 		}
 		while (start < len)
 		{
-			set_mask_byte(quote_array, start, 0);
+			set_mask_bit(quote_array, start, 0);
 			start++;
 		}
 	}
 	expand_str[len] = '\0';
 }
 
-char	*get_value(char *key)
-{
-	if (strmatch(key, "var"))
-		return (" hey");
-	else if (strmatch(key, "cwd"))
-		return ("hey hey hey");
-	else if (strmatch(key, "but"))
-		return ("");
-	else if (strmatch(key, "var1"))
-		return ("\"\"");
-	else if (strmatch(key, "var2"))
-		return ("'");
-	else if (strmatch(key, "star"))
-		return ("*");
-	return ("");
-}
-
-void	expand_word(char **str, size_t *len, char *expand_str)
+void	set_parameter_expand_value(char **str, size_t *len, char *expand_str)
 {
 	int	exit_code_len;
 	char	*exit_code;
