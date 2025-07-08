@@ -45,8 +45,6 @@ t_tree *tree_expand_simple_command(t_tree *simple_command)
 	return (NULL);
 }
 
-
-
 void redirection_expand(char *filename, bool *ambiguous)
 {
 	t_tree	*tree;
