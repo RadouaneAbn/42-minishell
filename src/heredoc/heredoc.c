@@ -17,8 +17,11 @@ void	run_heredoc(t_expand_info expand_info, int fd)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("bash: warning: here-document at line 1 delimited by end-of-file (wanted `%s')",
-				expand_info.unquoted_delimiter);
+			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted`", 2);
+			ft_putstr_fd(expand_info.unquoted_delimiter, 2);
+			ft_putstr_fd("'", 2);
+			//printf("bash: warning: here-document at line 1 delimited by end-of-file (wanted `%s')",
+				//expand_info.unquoted_delimiter);
 			break ;
 		}
 		if (strmatch(line, expand_info.unquoted_delimiter))
@@ -32,11 +35,11 @@ void	run_heredoc(t_expand_info expand_info, int fd)
 char	*heredoc(char *delimiter)
 {
 	int		fd;
-	char	*addr;
+	//char	*addr;
 	char	*file_name;
 	t_expand_info	expand_info;
 
-	addr = utoa((size_t)(&fd));
+	//addr = utoa((size_t)(&fd));
 	expand_info = (t_expand_info)heredoc_expand_info(delimiter);
 	//file_name = ft_strjoin("/tmp/file-minishell--", addr);
 	file_name = "./file.txt";

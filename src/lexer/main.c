@@ -19,7 +19,6 @@ int	main(int argc, char *argv[], char **env)
 			continue ;
 		}
 		add_history(line);
-		//if (!str_blank(line))
 		lexer(line);
 		free(line);
 	}

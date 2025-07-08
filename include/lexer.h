@@ -1,8 +1,7 @@
 #ifndef LEXER_H
 # define LEXER_H
-
 # define END 1
-# include <minishell.h>
+
 typedef enum e_token_name
 {
 	AND,
@@ -45,11 +44,9 @@ void	get_token(t_token *token, char *line, size_t *position);
 bool    token_is_operator(char *line, size_t position);
 void	token_printlst(t_token_lst *token_lst);
 
-
 /*======================== token list manipulation functions=====================*/
 t_token_lst	*token_lstnew(t_token token);
 t_token_lst	*token_lstlast(t_token_lst *lst);
 void	token_lstadd_back(t_token_lst	**lst, t_token_lst *new);
 
 #endif
-

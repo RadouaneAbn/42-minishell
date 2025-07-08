@@ -2,8 +2,10 @@
 
 void	print_tree(t_tree *tree, int n)
 {
-	int	i = 0;
+	int	i;
 	char *data_type[11];
+
+	i = 0;
 	data_type[T_COMPOUND_COMMAND]="COMPOUND COMMAND";
 	data_type[T_FILE_HERE_DOC]="FILE_HERE_DOC";
 	data_type[T_FILE_APPEND]="FILE_APPEND";

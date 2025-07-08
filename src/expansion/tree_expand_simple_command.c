@@ -52,7 +52,7 @@ void redirection_expand(char *filename, bool *ambiguous)
 
 	*ambiguous = false;
 	fields_info = expand_simple_command(filename);
-	if (strings_len(fields_info.fields) != 1)	
+	if (get_strings_len(fields_info.fields) != 1)	
 	{
 		*ambiguous = true;
 		return;// (NULL);

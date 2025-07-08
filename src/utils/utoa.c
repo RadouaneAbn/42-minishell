@@ -1,9 +1,5 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <minishell.h>
 
-// this function returns the length of a number like:
-// ex: get 1000 => return 4
 static int	utoa_length(size_t number)
 {
 	int	length;
@@ -17,8 +13,6 @@ static int	utoa_length(size_t number)
 	return (length);
 }
 
-// this function fills memory block ptr with chars
-// from the unsigned number
 static void	utoa_fill(char *ptr, size_t number, int end, int start)
 {
 	while (end >= start)
@@ -29,9 +23,6 @@ static void	utoa_fill(char *ptr, size_t number, int end, int start)
 	}
 }
 
-// this function returns and allocates enough memory for
-// all chars in an unsgined int
-// get 10 => returns "10"
 char	*utoa(size_t num)
 {
 	int		length;

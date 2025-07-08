@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-size_t	strings_len(char **strings)
+size_t	get_strings_len(char **strings)
 {
 	size_t	len;
 

@@ -1,6 +1,5 @@
 #include <minishell.h>
 
-
 t_tree	*tree_get_io_redirect_list(t_token_lst	**token_lst)
 {
 	t_tree	*io_files;

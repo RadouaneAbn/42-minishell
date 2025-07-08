@@ -9,5 +9,6 @@ bool	strmatch(const char *s1, const char *s2);
 char	peakch(char *str);
 bool	str_blank(char *str);
 void	print_strings(char **strings);
-size_t	strings_len(char **strings);
+size_t	get_strings_len(char **strings);
+char    *utoa(size_t num);
 #endif

@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_type	get_pipeline_relation(int	type)
+t_type	get_pipeline_relation(t_token_type	type)
 {
 	if (type == AND)
 		return (T_AND);
