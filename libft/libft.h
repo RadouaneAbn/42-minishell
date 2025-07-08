@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <limits.h>
+# include "ft_dprintf/ft_dprintf.h"
 
 int		ft_tolower(int c);
 int		ft_toupper(int c);
