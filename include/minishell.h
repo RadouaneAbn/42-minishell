@@ -10,11 +10,11 @@
 # include <colors.h>
 # include <libft.h>
 # include <string.h>
+# include <parser.h>
 # include <lexer.h>
 # include <hashmap.h>
 # include <utils.h>
 # include <built_in.h>
-# include <env.h>
 # include <expansion.h>
 # include <fcntl.h>
 # include <execution.h>

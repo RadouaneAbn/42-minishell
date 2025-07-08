@@ -64,8 +64,7 @@ int run_pwd(t_executable_data *data)
     {
         path = getcwd(NULL, 0);
         if (path == NULL)
-            return (perror("minishell: pwd"), EXIT_FAILURE);
-        // printf("%s\n", path);
+            return (perror("minishell: getcwd"), EXIT_FAILURE);
         ft_putendl_fd(path, data->fd_out);
         free(path);
     }
@@ -89,9 +88,7 @@ int run_exit(t_executable_data *data)
         exit_status = convert_exist_status(exit_str);
         if (exit_status == -1)
         {
-            ft_putstr_fd("minishell: exit: ", 2);
-            ft_putstr_fd(exit_str, 2);
-            ft_putendl_fd(": numeric argument required", 2);
+            print_error("exit", NULL, exit_str, "numeric argument required");
             exit_status = 2;
         }
     }
@@ -109,9 +106,7 @@ int command_is_empty(char *cmd)
             return (FALSE);
         i++;
     }
-    ft_putstr_fd("minishell: ", 2);
-    ft_putstr_fd(cmd, 2);
-    ft_putendl_fd(": command not found", 2);
+    print_error(cmd, NULL, NULL, "command not found");
     return (TRUE);
 }
 
@@ -168,9 +163,7 @@ char *find_file(char *cmd)
         free(cmd_abs_path);
         i++;
     }
-    ft_putstr_fd("minishell: ", 2);
-    ft_putstr_fd(cmd, 2);
-    ft_putendl_fd(": command not found", 2);
+    print_error(cmd, NULL, NULL, "command not found");
     exit(127);
 }
 
@@ -198,6 +191,8 @@ char **build_env(void)
     map = get_map();
     node = map->ordered_list;
     env = ft_malloc((map->size + 1) * sizeof(char *));
+    if (env == NULL)
+        return (NULL);
     i = 0;
     while (node)
     {
@@ -207,27 +202,6 @@ char **build_env(void)
     }
     env[i] = NULL;
     return (env);
-}
-
-void print_error(char *m1, char *m2, char *m3, char *message)
-{
-    ft_putstr_fd("minishell: ", 2);
-    if (m1)
-    {
-        ft_putstr_fd(m1, 2);
-        ft_putstr_fd(": ", 2);
-    }
-    if (m2)
-    {
-        ft_putstr_fd(m2, 2);
-        ft_putstr_fd(": ", 2);
-    }
-    if (m3)
-    {
-        ft_putstr_fd(m3, 2);
-        ft_putstr_fd(": ", 2);
-    }
-    ft_putendl_fd(message, 2);
 }
 
 bool has_exec_perm(char *path)

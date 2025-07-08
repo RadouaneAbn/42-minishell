@@ -38,9 +38,32 @@ char **split_export_args(char *arg)
 
 int key_isvalid(char *key)
 {
-    if (ft_isalpha(key[0]) || key[0] == '_')
-        return (TRUE);
-    return (FALSE);
+    int i;
+
+    i = 0;
+    if (ft_isdigit(key[i]) == true)
+        return (false);
+    while (key[i])
+    {
+        if (key[i] == '-')
+            return (false);
+        if (key[i] != '_' && ft_isalnum(key[i]) == false)
+            return (false);
+        i++;
+    }
+    return (true);
+}
+
+void print_export_error(char *key, char *value)
+{
+        ft_putstr_fd("minishell: export: `", 2);
+        ft_putstr_fd(key, 2);
+        if (value)
+        {
+            ft_putstr_fd("=", 2);
+            ft_putstr_fd(value, 2);
+        }
+        ft_putendl_fd("': not a valid identifier", 2);
 }
 
 int pre_export(char *exported)
@@ -51,15 +74,7 @@ int pre_export(char *exported)
     args = split_export_args(exported);
     if (key_isvalid(args[0]) == FALSE)
     {
-        // bash: export: `1=2': not a valid identifier
-        ft_putstr_fd("minishell: export: `", 2);
-        ft_putstr_fd(args[0], 2);
-        if (args[1])
-        {
-            ft_putstr_fd("=", 2);
-            ft_putstr_fd(args[1], 2);
-        }
-        ft_putendl_fd("': not a valid identifier", 2);
+        print_export_error(args[0], args[1]);
         return (EXIT_FAILURE);
     }
     status = export(args[0], args[1]);

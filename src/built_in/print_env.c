@@ -17,8 +17,7 @@ int print_env(int fd)
         {
             ft_putstr_fd(node->key, fd);
             ft_putstr_fd("=", fd);
-            ft_putstr_fd(node->value, fd);
-            ft_putstr_fd("\n", fd);
+            ft_putendl_fd(node->value, fd);
         }
         node = node->ordered_next;
     }

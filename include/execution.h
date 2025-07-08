@@ -1,13 +1,9 @@
 #ifndef EXECUTION_H
 #define EXECUTION_H
 
-#include <parser.h>
-# include <sys/wait.h>
-# include <built_in.h>
-
+#include <minishell.h>
 
 # define CMD_NOT_FOUND "command not found"
-
 
 typedef struct s_executable_data
 {

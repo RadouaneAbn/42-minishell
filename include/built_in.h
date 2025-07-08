@@ -1,8 +1,15 @@
 #ifndef BUILT_IN_H
 #define BUILT_IN_H
 
-#include <hashmap.h>
-#include <execution.h>
+# include <minishell.h>
+
+typedef struct s_info
+{
+	t_map exports;
+	char **path;
+	int last_exit_status;
+	int env_size;
+} t_info;
 
 typedef enum e_cmd_type
 {

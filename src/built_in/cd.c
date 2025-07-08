@@ -8,14 +8,14 @@ int run_cd(t_executable_data *data)
 
     vec = data->lst;
     if (vec[1] != NULL && vec[2] != NULL)
-        return (print_cmd_error("cd: too many arguments"));
+        return (print_error("cd", NULL, NULL, "too many arguments"), 1);
     if (vec[1])
         path = vec[1];
     else if (vec[1] == NULL)
     {
         path = expand_env("HOME");
         if (path == NULL)
-            return (print_cmd_error("cd: HOME not set"));
+            return (print_error("cd", NULL, NULL, "HOME not set"), 1);
     }
     if (chdir(path) != 0)
         return (perror("minishell: cd"), EXIT_FAILURE);

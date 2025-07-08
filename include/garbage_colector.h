@@ -11,7 +11,6 @@
 typedef struct s_gc_node
 {
     void *data;
-    int data_type;
     struct s_gc_node *next;
 } t_gc_node;
 
@@ -36,6 +35,9 @@ void level_down(void);
 void free_level(void);
 void free_gc(void);
 void free_gc_full(void);
+void free_lvl_elm(void *data);
+void free_all_elm(void *data);
+
 
 /* Debug */
 

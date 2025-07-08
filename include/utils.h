@@ -1,7 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <env.h>
+#include <minishell.h>
+
+
 
 void *ft_malloc(size_t size);
 
@@ -10,5 +12,7 @@ int ft_index_of(char *str, char c);
 t_info *get_info(void);
 void load_env(char **env);
 bool is_dir(char *filename);
+
+void print_error(char *cmd, char *file, char *msg1, char *error_msg);
 
 #endif
