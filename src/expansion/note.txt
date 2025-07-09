@@ -1,0 +1,14 @@
+/*NOTE: 
+	you have two choces for now to handle malloc failure
+first:
+you can use a function that allocate using malloc 
+and this func has a static so if malloc failed that var
+will indicate that
+second:
+using a struct that contain a void pointer
+and an indicator that has a value (for example: M_FAIL for malloc fail)
+third:
+use errno var to indicate the error*/
+//
+
+1) there are a lot of functions that are useless so when you have completed everyting delete them;

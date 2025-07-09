@@ -1,0 +1,30 @@
+#include <minishell.h>
+
+int	main(int argc, char *argv[], char **env)
+{
+	char	*line;
+
+	(void)argc;
+	(void)argv;
+	load_env(env);
+	set_exit_status(0);
+	while (true)
+	{
+		printf("[%d]-", get_exit_status());
+		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
+		//rl_redisplay();
+		if (!line)
+			break ;
+		if (str_blank(line))
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		//if (!str_blank(line))
+		lexer(line);
+		free(line);
+	}
+	rl_clear_history();
+	return (0);
+}
