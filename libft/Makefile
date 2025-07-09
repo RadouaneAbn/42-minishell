@@ -14,12 +14,6 @@ BONUS_OBJECTS = ${BONUS_FILES:.c=.o}
  
 MY_OBJECTS = ${MY_FILES:.c=.o}
 
-DPRINTF_SRC = ft_dprintf/ft_dprintf.c \
-	ft_dprintf/print_functions_1.c ft_dprintf/print_functions_1.c \
-	ft_dprintf/utils.c
-
-DPRINTF_OBJ = $(DPRINTF_SRC:.c=.o)
-
 CC = cc
 
 CC_FLAGS = -c -Wall -Werror -Wextra
@@ -28,17 +22,17 @@ NAME = libft.a
 
 all: ${NAME}
 
-bonus: ${BONUS_OBJECTS} ${MY_OBJECTS} ${DPRINTF_OBJ}
+bonus: ${BONUS_OBJECTS} ${MY_OBJECTS}
 	ar rcs ${NAME} $?
 
-${NAME}: ${MY_OBJECTS} ${DPRINTF_OBJ}
+${NAME}: ${MY_OBJECTS}
 	ar rcs ${NAME} $?
 
 %.o: %.c libft.h
 	${CC} ${CC_FLAGS} $< -o $@
 
 clean:
-	rm -rf  ${MY_OBJECTS} ${BONUS_OBJECTS} ${DPRINTF_OBJ}
+	rm -rf  ${MY_OBJECTS} ${BONUS_OBJECTS}
 
 fclean: clean
 	rm -rf ${NAME}

@@ -18,6 +18,7 @@ typedef struct s_gc_level
 {
     t_gc_node *aloc_list;
     struct s_gc_level *parent;
+    int id;
 } t_gc_level;
 
 typedef struct s_gc
@@ -30,17 +31,18 @@ t_gc **get_gc(void);
 t_gc_level *gc_level_init(void);
 t_gc_level *get_current_level(void);
 void *gc_save(void *data);
-void *gc_malloc(size_t size);
 void level_down(void);
+
+/* Garbage collector main functions */
 void free_level(void);
 void free_gc(void);
 void free_gc_full(void);
-void free_lvl_elm(void *data);
-void free_all_elm(void *data);
+void *gc_malloc(size_t size);
+void gc_local_free(void *data);
+void gc_global_free(void *data);
 
 
 /* Debug */
-
 int gc_status(void);
 int get_level(void);
 

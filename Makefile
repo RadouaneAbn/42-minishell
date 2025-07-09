@@ -31,6 +31,7 @@ $(TARGET): $(OBJECT_FILES) $(OBJECT_FILES_2) $(UTILS_OBJECTS) libft/libft.a
 
 clean:
 	$(RM) $(RM_OPTIONS) $(OBJECT_FILES) $(TEST_OBJECTS) $(UTILS_OBJECTS) $(OBJECT_FILES_2)
+	make clean -C libft
 
 libft/libft.a:
 	make -C libft

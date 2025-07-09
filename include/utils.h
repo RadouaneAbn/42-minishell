@@ -3,8 +3,6 @@
 
 #include <minishell.h>
 
-
-
 void *ft_malloc(size_t size);
 
 int	ft_strcmp(const char *s1, const char *s2);

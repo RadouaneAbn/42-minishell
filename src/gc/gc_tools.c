@@ -30,7 +30,6 @@ void free_level(void)
         free(tmp->data);
         free(tmp);
     };
-    printf("freed level %d\n", gc->level_n);
     level_down();
     free(current_level);
 }
@@ -93,7 +92,6 @@ int free_elem_from_lvl(t_gc_level *level, void *data)
     }
     if (tmp != NULL)
     {
-        printf("element freed\n");
         free(tmp->data);
         free(tmp);
         return (0);
@@ -101,7 +99,7 @@ int free_elem_from_lvl(t_gc_level *level, void *data)
     return (1);
 }
 
-void gc_free_from_lvl(void *data)
+void gc_local_free(void *data)
 {
     t_gc_level *level;
     t_gc_node *node;
@@ -109,10 +107,10 @@ void gc_free_from_lvl(void *data)
 
     level = get_current_level();
     if (level)
-        free_elem(level, data);
+        free_elem_from_lvl(level, data);
 }
 
-void gc_free_from_lvls(void *data)
+void gc_global_free(void *data)
 {
     t_gc_level *level;
     t_gc_node *node;
@@ -121,6 +119,6 @@ void gc_free_from_lvls(void *data)
     level = get_current_level();
     if (level == NULL)
         return ;
-    while (level && free_elem(level, data) != 0)
+    while (level && free_elem_from_lvl(level, data) != 0)
         level = level->parent;
 }
