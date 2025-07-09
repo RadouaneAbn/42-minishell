@@ -38,4 +38,3 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst)
 	}
 	return (compound_command);
 }
-

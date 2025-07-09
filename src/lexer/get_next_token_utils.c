@@ -19,11 +19,11 @@ char	*get_operator(int index)
 	return (fully[index]);
 }
 
-int	get_operator_type(char *line, size_t *position)
+t_token_type	get_operator_type(char *line, size_t *position)
 {
 	size_t	len;
 	char	*token_value;
-	int		index;
+	t_token_type	index;
 
 	index = 0;
 	while (index < 9)
@@ -55,47 +55,12 @@ bool	token_is_operator(char *line, size_t position)
 	return (false);
 }
 
-void	set_operator_token(t_token *token, char *line, size_t *position)
+void	check_unclosed_quote(bool unclosed_quote)
 {
-	size_t	len;
-	int		index;
-	int		is_operator;
-	char	*token_value;
-
-	is_operator = token_is_operator(line, *position);
-	if (is_operator)
+	if (unclosed_quote)
 	{
-		index = get_operator_type(line, position);
-		token_value = get_operator(index);
-		len = ft_strlen(token_value);
-		token->type = index;
-		token->lexeme = ft_strdup(token_value);
-		*position += len;
-		return ;
+		ft_putstr_fd("WARNING: quote", 2);
+		//free and set a var inside a function
+		exit (3);
 	}
-}
-
-void	set_word_token(t_token *token, char *line, size_t *position)
-{
-	bool	quoted;
-	size_t	start;
-
-	quoted = false;
-	start = *position;
-	while (((!quoted && !(token_is_operator(line, *position)
-						|| is_space(line[*position])))
-				|| (quoted)) && line[*position] != '\0')
-	{
-		if (is_removable_quote(line[*position], RESUME))
-			quoted = !quoted;
-		(*position)++;
-	}
-	if (start != *position)
-	{
-		token->lexeme = ft_substr(line, start, *position - start);
-		token->type = WORD;
-	}
-	is_removable_quote(0, REINITIALIZE);
-	if (quoted)
-		printf("WARNING: quote");
 }

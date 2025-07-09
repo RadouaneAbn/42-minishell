@@ -4,7 +4,7 @@ bool	str_blank(char *str)
 {
 	size_t	index;
 	size_t	space_count;
-	
+
 	index = 0;
 	space_count = 0;
 	while (str[index])

@@ -1,5 +1,49 @@
 #include <minishell.h>
 
+void	set_operator_token(t_token *token, char *line, size_t *position)
+{
+	size_t	len;
+	int		index;
+	int		is_operator;
+	char	*token_value;
+
+	is_operator = token_is_operator(line, *position);
+	if (is_operator)
+	{
+		index = get_operator_type(line, position);
+		token_value = get_operator(index);
+		len = ft_strlen(token_value);
+		token->type = index;
+		token->lexeme = ft_strdup(token_value);
+		*position += len;
+		return ;
+	}
+}
+
+void	set_word_token(t_token *token, char *line, size_t *position)
+{
+	bool	quoted;
+	size_t	start;
+
+	quoted = false;
+	start = *position;
+	while (((!quoted && !(token_is_operator(line, *position)
+					|| is_space(line[*position])))
+			|| (quoted)) && line[*position] != '\0')
+	{
+		if (is_removable_quote(line[*position], RESUME))
+			quoted = !quoted;
+		(*position)++;
+	}
+	if (start != *position)
+	{
+		token->lexeme = ft_substr(line, start, *position - start);
+		token->type = WORD;
+	}
+	is_removable_quote(0, REINITIALIZE);
+	check_unclosed_quote(quoted);
+}
+
 void	get_token(t_token *token, char *line, size_t *position)
 {
 	while (is_space(line[*position]))

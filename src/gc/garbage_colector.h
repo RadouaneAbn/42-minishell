@@ -35,6 +35,7 @@ void level_down(void);
 void free_level(void);
 void free_gc(void);
 void free_gc_full(void);
+int free_elem_from_lvl(t_gc_level *level, void *data);
 void free_lvl_elm(void *data);
 void free_all_elm(void *data);
 

@@ -101,18 +101,18 @@ int free_elem_from_lvl(t_gc_level *level, void *data)
 	return (1);
 }
 
+//void gc_free_from_lvl(void *data)
+//{
+	//t_gc_level *level;
+	//t_gc_node *node;
+	//t_gc_node *tmp;
+//
+	//level = get_current_level();
+	//if (level)
+		//free_elem_form_lvl(level, data);
+//}
+
 void gc_free_from_lvl(void *data)
-{
-	t_gc_level *level;
-	t_gc_node *node;
-	t_gc_node *tmp;
-
-	level = get_current_level();
-	if (level)
-		free_elem(level, data);
-}
-
-void gc_free_from_lvls(void *data)
 {
 	t_gc_level *level;
 	t_gc_node *node;
@@ -121,6 +121,6 @@ void gc_free_from_lvls(void *data)
 	level = get_current_level();
 	if (level == NULL)
 		return ;
-	while (level && free_elem(level, data) != 0)
+	while (level && free_elem_form_lvl(level, data) != 0)
 		level = level->parent;
 }

@@ -2,7 +2,7 @@
 
 bool	is_removable_quote(char character, bool reset)
 {
-	static char			quote;
+	static char		quote;
 	static bool		quoted;
 
 	if (!reset)

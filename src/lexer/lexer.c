@@ -1,11 +1,11 @@
 #include <minishell.h>
 
-void	token_free_list(t_token_lst *token_lst);
 void	lexer(char *line)
 {
-	t_token	token;
+	t_token		token;
 	t_token_lst	*new_node;
 	t_token_lst	*token_lst;
+	t_tree	*tree;
 
 	token_lst = NULL;
 	while (true)
@@ -17,22 +17,8 @@ void	lexer(char *line)
 		new_node = token_lstnew(token);
 		token_lstadd_back(&token_lst, new_node);
 	}
-	//token_printlst(token_lst);
-	t_tree *tree = parser(token_lst);
+	tree = parser(token_lst);
 	print_tree(tree, 0);
-	tree_expand_simple_command(tree->next->next->next);
+	//tree_expand_simple_command(tree->next->next->next);
 	token_free_list(token_lst);
-}
-
-void	token_free_list(t_token_lst *token_lst)
-{
-	t_token_lst	*tmp;
-
-	while (token_lst)
-	{
-		tmp = token_lst->next;
-		free(token_lst->token.lexeme);
-		free(token_lst);
-		token_lst = tmp;
-	}
 }

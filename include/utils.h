@@ -12,4 +12,5 @@ bool	str_blank(char *str);
 void	print_strings(char **strings);
 size_t	get_strings_len(char **strings);
 char    *utoa(size_t num);
+void	token_free_list(t_token_lst *token_lst);
 #endif

@@ -10,10 +10,10 @@
 # include <dirent.h>
 # include <colors.h>
 # include <libft.h>
-# include <utils.h>
 # include <string.h>
 # include <lexer.h>
 # include <parser.h>
 # include <expansion.h>
 # include <pathname_expansion.h>
+# include <utils.h>
 #endif

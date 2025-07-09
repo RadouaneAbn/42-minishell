@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-t_tree *tree_create_new(int data_type, void *parameter)
+t_tree	*tree_create_new(int data_type, void *parameter)
 {
 	t_tree	*new;
 
