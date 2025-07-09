@@ -9,14 +9,16 @@ size_t	get_star_fields_len(char *str, char *star_mask)
 	len = 0;
 	while (str[index])
 	{
-		if (!get_bit(star_mask, index) && (!str[index + 1] || get_bit(star_mask, index + 1) ))
+		if (!get_bit(star_mask, index)
+			&& (!str[index + 1] || get_bit(star_mask, index + 1)))
 			len++;
 		index++;
 	}
 	return (len);
 }
 
-void	define_star_field(char **parts, char *str, size_t *index, char *star_mask)
+void	define_star_field(char **parts, char *str,
+	size_t *index, char *star_mask)
 {
 	size_t	start;
 	size_t	end;
@@ -48,7 +50,7 @@ void	set_star_fields(char **parts, char *str, char *star_mask)
 	}
 }
 
-char **get_star_fields(char *str, char *star_mask)
+char	**get_star_fields(char *str, char *star_mask)
 {
 	size_t	len;
 	char	**parts;

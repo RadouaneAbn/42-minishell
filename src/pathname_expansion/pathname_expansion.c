@@ -1,19 +1,5 @@
 #include <minishell.h>
 
-char	get_last_char(char *str)
-{
-	size_t	index;
-
-	index = 0;
-	while (str[index])
-	{
-		if (str[index + 1] == '\0')
-			return (str[index]);
-		index++;
-	}
-	return (str[index]);
-}
-
 bool	match_pattern(char *filename, char *pattern, char *star_mask)
 {
 	char	**strings;
@@ -70,16 +56,13 @@ void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 		if (match_pattern(child_file->d_name, pattern, star_mask))
 		{
 			match_found = true;
-			//ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(child_file->d_name)));
 			tree_add_back(tree, tree_create_new(0, ft_strdup(child_file->d_name)));
 		}
 	}
 	if (!match_found)
 			tree_add_back(tree, tree_create_new(0, pattern));
-	//ft_lstadd_back(wild_card_list, ft_lstnew(ft_strdup(pattern)));
 	closedir (pDir);
 }
-
 
 t_tree	*pathname_expansion(char **fields, t_list *star_mask)
 {

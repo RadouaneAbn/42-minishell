@@ -23,13 +23,30 @@ char *get_star_mask (char *field, char *quote_mask, t_range range)
 	return (star_mask);
 }
 
+bool	has_unquoted_star(char *quote_mask, char *str)
+{
+	size_t	index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '*' && !quoted_char(quote_mask, index))
+			return (true);
+		index++;
+	}
+	return (false);
+}
+
 void	set_star_mask(char *field, t_list **star_mask, char *quote_mask, t_range range)
 {
 	char	*mask;
 	t_list	*mask_node;
 
-	if (ft_strchr(field, '*'))
+	if (has_unquoted_star(quote_mask, field))
+	{
+		printf("yes\n");
 		mask = get_star_mask(field, quote_mask, range);
+	}
 	else
 		mask = NULL;
 	mask_node = ft_lstnew(mask);
