@@ -18,17 +18,23 @@ bool	has_unquoted_star(char *str, char *quote_mask, t_range range)
 	return (false);
 }
 
+void	set_star_mask_bit(char character, size_t position, bool ch_is_quoted, char *star_mask_bits)
+{
+			if (character == '*' && !ch_is_quoted)
+				set_mask_bit(star_mask_bits, position, 1);
+			else
+				set_mask_bit(star_mask_bits, position, 0);
+}
+
 void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
 	size_t	index;
-	//size_t	start_tmp;
 	bool	star_found;
 	char	*star_mask_bits;
 	t_list	*new_node;
 
 	index = 0;
 	star_found = false;
-	//start_tmp = range.start;
 	star_mask_bits = NULL;
 	if (has_unquoted_star(expand_str, quote_mask, range))
 	{
@@ -40,12 +46,8 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_
 		if (!get_bit(quote_mask, range.start))
 		{
 			if (star_found)
-			{
-				if (expand_str[range.start] == '*' && !quoted_char(quote_mask, range.start))
-					set_mask_bit(star_mask_bits, index, 1);
-				else
-					set_mask_bit(star_mask_bits, index, 0);
-			}
+				set_star_mask_bit(expand_str[range.start], index,
+						quoted_char(quote_mask, range.start), star_mask_bits);
 			field[index] = expand_str[range.start];
 			index++;
 		}
