@@ -4,7 +4,6 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask)
 {
 	char	**strings;
 	int	index;
-	(void)star_mask;
 	size_t	offset;
 	size_t	start;
 
@@ -17,14 +16,14 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask)
 		return (false);
 	while (filename[offset] && strings[index])
 	{
-		if ((index == 0 && !get_bit(star_mask, 0)) && strncmp(filename, strings[index], ft_strlen(strings[index])) != 0)
+		if ((index == 0 && !get_bit(star_mask, 0)) && !strnmatch(filename, strings[index], ft_strlen(strings[index])))
 			return (false);
 		start = ft_strlen(filename) - ft_strlen(strings[index]);
-		if (strings[index + 1] == NULL && !get_bit(star_mask, ft_strlen(pattern) - 1) && strncmp(filename + start, strings[index], ft_strlen(strings[index])) == 0)
+		if (strings[index + 1] == NULL && !get_bit(star_mask, ft_strlen(pattern) - 1) && strnmatch(filename + start, strings[index], ft_strlen(strings[index])))
 			return (true);
 		else if (strings[index + 1] == NULL && !get_bit(star_mask, ft_strlen(pattern) - 1))
 			return (false);
-		if (strncmp(filename + offset, strings[index], ft_strlen(strings[index])) == 0)
+		if (strnmatch(filename + offset, strings[index], ft_strlen(strings[index])))
 		{
 			offset += ft_strlen(strings[index]);
 			index++;
@@ -37,17 +36,15 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask)
 	return (false);
 }
 
-
-
 void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 {
 	struct dirent *child_file;
-	DIR *pDir;
+	DIR *parent_dir;
 	bool	match_found;
 
 	match_found = false;
-		pDir = opendir (".");
-	while (pDir && (child_file = readdir(pDir)) != NULL) {
+	parent_dir = opendir (".");
+	while (parent_dir && (child_file = readdir(parent_dir)) != NULL) {
 		if (match_pattern(child_file->d_name, pattern, star_mask))
 		{
 			match_found = true;
@@ -56,7 +53,7 @@ void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 	}
 	if (!match_found)
 			tree_add_back(tree, tree_create_new(0, pattern));
-	closedir (pDir);
+	closedir (parent_dir);
 }
 
 t_tree	*pathname_expansion(char **fields, t_list *star_mask)

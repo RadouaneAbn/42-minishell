@@ -7,9 +7,9 @@ bool	is_removable_quote(char character, bool reset)
 
 	if (!reset)
 	{
-		if (char_in_set(character, "\"'") && !quoted)
+		if (is_quote(character) && !quoted)
 			quote = character;
-		if (char_in_set(character, "\"'") && character == quote)
+		if (is_quote(character) && character == quote)
 		{
 			quoted = !quoted;
 			return (true);

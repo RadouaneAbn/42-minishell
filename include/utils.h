@@ -1,5 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
+
+#define REINITIALIZE true
+#define RESUME false
+
 bool	char_in_set(char c, char *set);
 int	ft_strcmp(const char *s1, const char *s2);
 bool	is_quote(char character);

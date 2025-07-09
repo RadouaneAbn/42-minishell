@@ -19,7 +19,7 @@ char	*get_value(char *key)
 	return ("");
 }
 
-void	parameter_expansion(char *str, char *expand_str, char *quote_array)
+void	parameter_expansion(char *str, char *expand_str, char *quote_mask)
 {
 	bool	quoted;
 	char	quote;
@@ -37,7 +37,7 @@ void	parameter_expansion(char *str, char *expand_str, char *quote_array)
 				quote = *str;
 			if (quote == *str)
 			{
-				set_mask_bit(quote_array, start, 1);
+				set_mask_bit(quote_mask, start, 1);
 				start = len;
 				start++;
 				quoted = !quoted;
@@ -53,7 +53,7 @@ void	parameter_expansion(char *str, char *expand_str, char *quote_array)
 		}
 		while (start < len)
 		{
-			set_mask_bit(quote_array, start, 0);
+			set_mask_bit(quote_mask, start, 0);
 			start++;
 		}
 	}

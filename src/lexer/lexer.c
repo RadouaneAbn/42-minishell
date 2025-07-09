@@ -19,6 +19,6 @@ void	lexer(char *line)
 	}
 	tree = parser(token_lst);
 	print_tree(tree, 0);
-	//tree_expand_simple_command(tree->next->next->next);
+	tree_expand_simple_command(tree->next->next->next);
 	token_free_list(token_lst);
 }

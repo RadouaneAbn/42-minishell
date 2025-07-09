@@ -1,7 +1,6 @@
 #ifndef EXPANSION_H
 #define EXPANSION_H
-#define REINITIALIZE true
-#define RESUME false
+
 
 typedef struct s_expand_info
 {

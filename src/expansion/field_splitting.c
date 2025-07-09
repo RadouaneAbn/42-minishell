@@ -21,14 +21,14 @@ bool	has_unquoted_star(char *str, char *quote_mask, t_range range)
 void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
 	size_t	index;
-	size_t	start_tmp;
+	//size_t	start_tmp;
 	bool	star_found;
 	char	*star_mask_bits;
 	t_list	*new_node;
 
 	index = 0;
 	star_found = false;
-	start_tmp = range.start;
+	//start_tmp = range.start;
 	star_mask_bits = NULL;
 	if (has_unquoted_star(expand_str, quote_mask, range))
 	{
@@ -56,8 +56,6 @@ void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_
 		shift_bits(star_mask_bits, index);
 	new_node = ft_lstnew(star_mask_bits);
 	ft_lstadd_back(star_mask, new_node);
-	//print_bits(star_mask_bits, get_byte_len(index));
-	//set_star_mask(field, star_mask, quote_mask, (t_range){start_tmp, index});
 }
 
 

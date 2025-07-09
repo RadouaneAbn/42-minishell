@@ -32,8 +32,6 @@ void	write_expand_line(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-
-
 size_t	get_unquoted_del_size(char *delimiter)
 {
 	size_t	index;

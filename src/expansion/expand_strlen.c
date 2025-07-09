@@ -36,12 +36,18 @@ size_t	expand_str_len(char *str)
 	len = 0;
 	while (*str)
 	{
-		if (is_quote(*str))
+		//if (is_quote(*str))
+		//{
+			//if (!quoted)
+				//quote = *str;
+			//if (quote == *str)
+				//quoted = !quoted;
+		//}
+		if (is_removable_quote(*str, RESUME))
 		{
-			if (!quoted)
+			quoted = !quoted;
+			if (quoted)
 				quote = *str;
-			if (quote == *str)
-				quoted = !quoted;
 		}
 		if (((quoted && (quote == '"')) || !quoted) && *str == '$' && first_key_ch(peakch(str)))
 			len += expand_word_len(&str);
@@ -51,5 +57,6 @@ size_t	expand_str_len(char *str)
 			str++;
 		}
 	}
+	is_removable_quote(*str, REINITIALIZE);
 	return (len);
 }
