@@ -32,25 +32,7 @@ void	write_expand_line(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-bool	is_removable_quote(char character, bool reset)
-{
-	char			quote;
-	static bool		quoted;
 
-	if (!reset)
-	{
-		if (char_in_set(character, "\"'") && !quoted)
-			quote = character;
-		if (char_in_set(character, "\"'") && character == quote)
-		{
-			quoted = !quoted;
-			return (true);
-		}
-	}
-	else
-		quoted = false;
-	return (false);
-}
 
 size_t	get_unquoted_del_size(char *delimiter)
 {

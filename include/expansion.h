@@ -68,7 +68,6 @@ void	parameter_expansion(char *str, char *complete_string, char *quote_array);
 /* HERE DOC FUNCTIONS */
 void	write_expand_var(char **line, int fd);
 void	write_expand_line(int fd, char *line);
-bool	is_removable_quote(char character, bool reset);
 size_t	get_unquoted_del_size(char *delimiter);
 t_expand_info	heredoc_expand_info(char *delimiter);
 char	*heredoc(char *delimiter);

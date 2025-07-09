@@ -79,7 +79,6 @@ void	set_word_token(t_token *token, char *line, size_t *position)
 {
 	bool	quoted;
 	size_t	start;
-	char	quote;
 
 	quoted = false;
 	start = *position;
@@ -87,13 +86,8 @@ void	set_word_token(t_token *token, char *line, size_t *position)
 						|| is_space(line[*position])))
 				|| (quoted)) && line[*position] != '\0')
 	{
-		if (is_quote(line[*position]) && !quoted)
-		{
-			quote = line[*position];
-			quoted = true;
-		}
-		else if (is_quote(line[*position]) && quote == line[*position])
-			quoted = false;
+		if (is_removable_quote(line[*position], RESUME))
+			quoted = !quoted;
 		(*position)++;
 	}
 	if (start != *position)
@@ -101,6 +95,7 @@ void	set_word_token(t_token *token, char *line, size_t *position)
 		token->lexeme = ft_substr(line, start, *position - start);
 		token->type = WORD;
 	}
+	is_removable_quote(0, REINITIALIZE);
 	if (quoted)
 		printf("WARNING: quote");
 }

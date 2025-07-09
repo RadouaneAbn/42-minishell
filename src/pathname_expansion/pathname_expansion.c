@@ -11,6 +11,8 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask)
 	index = 0;
 	offset = 0;
 	strings = get_star_fields(pattern, star_mask);
+	if (strings == NULL)
+		return (true);
 	if (filename[0] == '.' && pattern[0] != '.')
 		return (false);
 	while (filename[offset] && strings[index])
@@ -35,14 +37,7 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask)
 	return (false);
 }
 
-void	print_list(t_list *list)
-{
-	while (list)
-	{
-		printf("%s\n", (char *)list->content);
-		list = list->next;
-	}
-}
+
 
 void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 {

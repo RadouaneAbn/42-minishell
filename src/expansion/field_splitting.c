@@ -1,76 +1,64 @@
 #include <minishell.h>
 
-char *get_star_mask (char *field, char *quote_mask, t_range range)
+bool	has_unquoted_star(char *str, char *quote_mask, t_range range)
 {
-	char	*star_mask;
 	size_t	index;
 
 	index = 0;
-	star_mask = malloc(get_byte_len(range.len) * sizeof(char));
 	while (index < range.len)
 	{
 		if (!get_bit(quote_mask, range.start))
 		{
-			if (!quoted_char(quote_mask, range.start) && field[index] == '*')
-				set_mask_bit(star_mask, index, 1);
-			else
-				set_mask_bit(star_mask, index, 0);
+			if (str[range.start] == '*' && !quoted_char(quote_mask, range.start))
+					return (true);
 			index++;
 		}
 		range.start++;
 	}
-	shift_bits(star_mask, range.len);
-	return (star_mask);
-}
-
-bool	has_unquoted_star(char *quote_mask, char *str)
-{
-	size_t	index;
-
-	index = 0;
-	while (str[index])
-	{
-		if (str[index] == '*' && !quoted_char(quote_mask, index))
-			return (true);
-		index++;
-	}
 	return (false);
-}
-
-void	set_star_mask(char *field, t_list **star_mask, char *quote_mask, t_range range)
-{
-	char	*mask;
-	t_list	*mask_node;
-
-	if (has_unquoted_star(quote_mask, field))
-	{
-		printf("yes\n");
-		mask = get_star_mask(field, quote_mask, range);
-	}
-	else
-		mask = NULL;
-	mask_node = ft_lstnew(mask);
-	ft_lstadd_back(star_mask, mask_node);
 }
 
 void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
 {
 	size_t	index;
 	size_t	start_tmp;
+	bool	star_found;
+	char	*star_mask_bits;
+	t_list	*new_node;
 
 	index = 0;
+	star_found = false;
 	start_tmp = range.start;
+	star_mask_bits = NULL;
+	if (has_unquoted_star(expand_str, quote_mask, range))
+	{
+			star_mask_bits = malloc(sizeof(char) * get_byte_len(range.len));
+			star_found = true;
+	}
 	while (index < range.len)
 	{
 		if (!get_bit(quote_mask, range.start))
 		{
+			if (star_found)
+			{
+				if (expand_str[range.start] == '*' && !quoted_char(quote_mask, range.start))
+					set_mask_bit(star_mask_bits, index, 1);
+				else
+					set_mask_bit(star_mask_bits, index, 0);
+				printf("hey %d\n", expand_str[range.start] == '*' && !quoted_char(quote_mask, range.start));
+			}
 			field[index] = expand_str[range.start];
 			index++;
 		}
 		range.start++;
 	}
 	field[index] = '\0';
-	set_star_mask(field, star_mask, quote_mask, (t_range){start_tmp, index});
+	if (star_found)
+		shift_bits(star_mask_bits, index);
+	new_node = ft_lstnew(star_mask_bits);
+	ft_lstadd_back(star_mask, new_node);
+	//print_bits(star_mask_bits, get_byte_len(index));
+	//set_star_mask(field, star_mask, quote_mask, (t_range){start_tmp, index});
 }
 
 

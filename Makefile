@@ -36,7 +36,7 @@ run: $(TARGET) clean
 	./$(TARGET)
 
 valgrind: $(TARGET)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+	valgrind --suppressions=readline.supp   --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(TARGET)
 
 
 DATE = $(shell date +%F/%H/%M)
