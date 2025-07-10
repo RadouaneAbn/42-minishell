@@ -45,7 +45,7 @@ void free_gc(void)
     *gc = NULL;
 }
 
-void free_gc_full(void)
+void free_full(void)
 {
     t_gc *gc;
     t_gc_level *level;
@@ -138,4 +138,46 @@ void zero_level(void)
         return ;
     while (get_current_level()->parent != NULL)
         free_level();
+}
+
+void gc_free_from_level(void *data, int wanted_level)
+{
+    t_gc_level *lvl;
+
+    lvl = get_current_level();
+    while (lvl)
+    {
+        if (lvl->id == wanted_level)
+            break;
+        lvl = lvl->parent;
+    }
+    if (lvl->id == wanted_level)
+        free_elem_from_lvl(lvl, data);
+}
+
+void *gc_malloc_lvl(size_t size, int wanted_level)
+{
+    t_gc_level *lvl;
+    void *data;
+
+    lvl = get_current_level();
+    while (lvl)
+    {
+        if (lvl->id == wanted_level)
+            break;
+        lvl = lvl->parent;
+    }
+    if (lvl->id == wanted_level)
+    {
+        printf("%d: malloc(%zu)\n", wanted_level, size);
+        data = malloc(size);
+        if (data == NULL)
+        {
+            free_full();
+            exit(1);
+        }
+        gc_save(data, lvl);
+        return (data);
+    }
+    return (NULL);
 }
