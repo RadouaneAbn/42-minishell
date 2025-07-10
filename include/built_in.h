@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:31:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:43:21 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:43:39 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ typedef enum e_cmd_type
 /* echo flag */
 # define NO_FLAG 0
 # define NO_NL 1
+
 /* cd */
 # define CUR 0
 # define PAR 1
-
-t_map		*get_map(void);
-char		**split_export_args(char *arg);
 
 int			echo(char **vec, int fd);
 int			export(char *key, char *value);
@@ -53,6 +51,7 @@ char		*expand_env(char *key);
 int			pre_export(char *exported);
 
 /* Helpers */
+char		**split_export_args(char *arg);
 int			command_is_empty(char *cmd);
 char		*get_path_from_env(void);
 char		*join_path(char *path, char *cmd);

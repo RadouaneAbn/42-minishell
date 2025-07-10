@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:45:10 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:45:42 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:38:46 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*node_to_string(t_node *node)
 	int		t_size;
 
 	t_size = ft_strlen(node->key) + ft_strlen(node->value) + 2;
-	s = ft_malloc(t_size * sizeof(char));
+	s = malloc(t_size * sizeof(char));
 	s[0] = 0;
 	ft_strlcat(s, node->key, t_size);
 	ft_strlcat(s, "=", t_size);
@@ -35,7 +35,7 @@ char	**build_env(void)
 
 	map = get_map();
 	node = map->ordered_list;
-	env = ft_malloc((map->size + 1) * sizeof(char *));
+	env = malloc((map->size + 1) * sizeof(char *));
 	if (env == NULL)
 		return (NULL);
 	i = 0;

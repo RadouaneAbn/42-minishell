@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:44:57 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:46:41 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:38:49 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*join_path(char *path, char *cmd)
 	char	*str;
 
 	t_size = ft_strlen(path) + ft_strlen(cmd) + 2;
-	str = ft_malloc(t_size * sizeof(char));
+	str = malloc(t_size * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	str[0] = 0;

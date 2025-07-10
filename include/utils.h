@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:36:37 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:36:38 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:38:40 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define UTILS_H
 
 # include <minishell.h>
-
-void	*ft_malloc(size_t size);
 
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_index_of(char *str, char c);

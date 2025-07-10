@@ -6,25 +6,11 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:41 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:48:42 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:40:52 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	print_cmd_error(char *error)
-{
-	int		size;
-	char	*error_msg;
-
-	size = ft_strlen(error) + 12;
-	error_msg = ft_malloc(size);
-	error_msg[0] = 0;
-	ft_strlcat(error_msg, "minishell: ", size);
-	ft_strlcat(error_msg, error, size);
-	write(2, error_msg, size);
-	return (EXIT_FAILURE);
-}
 
 void	print_error(char *cmd, char *file, char *msg1, char *error_msg)
 {

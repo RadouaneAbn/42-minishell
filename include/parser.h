@@ -8,8 +8,7 @@ struct					s_file
 {
 	t_file				*next;
 	char				*file_name;
-	int operation_type; // like FILE_APPEND, FILE_TRUCATE, FILE_READ,
-	HERE_DOC_READ
+	int operation_type; // like FILE_APPEND, FILE_TRUCATE, FILE_READ, HERE_DOC_READ
 };
 
 /* MAIN COMMAND STRUCT */
