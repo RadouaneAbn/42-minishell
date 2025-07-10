@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hashmap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 16:04:15 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:10:20 by rabounou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-t_node *create_new_node(char *key, char *value)
+t_node	*create_new_node(char *key, char *value)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	if (node == NULL)
@@ -12,7 +24,7 @@ t_node *create_new_node(char *key, char *value)
 	{
 		node->value = ft_strdup(value);
 		if (value != NULL && node->value == NULL)
-			free (node->key);
+			free(node->key);
 		else
 		{
 			node->next = NULL;
@@ -20,14 +32,14 @@ t_node *create_new_node(char *key, char *value)
 			return (node);
 		}
 	}
-	free (node);
+	free(node);
 	return (NULL);
 }
 
-t_node *find_in_map(t_map *map, char *key)
+t_node	*find_in_map(t_map *map, char *key)
 {
-	int idx;
-	t_node *curr;
+	int		idx;
+	t_node	*curr;
 
 	if (key == NULL)
 		return (NULL);
@@ -42,10 +54,10 @@ t_node *find_in_map(t_map *map, char *key)
 	return (NULL);
 }
 
-void append_to_ordered_list(t_map *map, t_node *node)
+void	append_to_ordered_list(t_map *map, t_node *node)
 {
-	t_node *curr;
-	t_node *prev;
+	t_node	*curr;
+	t_node	*prev;
 
 	curr = map->ordered_list;
 	prev = NULL;
@@ -66,11 +78,11 @@ void append_to_ordered_list(t_map *map, t_node *node)
 		prev->ordered_next = node;
 	}
 }
-	
-int add_to_map(t_map *map, char *key, char *value)
+
+int	add_to_map(t_map *map, char *key, char *value)
 {
-	int idx;
-	t_node *node;
+	int		idx;
+	t_node	*node;
 
 	if (!key)
 		return (EXIT_SUCCESS);
@@ -87,7 +99,6 @@ int add_to_map(t_map *map, char *key, char *value)
 	}
 	else if (value != NULL)
 	{
-		/* If the key already exists it wont the change the value if its NULL */
 		free(node->value);
 		node->value = ft_strdup(value);
 		if (node->value == NULL)
@@ -96,10 +107,10 @@ int add_to_map(t_map *map, char *key, char *value)
 	return (EXIT_SUCCESS);
 }
 
-void remove_from_ordered_list(t_map *map, char *key)
+void	remove_from_ordered_list(t_map *map, char *key)
 {
-	t_node *current_node;
-	t_node *prev;
+	t_node	*current_node;
+	t_node	*prev;
 
 	current_node = map->ordered_list;
 	prev = NULL;

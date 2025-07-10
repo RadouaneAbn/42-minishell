@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_env.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 16:04:20 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:10:43 by rabounou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-void load_env(char **env)
+void	load_env(char **env)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (env[i])
-    {
-        pre_export(env[i]);
-        i++;
-    }
+	i = 0;
+	while (env[i])
+	{
+		pre_export(env[i]);
+		i++;
+	}
 }

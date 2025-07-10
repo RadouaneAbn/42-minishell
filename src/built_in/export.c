@@ -1,99 +1,101 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 15:37:27 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 15:38:57 by rabounou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-t_map *get_map(void)
+char	**split_export_args(char *arg)
 {
-    t_info *info;
+	int		idx;
+	char	**arr;
 
-    info = get_info();
-    if (info == NULL)
-        return (NULL);
-    return (&(info->exports));
+	if (arg == NULL)
+		return (NULL);
+	arr = malloc(sizeof(char *) * 3);
+	if (arr == NULL)
+		return (NULL);
+	idx = ft_index_of(arg, '=');
+	if (idx != -1)
+	{
+		arr[0] = ft_substr(arg, 0, idx);
+		arr[1] = ft_substr(arg, idx + 1, ft_strlen(arg) - idx);
+		arr[2] = NULL;
+	}
+	else
+	{
+		arr[0] = ft_strdup(arg);
+		arr[1] = NULL;
+		arr[2] = NULL;
+	}
+	return (arr);
 }
 
-char **split_export_args(char *arg)
+int	key_isvalid(char *key)
 {
-    int idx;
-    char **arr;
+	int	i;
 
-    if (arg == NULL)
-        return (NULL);
-    arr = malloc(sizeof(char *) * 3);
-    if (arr == NULL)
-        return (NULL);
-    idx = ft_index_of(arg, '=');
-    if (idx != -1)
-    {
-        arr[0] = ft_substr(arg, 0, idx);
-        arr[1] = ft_substr(arg, idx + 1, ft_strlen(arg) - idx);
-        arr[2] = NULL;
-    }
-    else
-    {
-        arr[0] = ft_strdup(arg);
-        arr[1] = NULL;
-        arr[2] = NULL;
-    }
-    return (arr);
+	i = 0;
+	if (ft_isdigit(key[i]) == true)
+		return (false);
+	while (key[i])
+	{
+		if (key[i] == '-')
+			return (false);
+		if (key[i] != '_' && ft_isalnum(key[i]) == false)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-int key_isvalid(char *key)
+void	print_export_error(char *key, char *value)
 {
-    int i;
-
-    i = 0;
-    if (ft_isdigit(key[i]) == true)
-        return (false);
-    while (key[i])
-    {
-        if (key[i] == '-')
-            return (false);
-        if (key[i] != '_' && ft_isalnum(key[i]) == false)
-            return (false);
-        i++;
-    }
-    return (true);
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(key, 2);
+	if (value)
+	{
+		ft_putstr_fd("=", 2);
+		ft_putstr_fd(value, 2);
+	}
+	ft_putendl_fd("': not a valid identifier", 2);
 }
 
-void print_export_error(char *key, char *value)
+int	pre_export(char *exported)
 {
-        ft_putstr_fd("minishell: export: `", 2);
-        ft_putstr_fd(key, 2);
-        if (value)
-        {
-            ft_putstr_fd("=", 2);
-            ft_putstr_fd(value, 2);
-        }
-        ft_putendl_fd("': not a valid identifier", 2);
+	char	**args;
+	int		status;
+
+	args = split_export_args(exported);
+	if (key_isvalid(args[0]) == FALSE)
+	{
+		print_export_error(args[0], args[1]);
+		return (EXIT_FAILURE);
+	}
+	status = export(args[0], args[1]);
+	free(args[0]);
+	free(args[1]);
+	free(args);
+	return (status);
 }
 
-int pre_export(char *exported)
+int	export(char *key, char *value)
 {
-    char **args;
-    int status;
+	t_map	*map;
+	int		status;
 
-    args = split_export_args(exported);
-    if (key_isvalid(args[0]) == FALSE)
-    {
-        print_export_error(args[0], args[1]);
-        return (EXIT_FAILURE);
-    }
-    status = export(args[0], args[1]);
-    free(args[0]);
-    free(args[1]);
-    free(args);
-    return (status);
-}
-
-int export(char *key, char *value)
-{
-    t_map *map;
-    int status;
-
-    map = get_map();
-    if (map == NULL)
-        return (EXIT_FAILURE);
-    status = add_to_map(map, key, value);
-    if (status != EXIT_FAILURE)
-        map->size++;
-    return (status);
+	map = get_map();
+	if (map == NULL)
+		return (EXIT_FAILURE);
+	status = add_to_map(map, key, value);
+	if (status != EXIT_FAILURE)
+		map->size++;
+	return (status);
 }

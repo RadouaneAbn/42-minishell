@@ -1,183 +1,90 @@
-#include "../../include/garbage_colector.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gc_tools.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 16:12:05 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:15:20 by rabounou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void level_down(void)
+#include "../../include/garbage_collector.h"
+
+void	level_down(void)
 {
-    t_gc *gc;
+	t_gc	*gc;
 
-    gc = *get_gc();
-    if (!gc || !gc->current_level)
-        return;
-    gc->current_level = gc->current_level->parent;
-    gc->level_n--;
+	gc = *get_gc();
+	if (!gc || !gc->current_level)
+		return ;
+	gc->current_level = gc->current_level->parent;
+	gc->level_n--;
 }
 
-void free_level(void)
+void	free_level(void)
 {
-    t_gc *gc;
-    t_gc_level *current_level;
-    t_gc_node *node;
-    t_gc_node *tmp;
+	t_gc		*gc;
+	t_gc_level	*current_level;
+	t_gc_node	*node;
+	t_gc_node	*tmp;
 
-    gc = *get_gc();
-    if (!gc || !gc->current_level)
-        return ;
-    current_level = get_current_level();
-    node = current_level->aloc_list;
-    while (node)
-    {
-        tmp = node;
-        node = node->next;
-        free(tmp->data);
-        free(tmp);
-    };
-    level_down();
-    free(current_level);
+	gc = *get_gc();
+	if (!gc || !gc->current_level)
+		return ;
+	current_level = get_current_level();
+	node = current_level->aloc_list;
+	while (node)
+	{
+		tmp = node;
+		node = node->next;
+		free(tmp->data);
+		free(tmp);
+	}
+	level_down();
+	free(current_level);
 }
 
-void free_gc(void)
+void	free_gc(void)
 {
-    t_gc **gc;
+	t_gc	**gc;
 
-    gc = get_gc();
-    if (*gc == NULL || (*gc)->current_level != NULL)
-        return ;
-    free(*gc);
-    *gc = NULL;
+	gc = get_gc();
+	if (*gc == NULL || (*gc)->current_level != NULL)
+		return ;
+	free(*gc);
+	*gc = NULL;
 }
 
-void free_full(void)
+void	free_full(void)
 {
-    t_gc *gc;
-    t_gc_level *level;
-    t_gc_node *node;
+	t_gc		*gc;
+	t_gc_level	*level;
+	t_gc_node	*node;
 
-    gc = *get_gc();
-    if (gc == NULL)
-        return ;
-    while (gc->current_level)
-        free_level();
-    free_gc();
+	gc = *get_gc();
+	if (gc == NULL)
+		return ;
+	while (gc->current_level)
+		free_level();
+	free_gc();
 }
 
-t_gc_node *find_data(t_gc_node *head, void *data)
+t_gc_node	*find_data(t_gc_node *head, void *data)
 {
-    t_gc_node *tmp;
+	t_gc_node	*tmp;
 
-    tmp = NULL;
-    while (head->next)
-    {
-        if (head->next->data == data)
-        {
-            tmp = head->next;
-            head->next = head->next->next;
-            break;
-        }
-        head = head->next;
-    }
-    return (tmp);
-}
-
-int free_elem_from_lvl(t_gc_level *level, void *data)
-{
-    t_gc_node *node;
-    t_gc_node *tmp;
-
-    if (!level || !data)
-        return (1);
-    node = level->aloc_list;
-    if (node == NULL)
-        return (1);
-    tmp = NULL;
-    if (data == node->data)
-    {
-        tmp = level->aloc_list;
-        level->aloc_list = level->aloc_list->next;
-    }
-    else
-        tmp = find_data(node, data);
-    if (tmp != NULL)
-    {
-        free(tmp->data);
-        free(tmp);
-        return (0);
-    }
-    return (1);
-}
-
-void gc_local_free(void *data)
-{
-    t_gc_level *level;
-    t_gc_node *node;
-    t_gc_node *tmp;
-
-    level = get_current_level();
-    if (level)
-        free_elem_from_lvl(level, data);
-}
-
-void gc_global_free(void *data)
-{
-    t_gc_level *level;
-    t_gc_node *node;
-    t_gc_node *tmp;
-
-    level = get_current_level();
-    if (level == NULL)
-        return ;
-    while (level && free_elem_from_lvl(level, data) != 0)
-        level = level->parent;
-}
-
-void zero_level(void)
-{
-    t_gc_level *level;
-    t_gc_node *node;
-
-    level = get_current_level();
-    if (level == NULL)
-        return ;
-    while (get_current_level()->parent != NULL)
-        free_level();
-}
-
-void gc_free_from_level(void *data, int wanted_level)
-{
-    t_gc_level *lvl;
-
-    lvl = get_current_level();
-    while (lvl)
-    {
-        if (lvl->id == wanted_level)
-            break;
-        lvl = lvl->parent;
-    }
-    if (lvl->id == wanted_level)
-        free_elem_from_lvl(lvl, data);
-}
-
-void *gc_malloc_lvl(size_t size, int wanted_level)
-{
-    t_gc_level *lvl;
-    void *data;
-
-    lvl = get_current_level();
-    while (lvl)
-    {
-        if (lvl->id == wanted_level)
-            break;
-        lvl = lvl->parent;
-    }
-    if (lvl->id == wanted_level)
-    {
-        printf("%d: malloc(%zu)\n", wanted_level, size);
-        data = malloc(size);
-        if (data == NULL)
-        {
-            free_full();
-            exit(1);
-        }
-        gc_save(data, lvl);
-        return (data);
-    }
-    return (NULL);
+	tmp = NULL;
+	while (head->next)
+	{
+		if (head->next->data == data)
+		{
+			tmp = head->next;
+			head->next = head->next->next;
+			break ;
+		}
+		head = head->next;
+	}
+	return (tmp);
 }
