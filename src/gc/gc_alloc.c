@@ -6,22 +6,18 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:37 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:15:38 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:30:01 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/garbage_collector.h"
+#include <garbage_collector.h>
 
 void	*gc_save(void *data, t_gc_level *level)
 {
 	t_gc_node	*node;
-	t_gc_node	*tmp;
 
 	if (level == NULL)
-	{
-		free_full();
-		exit(1);
-	}
+		level = get_current_level();
 	node = malloc(sizeof(t_gc_node));
 	if (node == NULL)
 	{
@@ -59,7 +55,7 @@ void	*gc_calloc(size_t size)
 {
 	void	*data;
 
-	data = ft_calloc(size);
+	data = malloc(size);
 	if (data == NULL)
 	{
 		perror(GC_MALLOC);
@@ -89,7 +85,6 @@ void	*gc_malloc_lvl(size_t size, int wanted_level)
 	}
 	if (lvl->id == wanted_level)
 	{
-		printf("%d: malloc(%zu)\n", wanted_level, size);
 		data = malloc(size);
 		if (data == NULL)
 		{

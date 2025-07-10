@@ -6,11 +6,11 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:42 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:16:01 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:29:15 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/garbage_collector.h"
+#include <garbage_collector.h>
 
 int	free_elem_from_lvl(t_gc_level *level, void *data)
 {
@@ -42,8 +42,6 @@ int	free_elem_from_lvl(t_gc_level *level, void *data)
 void	gc_local_free(void *data)
 {
 	t_gc_level	*level;
-	t_gc_node	*node;
-	t_gc_node	*tmp;
 
 	level = get_current_level();
 	if (level)
@@ -53,8 +51,6 @@ void	gc_local_free(void *data)
 void	gc_global_free(void *data)
 {
 	t_gc_level	*level;
-	t_gc_node	*node;
-	t_gc_node	*tmp;
 
 	level = get_current_level();
 	if (level == NULL)
@@ -66,7 +62,6 @@ void	gc_global_free(void *data)
 void	zero_level(void)
 {
 	t_gc_level	*level;
-	t_gc_node	*node;
 
 	level = get_current_level();
 	if (level == NULL)

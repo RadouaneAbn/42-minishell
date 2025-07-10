@@ -3,28 +3,28 @@
 int	main(int argc, char *argv[], char **env)
 {
 	char	*line;
-
+	
 	(void)argc;
 	(void)argv;
+	gc_level_init();
 	load_env(env);
 	set_exit_status(0);
 	while (true)
 	{
+		gc_level_init();
 		printf("[%d]-", get_exit_status());
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
-		//rl_redisplay();
+		gc_save(line, NULL);
 		if (!line)
 			break ;
-		if (str_blank(line))
+		if (str_blank(line) == false)
 		{
-			free(line);
-			continue ;
+			add_history(line);
+			lexer(line);
 		}
-		add_history(line);
-		//if (!str_blank(line))
-		lexer(line);
-		free(line);
+		free_level();
 	}
 	rl_clear_history();
+	free_full();
 	return (0);
 }

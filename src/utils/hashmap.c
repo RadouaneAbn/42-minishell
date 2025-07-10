@@ -6,23 +6,34 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:04:15 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 18:59:00 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:23:55 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+char *copy_string(char *src)
+{
+	char *value;
+	int slen;
+
+	slen = ft_strlen(src);
+	value = gc_malloc_lvl(slen + 1, 0);
+	ft_strlcpy(value, src, slen + 1);
+	return (value);
+}
+
 t_node	*create_new_node(char *key, char *value)
 {
 	t_node	*node;
 
-	node = malloc(sizeof(t_node));
+	node = gc_malloc_lvl(sizeof(t_node), 0);
 	if (node == NULL)
 		return (NULL);
-	node->key = ft_strdup(key);
+	node->key = copy_string(key);
 	if (node->key != NULL)
 	{
-		node->value = ft_strdup(value);
+		node->value = copy_string(value);
 		if (value != NULL && node->value == NULL)
 			free(node->key);
 		else
@@ -99,8 +110,8 @@ int	add_to_map(t_map *map, char *key, char *value)
 	}
 	else if (value != NULL)
 	{
-		free(node->value);
-		node->value = ft_strdup(value);
+		gc_free_from_level(node->value, 0);
+		node->value = copy_string(value);
 		if (node->value == NULL)
 			return (EXIT_FAILURE);
 	}

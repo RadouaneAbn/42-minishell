@@ -6,11 +6,11 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:11:55 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:14:01 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:39:08 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/garbage_collector.h"
+#include <garbage_collector.h>
 
 t_gc	**get_gc(void)
 {
@@ -27,7 +27,7 @@ t_gc	**get_gc(void)
 		}
 		gc->current_level = NULL;
 		gc->level_n = 0;
-		gc_level_init();
+		// gc_level_init();
 		init = true;
 	}
 	return (&gc);
@@ -52,6 +52,7 @@ t_gc_level	*gc_level_init(void)
 	new_level->parent = gc->current_level;
 	gc->current_level = new_level;
 	gc->current_level->id = gc->level_n;
+	printf("level %d created\n", gc->current_level->id);
 	gc->level_n++;
 	return (gc->current_level);
 }

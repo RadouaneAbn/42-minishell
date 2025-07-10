@@ -19,6 +19,7 @@
 # include <execution.h>
 # include <built_in.h>
 # include <utils.h>
+# include <garbage_collector.h>
 
 # define MALLOC_FAILURE 42
 
