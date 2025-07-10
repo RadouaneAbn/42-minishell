@@ -59,7 +59,23 @@ void free_gc_full(void)
     free_gc();
 }
 
+t_gc_node *find_data(t_gc_node *head, void *data)
+{
+    t_gc_node *tmp;
 
+    tmp = NULL;
+    while (head->next)
+    {
+        if (head->next->data == data)
+        {
+            tmp = head->next;
+            head->next = head->next->next;
+            break;
+        }
+        head = head->next;
+    }
+    return (tmp);
+}
 
 int free_elem_from_lvl(t_gc_level *level, void *data)
 {
@@ -78,18 +94,7 @@ int free_elem_from_lvl(t_gc_level *level, void *data)
         level->aloc_list = level->aloc_list->next;
     }
     else
-    {
-        while (node->next)
-        {
-            if (node->next->data == data)
-            {
-                tmp = node->next;
-                node->next = node->next->next;
-                break;
-            }
-            node = node->next;
-        }
-    }
+        tmp = find_data(node, data);
     if (tmp != NULL)
     {
         free(tmp->data);
