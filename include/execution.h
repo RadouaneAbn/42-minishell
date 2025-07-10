@@ -5,10 +5,18 @@
 
 # define CMD_NOT_FOUND "command not found"
 
+typedef struct s_fds
+{
+    int prev;
+    int fd_in;
+    int fd_out;
+    int pipe[2];
+} t_fds;
+
 typedef struct s_executable_data
 {
     char **lst;
-    t_tree *fds;
+    t_tree *fd_tree;
     int fd_in;
     int fd_out;
 } t_executable_data;

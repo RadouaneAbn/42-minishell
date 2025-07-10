@@ -66,7 +66,7 @@ void init_executable_data(t_executable_data *data)
 {
     data->fd_in = -1;
     data->fd_out = -1;
-    data->fds = NULL;
+    data->fd_tree = NULL;
     data->lst = NULL;
 }
 
@@ -83,7 +83,7 @@ void execute_command(char **cmdv, t_tree *tree)
     if (handle_redirections(tree, &data) == -1)
         exit (1);
     data.lst = cmdv;
-    data.fds = tree;
+    data.fd_tree = tree;
     status = exec_functions[cmd_type](&data);
     exit(status);
 }
@@ -104,7 +104,7 @@ void execute_command_2(char **cmdv, t_tree *tree)
         return ;
     }
     data.lst = cmdv;
-    data.fds = tree;
+    data.fd_tree = tree;
     status = exec_functions[cmd_type](&data);
     set_exit_status(status);
 }
