@@ -40,6 +40,7 @@ void free_gc_full(void);
 void *gc_malloc(size_t size);
 void gc_local_free(void *data);
 void gc_global_free(void *data);
+void zero_level(void);
 
 
 /* Debug */

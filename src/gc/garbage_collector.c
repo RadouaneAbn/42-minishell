@@ -102,7 +102,7 @@ void *gc_malloc(size_t size)
 }
 
 
-// // testing
+// testing
 // void test_enter_level(void)
 // {
 //     gc_level_init();
@@ -113,7 +113,7 @@ void *gc_malloc(size_t size)
 
 //     if (get_level() < 10)
 //         test_enter_level();
-//     free_level();
+//     // free_level();
 // }
 
 // int main()
@@ -129,5 +129,9 @@ void *gc_malloc(size_t size)
 //     test_enter_level();
 //     // free_level();
 //     // free_gc();
-//     free_gc_full();
+//     // free_gc_full();
+//     // zero_level();
+//     // free_gc_full();
+//     // t_gc **gc = get_gc();
+//     // free(*gc);
 // }

@@ -127,3 +127,15 @@ void gc_global_free(void *data)
     while (level && free_elem_from_lvl(level, data) != 0)
         level = level->parent;
 }
+
+void zero_level(void)
+{
+    t_gc_level *level;
+    t_gc_node *node;
+
+    level = get_current_level();
+    if (level == NULL)
+        return ;
+    while (get_current_level()->parent != NULL)
+        free_level();
+}
