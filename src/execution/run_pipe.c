@@ -6,11 +6,47 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:02:09 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/11 02:41:31 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+
+static char *copy_string2(char *src)
+{
+	char *value;
+	int slen;
+
+	slen = ft_strlen(src);
+	value = gc_malloc(slen + 1);
+	ft_strlcpy(value, src, slen + 1);
+	return (value);
+}
+
+static char **tree_to_array(t_tree *tree)
+{
+	char **arr;
+	int i;
+	t_tree *tmp;
+
+	tmp = tree;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	arr = gc_malloc((sizeof(char *)) * (i + 1));
+	i = 0;
+	while (tree)
+	{
+		arr[i++] = copy_string2(tree->data);
+		tree = tree->next;
+	}
+	arr[i] = NULL;
+	return arr;
+}
 
 void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 {
@@ -42,10 +78,11 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 	pid_t	pid;
 
 	if (tree->data_type == T_CMD_ARG)
-		cmd_array = tree_expand_simple_command(tree);
+		cmd_array = tree_to_array(tree);
+		// cmd_array = tree_expand_simple_command(tree);
 	else
 	{
-		cmd_array = malloc(sizeof(char *));
+		cmd_array = gc_malloc(sizeof(char *));
 		cmd_array[0] = NULL;
 	}
 	pid = fork();
@@ -96,10 +133,14 @@ void	run_pipe_line(t_tree *tree)
 	fds.prev = -1;
 	while (tree)
 	{
+		gc_level_init();
 		fds.pipe[0] = -1;
 		fds.pipe[1] = -1;
 		if (create_pipe(tree, &fds.pipe) == -1)
+		{
+			free_level();
 			return ;
+		}
 		if (fds.prev != -1)
 			fds.fd_in = fds.prev;
 		fds.fd_out = get_fd_out(tree, fds);
@@ -111,6 +152,7 @@ void	run_pipe_line(t_tree *tree)
 		if (fds.pipe[1] != -1)
 			close(fds.pipe[1]);
 		tree = tree->sibling;
+		free_level();
 	}
 	wait_for_children(last_pid);
 }

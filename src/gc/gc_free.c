@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:42 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:29:15 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:53:46 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	gc_global_free(void *data)
 		level = level->parent;
 }
 
-void	zero_level(void)
+void	free_to_lvl_zero(void)
 {
 	t_gc_level	*level;
 

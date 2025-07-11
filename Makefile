@@ -50,7 +50,7 @@ run: $(TARGET)
 	./$(TARGET)
 
 valgrind:
-	valgrind ./$(TARGET)
+	valgrind --leak-check=full --leak-check=full -s ./$(TARGET)
 
 test: $(MINITEST)
 

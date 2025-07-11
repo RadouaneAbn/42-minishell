@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:44:57 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:38:49 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/11 02:39:14 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*join_path(char *path, char *cmd)
 	char	*str;
 
 	t_size = ft_strlen(path) + ft_strlen(cmd) + 2;
-	str = malloc(t_size * sizeof(char));
+	str = gc_malloc(t_size * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	str[0] = 0;
@@ -74,10 +74,17 @@ char	*find_file(char *cmd)
 	i = 0;
 	while (path[i])
 	{
+		gc_save(path[i], NULL);
+		i++;
+	}
+	i = 0;
+	gc_save(path, NULL);
+	while (path[i])
+	{
 		cmd_abs_path = join_path(path[i], cmd);
 		if (file_exist(cmd_abs_path) == TRUE)
-			return (free(cmd), cmd_abs_path);
-		free(cmd_abs_path);
+			return (cmd_abs_path);
+		gc_local_free(cmd_abs_path);
 		i++;
 	}
 	print_error(cmd, NULL, NULL, "command not found");

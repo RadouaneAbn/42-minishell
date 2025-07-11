@@ -6,11 +6,46 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:51:15 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/11 01:48:08 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static char *copy_string2(char *src)
+{
+	char *value;
+	int slen;
+
+	slen = ft_strlen(src);
+	value = gc_malloc(slen + 1);
+	ft_strlcpy(value, src, slen + 1);
+	return (value);
+}
+
+static char **tree_to_array(t_tree *tree)
+{
+	char **arr;
+	int i;
+	t_tree *tmp;
+
+	tmp = tree;
+	i = 0;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	arr = gc_malloc((sizeof(char *)) * (i + 1));
+	i = 0;
+	while (tree)
+	{
+		arr[i++] = copy_string2(tree->data);
+		tree = tree->next;
+	}
+	arr[i] = NULL;
+	return arr;
+}
 
 void	execute_command_tree(t_tree *tree)
 {
@@ -18,7 +53,8 @@ void	execute_command_tree(t_tree *tree)
 	int		status;
 	pid_t	pid;
 
-	cmd_array = tree_expand_simple_command(tree);
+	// cmd_array = tree_expand_simple_command(tree);
+	cmd_array = tree_to_array(tree);
 	pid = -1;
 	if (get_command_type((char *)tree->data) == RUN_EXECUTABLE)
 		pid = fork();
@@ -73,6 +109,7 @@ void	execute_tree_subshell(t_tree *tree)
 
 void	start_tree_execution(t_tree *tree)
 {
+	gc_level_init();
 	if (tree_is_subshell(tree))
 	{
 		execute_tree_subshell(tree->next);
@@ -80,13 +117,11 @@ void	start_tree_execution(t_tree *tree)
 	else
 	{
 		if (is_piped(tree) == TRUE)
-		{
 			run_pipe_line(tree);
-			return ;
-		}
 		else
 			execute_command_tree(tree->next);
 	}
+	free_level();
 }
 
 void	execute_tree(t_tree *tree)
@@ -105,7 +140,7 @@ void	execute_tree(t_tree *tree)
 		{
 			start_tree_execution(tree);
 			pipe_type = T_COMMAND;
-			return ;
+			break;
 		}
 		if (sibling_is_and_or(tree) == TRUE)
 		{

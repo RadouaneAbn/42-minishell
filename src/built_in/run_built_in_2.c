@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:47:37 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/11 01:15:14 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	run_exit(t_executable_data *data)
 			exit_status = 2;
 		}
 	}
+	free_full();
 	exit(exit_status);
 }
 
