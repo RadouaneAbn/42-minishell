@@ -12,40 +12,40 @@
 
 #include <minishell.h>
 
-static char *copy_string2(char *src)
-{
-	char *value;
-	int slen;
+// static char *copy_string2(char *src)
+// {
+// 	char *value;
+// 	int slen;
 
-	slen = ft_strlen(src);
-	value = gc_malloc(slen + 1);
-	ft_strlcpy(value, src, slen + 1);
-	return (value);
-}
+// 	slen = ft_strlen(src);
+// 	value = gc_malloc(slen + 1);
+// 	ft_strlcpy(value, src, slen + 1);
+// 	return (value);
+// }
 
-static char **tree_to_array(t_tree *tree)
-{
-	char **arr;
-	int i;
-	t_tree *tmp;
+// static char **tree_to_array(t_tree *tree)
+// {
+// 	char **arr;
+// 	int i;
+// 	t_tree *tmp;
 
-	tmp = tree;
-	i = 0;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	arr = gc_malloc((sizeof(char *)) * (i + 1));
-	i = 0;
-	while (tree)
-	{
-		arr[i++] = copy_string2(tree->data);
-		tree = tree->next;
-	}
-	arr[i] = NULL;
-	return arr;
-}
+// 	tmp = tree;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	arr = gc_malloc((sizeof(char *)) * (i + 1));
+// 	i = 0;
+// 	while (tree)
+// 	{
+// 		arr[i++] = copy_string2(tree->data);
+// 		tree = tree->next;
+// 	}
+// 	arr[i] = NULL;
+// 	return arr;
+// }
 
 void	execute_command_tree(t_tree *tree)
 {
@@ -53,8 +53,8 @@ void	execute_command_tree(t_tree *tree)
 	int		status;
 	pid_t	pid;
 
-	// cmd_array = tree_expand_simple_command(tree);
-	cmd_array = tree_to_array(tree);
+	cmd_array = tree_expand_simple_command(tree);
+	// cmd_array = tree_to_array(tree);
 	pid = -1;
 	if (get_command_type((char *)tree->data) == RUN_EXECUTABLE)
 		pid = fork();

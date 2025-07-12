@@ -34,7 +34,7 @@ void	free_level(void)
 	if (!gc || !gc->current_level)
 		return ;
 	current_level = get_current_level();
-	printf("freeing level %d\n", current_level->id);
+	// printf("freeing level %d\n", current_level->id);
 	node = current_level->aloc_list;
 	while (node)
 	{

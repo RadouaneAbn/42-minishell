@@ -13,40 +13,40 @@
 #include <minishell.h>
 
 
-static char *copy_string2(char *src)
-{
-	char *value;
-	int slen;
+// static char *copy_string2(char *src)
+// {
+// 	char *value;
+// 	int slen;
 
-	slen = ft_strlen(src);
-	value = gc_malloc(slen + 1);
-	ft_strlcpy(value, src, slen + 1);
-	return (value);
-}
+// 	slen = ft_strlen(src);
+// 	value = gc_malloc(slen + 1);
+// 	ft_strlcpy(value, src, slen + 1);
+// 	return (value);
+// }
 
-static char **tree_to_array(t_tree *tree)
-{
-	char **arr;
-	int i;
-	t_tree *tmp;
+// static char **tree_to_array(t_tree *tree)
+// {
+// 	char **arr;
+// 	int i;
+// 	t_tree *tmp;
 
-	tmp = tree;
-	i = 0;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	arr = gc_malloc((sizeof(char *)) * (i + 1));
-	i = 0;
-	while (tree)
-	{
-		arr[i++] = copy_string2(tree->data);
-		tree = tree->next;
-	}
-	arr[i] = NULL;
-	return arr;
-}
+// 	tmp = tree;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	arr = gc_malloc((sizeof(char *)) * (i + 1));
+// 	i = 0;
+// 	while (tree)
+// 	{
+// 		arr[i++] = copy_string2(tree->data);
+// 		tree = tree->next;
+// 	}
+// 	arr[i] = NULL;
+// 	return arr;
+// }
 
 void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 {
@@ -58,6 +58,8 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 	cmd_type = get_command_type(cmdv[0]);
 	exec_functions = get_exec_functions();
 	init_executable_data(&data);
+	data.fd_in = fds.fd_in;
+	data.fd_out = fds.fd_out;
 	if (handle_redirections(tree, &data) == -1)
 		exit(1);
 	if (data.fd_in == -1)
@@ -66,11 +68,15 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 		data.fd_out = fds.fd_out;
 	if (fds.pipe[0] != -1)
 		close(fds.pipe[0]);
+	// if (data.fd_out != fds.pipe[1] && fds.pipe[1] != -1)
+	// 	close(fds.pipe[1]);
 	data.lst = cmdv;
 	data.fd_tree = tree;
 	status = exec_functions[cmd_type](&data);
 	exit(status);
 }
+
+// < /dev/stdin cat | ls > /dev/stdout
 
 pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 {
@@ -78,8 +84,8 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 	pid_t	pid;
 
 	if (tree->data_type == T_CMD_ARG)
-		cmd_array = tree_to_array(tree);
-		// cmd_array = tree_expand_simple_command(tree);
+		// cmd_array = tree_to_array(tree);
+		cmd_array = tree_expand_simple_command(tree);
 	else
 	{
 		cmd_array = gc_malloc(sizeof(char *));
@@ -149,6 +155,8 @@ void	run_pipe_line(t_tree *tree)
 			close(fds.prev);
 		if (tree->sibling)
 			fds.prev = fds.pipe[0];
+		else if (fds.pipe[0] != -1)
+			close(fds.pipe[0]);
 		if (fds.pipe[1] != -1)
 			close(fds.pipe[1]);
 		tree = tree->sibling;

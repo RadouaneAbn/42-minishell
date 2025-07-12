@@ -16,6 +16,16 @@ int	handle_redirections(t_tree *tree, t_executable_data *data)
 {
 	int	status;
 
+	if (data->fd_in != -1 && data->fd_in != STDIN_FILENO)
+	{
+		dup2(data->fd_in, STDIN_FILENO);
+		close(data->fd_in);
+	}
+	if (data->fd_out != -1 && data->fd_out != STDOUT_FILENO)
+	{
+		dup2(data->fd_out, STDOUT_FILENO);
+		close(data->fd_out);
+	}
 	while (tree)
 	{
 		if (tree->data_type == RED_IN)

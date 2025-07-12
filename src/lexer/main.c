@@ -2,7 +2,7 @@
 
 int	main(int argc, char *argv[], char **env)
 {
-	// char	*line;
+	char	*line;
 	
 	(void)argc;
 	(void)argv;
@@ -12,16 +12,16 @@ int	main(int argc, char *argv[], char **env)
 	while (true)
 	{
 		gc_level_init();
-		// printf("[%d]-", get_exit_status());
-		// line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
-		// if (!line)
-		// 	break ;
-		// gc_save(line, NULL);
-		// if (str_blank(line) == false)
-		// {
-		// 	add_history(line);
-			lexer(NULL);
-		// }
+		printf("[%d]-", get_exit_status());
+		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
+		if (!line)
+			break ;
+		gc_save(line, NULL);
+		if (str_blank(line) == false)
+		{
+			add_history(line);
+			lexer(line);
+		}
 		// free_to_lvl_zero();
 		free_level();
 	}

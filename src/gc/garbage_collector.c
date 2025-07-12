@@ -52,7 +52,7 @@ t_gc_level	*gc_level_init(void)
 	new_level->parent = gc->current_level;
 	gc->current_level = new_level;
 	gc->current_level->id = gc->level_n;
-	printf("level %d created\n", gc->current_level->id);
+	// printf("level %d created\n", gc->current_level->id);
 	gc->level_n++;
 	return (gc->current_level);
 }
