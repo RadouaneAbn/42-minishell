@@ -8,7 +8,9 @@ t_tree	*tree_get_io_redirect_list(t_token_lst	**token_lst)
 	while ((*token_lst))
 	{
 		if (is_redirect_operator((*token_lst)->token.type))
+		{
 			tree_add_back(&io_files, tree_get_io_redirect(token_lst));
+		}
 		else
 			break ;
 	}
@@ -22,16 +24,27 @@ t_tree	*parse_subshell(t_token_lst	**token_lst)
 	t_tree	*subshell;
 
 	subshell = NULL;
-	if ((*token_lst))
+	if ((*token_lst) && (*token_lst)->next)
 	{
 		consume(token_lst);
 		compound_command = tree_get_compound_command(token_lst);
 		if (compound_command == NULL)
-			printf("error expected '('");
+		{
+			return (NULL);
+			//printf("error expected '('");
+		}
 		if ((*token_lst) && (*token_lst)->token.type == R_PAREN)
 			consume(token_lst);
 		else
-			printf("error expected '('");
+		{
+			if (!(*token_lst))
+			{
+				*syntax_err_value() = true;
+				ft_putendl_fd("minishell: syntax error: unclosed quote", 2);
+			}
+			free_tree(compound_command);
+			return (NULL);
+		}
 		subshell = tree_create_new(T_SUBSHELL, NULL);
 		if ((*token_lst))
 		{
@@ -50,21 +63,23 @@ t_tree	*tree_get_command(t_token_lst **token_lst)
 	t_tree	*simple_command;
 
 	command = NULL;
-	if ((*token_lst) && (*token_lst)->token.type != AND && (*token_lst)->token.type != OR && (*token_lst)->token.type != PIPE)
+	if ((*token_lst) && (*token_lst)->token.type != AND
+		&& (*token_lst)->token.type != OR
+		&& (*token_lst)->token.type != PIPE)
 	{
 		command = tree_create_new(T_COMMAND, NULL);
-		//for subshell: consume '(' and call tree_getcommand_list and then consume ')'
 		if ((*token_lst)->token.type == L_PAREN)
 		{
 			subshell = parse_subshell(token_lst);
+			if (subshell == NULL)
+				return (free_tree(command), NULL);
 			tree_add_back(&command, subshell);
 		}
-		//for simple command: 
 		else
 		{
 			simple_command = parse_simple_command(token_lst);
 			if (simple_command == NULL)
-				return (NULL);
+				return (free_tree(command), NULL);
 			tree_add_back(&command, simple_command);
 		}
 	}
