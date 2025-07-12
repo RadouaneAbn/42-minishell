@@ -51,9 +51,12 @@ void	shift_bits(char *quote_array, int size)
 void	set_mask_bit(char *quote_array, int size, char bit)
 {
 	int	byte_index;
+	int	bit_index;
 
 	byte_index = size / 8;
-	quote_array[byte_index] = (quote_array[byte_index] << 1) | bit;
+	bit_index = 8 - (size % 8) - 1;
+	//printf("%d %d\n", (1 << bit_index) | bit, bit_index);
+	quote_array[byte_index] = quote_array[byte_index] | (bit << bit_index);
 }
 
 unsigned char get_bit(char *quote_mask, size_t size)

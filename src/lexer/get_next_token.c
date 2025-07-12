@@ -35,13 +35,13 @@ void	set_word_token(t_token *token, char *line, size_t *position)
 			quoted = !quoted;
 		(*position)++;
 	}
+	check_unclosed_quote(quoted);
 	if (start != *position)
 	{
 		token->lexeme = ft_substr(line, start, *position - start);
 		token->type = WORD;
 	}
 	is_removable_quote(0, REINITIALIZE);
-	check_unclosed_quote(quoted);
 }
 
 void	get_token(t_token *token, char *line, size_t *position)

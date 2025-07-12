@@ -1,38 +1,52 @@
 #include <minishell.h>
 
-bool	match_pattern(char *filename, char *pattern, char *star_mask)
+bool	check_match_pattern(char *filename, char **star_fields)
 {
-	char	**strings;
-	int	index;
 	size_t	offset;
-	size_t	start;
+	size_t	len;
+	size_t	index;
 
 	index = 0;
 	offset = 0;
-	strings = get_star_fields(pattern, star_mask);
-	if (strings == NULL)
-		return (true);
-	if (filename[0] == '.' && pattern[0] != '.')
-		return (false);
-	while (filename[offset] && strings[index])
+	while (filename[offset] && star_fields[index])
 	{
-		if ((index == 0 && !get_bit(star_mask, 0)) && !strnmatch(filename, strings[index], ft_strlen(strings[index])))
-			return (false);
-		start = ft_strlen(filename) - ft_strlen(strings[index]);
-		if (strings[index + 1] == NULL && !get_bit(star_mask, ft_strlen(pattern) - 1) && strnmatch(filename + start, strings[index], ft_strlen(strings[index])))
-			return (true);
-		else if (strings[index + 1] == NULL && !get_bit(star_mask, ft_strlen(pattern) - 1))
-			return (false);
-		if (strnmatch(filename + offset, strings[index], ft_strlen(strings[index])))
+		len = ft_strlen(star_fields[index]);
+		if (strnmatch(filename + offset, star_fields[index], len))
 		{
-			offset += ft_strlen(strings[index]);
+			offset += len;
 			index++;
 			continue ;
 		}
 		offset++;
 	}
-	if (strings[index] == NULL)
+	return (star_fields[index] == NULL);
+}
+
+bool	match_pattern(char *filename, char *pattern, char *star_mask, char **star_fields)
+{
+	size_t	len;
+	size_t	last;
+	size_t	start;
+
+	if (star_fields == NULL && filename[0] != '.')
 		return (true);
+	if (filename[0] == '.' && pattern[0] != '.')
+		return (false);
+	len = ft_strlen(*star_fields);
+	if (!get_bit(star_mask, 0) && !strnmatch(filename, *star_fields, len))
+		return (false);
+	if (check_match_pattern(filename,  star_fields))
+	{
+		last = get_strings_len(star_fields) - 1;
+		len = ft_strlen(star_fields[last]);
+		start = ft_strlen(filename) - len;
+		if (!get_bit(star_mask, ft_strlen(pattern) - 1)
+			&& strnmatch(filename + start, star_fields[last], len))
+			return (true);
+		else if (!get_bit(star_mask, ft_strlen(pattern) - 1))
+			return (false);
+		return (true);
+	}
 	return (false);
 }
 
@@ -41,11 +55,13 @@ void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 	struct dirent *child_file;
 	DIR *parent_dir;
 	bool	match_found;
+	char **star_fields;
 
 	match_found = false;
 	parent_dir = opendir (".");
+	star_fields = get_star_fields(pattern, star_mask);
 	while (parent_dir && (child_file = readdir(parent_dir)) != NULL) {
-		if (match_pattern(child_file->d_name, pattern, star_mask))
+		if (match_pattern(child_file->d_name, pattern, star_mask, star_fields))
 		{
 			match_found = true;
 			tree_add_back(tree, tree_create_new(0, ft_strdup(child_file->d_name)));
@@ -54,6 +70,7 @@ void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 	if (!match_found)
 			tree_add_back(tree, tree_create_new(0, pattern));
 	closedir (parent_dir);
+	free_strings(star_fields);
 }
 
 t_tree	*pathname_expansion(char **fields, t_list *star_mask)

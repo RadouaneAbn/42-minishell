@@ -30,6 +30,7 @@ void	run_heredoc(t_expand_info expand_info, int fd)
 		put_heredoc_line(expand_info.should_expand, line, fd);
 		free(line);
 	}
+	gc_global_free(expand_info.unquoted_delimiter);
 }
 
 char	*heredoc(char *delimiter)
@@ -42,7 +43,7 @@ char	*heredoc(char *delimiter)
 	//addr = utoa((size_t)(&fd));
 	expand_info = (t_expand_info)heredoc_expand_info(delimiter);
 	//file_name = ft_strjoin("/tmp/file-minishell--", addr);
-	file_name = "./file.txt";
+	file_name = ft_strdup("./file.txt");
 	fd = open(file_name, O_TRUNC | O_CREAT | O_RDWR, 0700);
 	run_heredoc(expand_info, fd);
 	return (file_name);

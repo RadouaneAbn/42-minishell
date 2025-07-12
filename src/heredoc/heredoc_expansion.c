@@ -2,21 +2,23 @@
 
 void	write_expand_var(char **line, int fd)
 {
-	char *exit_code;
+	char *exit_code_str;
 	char	*key;
 	char	*value;
 
 	(*line)++;
 	if (**line == '?')
 	{
-		exit_code = "100";
-		ft_putstr_fd(exit_code, fd);
+		exit_code_str = ft_itoa(get_exit_code());
+		ft_putstr_fd(exit_code_str, fd);
+		gc_global_free(exit_code_str);
 	}
 	else
 	{
 		key = get_key(line);
-		value = get_value(key);
+		value = expand_env(key);
 		ft_putstr_fd(value, fd);
+		gc_global_free(key);
 	}
 }
 

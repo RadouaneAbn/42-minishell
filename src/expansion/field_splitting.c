@@ -26,96 +26,40 @@ void	set_star_mask_bit(char character, size_t position, bool ch_is_quoted, char 
 				set_mask_bit(star_mask_bits, position, 0);
 }
 
-void	cp_field(char *field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
+void	fill_field_info(t_expansion info, t_range range, bool store_star_mask, char *star_mask)
 {
 	size_t	index;
-	bool	star_found;
-	char	*star_mask_bits;
-	t_list	*new_node;
 
 	index = 0;
-	star_found = false;
-	star_mask_bits = NULL;
-	if (has_unquoted_star(expand_str, quote_mask, range))
-	{
-			star_mask_bits = malloc(sizeof(char) * get_byte_len(range.len));
-			star_found = true;
-	}
 	while (index < range.len)
 	{
-		if (!get_bit(quote_mask, range.start))
+		if (!get_bit(info.quote_mask, range.start))
 		{
-			if (star_found)
-				set_star_mask_bit(expand_str[range.start], index,
-						quoted_char(quote_mask, range.start), star_mask_bits);
-			field[index] = expand_str[range.start];
+			if (store_star_mask)
+				set_star_mask_bit(info.expand_str[range.start], index,
+						quoted_char(info.quote_mask, range.start), star_mask);
+			info.field[index] = info.expand_str[range.start];
 			index++;
 		}
 		range.start++;
 	}
-	field[index] = '\0';
-	if (star_found)
-		shift_bits(star_mask_bits, index);
-	new_node = ft_lstnew(star_mask_bits);
-	ft_lstadd_back(star_mask, new_node);
+	info.field[index] = '\0';
 }
 
-
-void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask)
+void	set_field_info(t_expansion info ,t_range range)
 {
-	*field = malloc(sizeof(char) * (range.len + 1));
-	cp_field(*field, expand_str, quote_mask, range, star_mask);
-}
+	bool	store_star_mask;
+	char	*star_mask;
+	t_list	*new_node;
 
-void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **star_mask)
-{
-	size_t index;
-	size_t	start;
-	size_t	len;
-	size_t	fields_len;
-
-	index = 0;
-	fields_len = 0;
-	while (expand_str[index])
+	store_star_mask = false;
+	star_mask = NULL;
+	if (has_unquoted_star(info.expand_str, info.quote_mask, range))
 	{
-		if (expand_str[index] && !(is_space(expand_str[index])
-					&& !quoted_char(quote_mask, index)))
-		{
-			start = index;
-			len = get_field_len(expand_str, quote_mask, &index);
-			set_field(fields + fields_len, expand_str, quote_mask, (t_range){start, len}, star_mask);
-			fields_len++;
-		}
-		else
-			index++;
+			star_mask = ft_calloc(sizeof(char), get_byte_len(range.len));
+			store_star_mask = true;
 	}
-}
-
-void	print_fields(char **fields, t_list *star_mask)
-{
-	size_t	index;
-
-	index = 0;
-	while (fields[index])
-	{
-		if (star_mask->content)
-			print_bits(star_mask->content, get_byte_len(ft_strlen(fields[index])));
-		star_mask = star_mask->next;
-		index++;
-	}
-}
-
-char	**field_splitting(char **expand_strs, char **quote_mask, t_list **star_mask)
-{
-	size_t	fields_len;
-	char	**fields;
-
-	fields_len = get_fields_len(*expand_strs, *quote_mask);
-	if (fields_len == 0)
-		return (NULL);
-	fields = malloc(sizeof(char *) * (fields_len + 1));
-	fill_fields(*expand_strs, fields, *quote_mask, star_mask);
-	fields[fields_len] = NULL;
-	//print_strings(fields, *star_mask);
-	return (fields);
+	fill_field_info(info, range, store_star_mask, star_mask); 
+	new_node = ft_lstnew(star_mask);
+	ft_lstadd_back(info.star_mask_list, new_node);
 }

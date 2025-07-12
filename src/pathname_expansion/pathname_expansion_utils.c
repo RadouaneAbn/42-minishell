@@ -56,6 +56,8 @@ char	**get_star_fields(char *str, char *star_mask)
 	char	**parts;
 
 	len = get_star_fields_len(str, star_mask);
+	if (len == 0)
+		return (NULL);
 	parts = malloc(sizeof(char *) * (len + 1));
 	set_star_fields(parts, str, star_mask);
 	parts[len] = NULL;

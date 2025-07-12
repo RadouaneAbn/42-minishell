@@ -50,10 +50,9 @@ t_tree	*tree_get_command(t_token_lst **token_lst)
 	t_tree	*simple_command;
 
 	command = NULL;
-	if ((*token_lst))
+	if ((*token_lst) && (*token_lst)->token.type != AND && (*token_lst)->token.type != OR && (*token_lst)->token.type != PIPE)
 	{
 		command = tree_create_new(T_COMMAND, NULL);
-		simple_command = NULL;
 		//for subshell: consume '(' and call tree_getcommand_list and then consume ')'
 		if ((*token_lst)->token.type == L_PAREN)
 		{

@@ -59,8 +59,8 @@ void	check_unclosed_quote(bool unclosed_quote)
 {
 	if (unclosed_quote)
 	{
-		ft_putstr_fd("WARNING: quote", 2);
+		ft_putendl_fd("minishell: unclosed quote", 2);
+		*syntax_err_value() = true;
 		//free and set a var inside a function
-		exit (3);
 	}
 }

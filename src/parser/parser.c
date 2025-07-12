@@ -13,6 +13,8 @@ t_tree *parser(t_token_lst *token_lst)
 	t_tree *compound_command = tree_get_compound_command(&token_lst);
 	if (token_lst)
 	{
+		*syntax_err_value() = true;
+		free_tree(compound_command);
 		put_unexpected_token_err(token_lst->token.lexeme);
 		return (NULL);
 	}

@@ -4,25 +4,26 @@ size_t	expand_word_len(char **str)
 {
 	size_t	len;
 	char	*key;
-	int	exit_code_len;
+	int		exit_code_len;
 	char	*exit_code;
+	char	*value;
 
 	len = 0;
 	if (peakch(*str) == '?')
 	{
-		exit_code = "100";
+		exit_code = ft_itoa(get_exit_code());
 		exit_code_len = ft_strlen(exit_code);
 		len += exit_code_len;
 		*str += 2;
-		//free(exit_code);
+		free(exit_code);
 		return (len);
 	}
 	(*str)++;
 	key = get_key(str);
-	char *value = get_value(key);
+	value = expand_env(key);
 	if (key == NULL)
 		return (0);
-	//free(key);
+	free(key);
 	return (ft_strlen(value));
 }
 
@@ -36,20 +37,14 @@ size_t	expand_str_len(char *str)
 	len = 0;
 	while (*str)
 	{
-		//if (is_quote(*str))
-		//{
-			//if (!quoted)
-				//quote = *str;
-			//if (quote == *str)
-				//quoted = !quoted;
-		//}
 		if (is_removable_quote(*str, RESUME))
 		{
 			quoted = !quoted;
 			if (quoted)
 				quote = *str;
 		}
-		if (((quoted && (quote == '"')) || !quoted) && *str == '$' && first_key_ch(peakch(str)))
+		if (((quoted && (quote == '"')) || !quoted) && *str == '$'
+			&& first_key_ch(peakch(str)))
 			len += expand_word_len(&str);
 		else
 		{

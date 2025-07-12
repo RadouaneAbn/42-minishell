@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/12 10:08:27 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	lexer(char *line)
@@ -17,8 +29,21 @@ void	lexer(char *line)
 		new_node = token_lstnew(token);
 		token_lstadd_back(&token_lst, new_node);
 	}
+	if (*syntax_err_value())
+	{
+		free_token_list(&token_lst);
+		*syntax_err_value() = false;
+		return ;
+	}
 	tree = parser(token_lst);
+	if (*syntax_err_value())
+	{
+		free_token_list(&token_lst);
+		*syntax_err_value() = false;
+		return ;
+	}
+	free_token_list(&token_lst);
 	print_tree(tree, 0);
-	tree_expand_simple_command(tree->next->next->next);
-	token_free_list(token_lst);
+	free_tree(tree);
+	//tree_expand_simple_command(tree->next->next->next);
 }

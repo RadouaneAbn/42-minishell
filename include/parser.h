@@ -33,18 +33,18 @@ struct s_tree
 /*MAIN STUCTURE OF TOKEN TYPES*/
 typedef enum	e_type
 {
-	T_COMPOUND_COMMAND,
-	T_PIPELINE,
-	T_FILE_HERE_DOC,
-	T_FILE_APPEND,
-	T_FILE_READ,
-	T_FILE_TRUNCATE,
-	T_AND,
-	T_OR,
-	T_COMMAND,
-	T_SUBSHELL,
-	T_CMD_ARG,
-}	t_type;
+	T_COMPOUND_COMMAND, // 0
+	T_PIPELINE, // 1
+	T_FILE_HERE_DOC, // 2
+	T_FILE_APPEND, // 3
+	T_FILE_READ, //4
+	T_FILE_TRUNCATE, //5
+	T_AND, // 6
+	T_OR, // 7
+	T_COMMAND, // 8
+	T_SUBSHELL, // 9
+	T_CMD_ARG, // 10
+}	t_type; // 11
 
 
 t_tree	*parser(t_token_lst *token_lst);
@@ -77,4 +77,8 @@ t_tree	*tree_get_compound_command(t_token_lst **token_lst);
 
 /**/
 char	*here_doc(char *delimiter);
+
+
+// free tree
+void	free_tree(t_tree *tree);
 #endif
