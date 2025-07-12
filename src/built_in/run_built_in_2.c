@@ -20,6 +20,8 @@ int	run_exit(t_executable_data *data)
 
 	vec = data->lst;
 	exit_str = vec[1];
+	if (*ps_status() == true)
+		printf("exit\n");
 	if (exit_str == NULL)
 		exit_status = get_exit_status();
 	else
@@ -63,16 +65,6 @@ int	run_executable(t_executable_data *data)
 	char	**vec;
 
 	vec = data->lst;
-	// if (data->fd_in != -1 && data->fd_in != STDIN_FILENO)
-	// {
-	// 	dup2(data->fd_in, STDIN_FILENO);
-	// 	close(data->fd_in);
-	// }
-	// if (data->fd_out != -1 && data->fd_out != STDOUT_FILENO)
-	// {
-	// 	dup2(data->fd_out, STDOUT_FILENO);
-	// 	close(data->fd_out);
-	// }
 	if (vec[0] == NULL)
 		exit(0);
 	if (command_is_empty(vec[0]))

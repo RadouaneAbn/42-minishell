@@ -52,7 +52,7 @@ void	execute_command(char **cmdv, t_tree *tree)
 
 	cmd_type = get_command_type(cmdv[0]);
 	exec_functions = get_exec_functions();
-	init_executable_data(&data);
+	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree, &data) == -1)
 		exit(1);
 	data.lst = cmdv;
@@ -70,7 +70,7 @@ void	execute_command_2(char **cmdv, t_tree *tree)
 
 	cmd_type = get_command_type(cmdv[0]);
 	exec_functions = get_exec_functions();
-	init_executable_data(&data);
+	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree, &data) == -1)
 	{
 		set_exit_status(1);

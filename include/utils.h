@@ -21,7 +21,7 @@ t_info	*get_info(void);
 void	load_env(char **env);
 bool	is_dir(char *filename);
 char *copy_string(char *src);
-
+bool *ps_status(void);
 void	print_error(char *cmd, char *file, char *msg1, char *error_msg);
 
 #endif

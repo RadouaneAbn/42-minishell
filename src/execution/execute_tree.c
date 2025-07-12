@@ -49,19 +49,32 @@
 
 void	execute_command_tree(t_tree *tree)
 {
+	t_tree *fd_start;
 	char	**cmd_array;
 	int		status;
 	pid_t	pid;
 
-	cmd_array = tree_expand_simple_command(tree);
+	fd_start = NULL;
+	if (tree->data_type == T_CMD_ARG)
+	{
+		cmd_array = tree_expand_simple_command(tree);
+		fd_start = tree->sibling;
+	}
+	else
+	{
+		cmd_array = gc_malloc(sizeof(char *));
+		cmd_array[0] = NULL;
+		fd_start = tree;
+	}
+	// printf("[%s]\n", cmd_array[0]);
 	// cmd_array = tree_to_array(tree);
 	pid = -1;
-	if (get_command_type((char *)tree->data) == RUN_EXECUTABLE)
+	if (get_command_type(cmd_array[0]) == RUN_EXECUTABLE)
 		pid = fork();
 	else
-		execute_command_2(cmd_array, tree->sibling);
+		execute_command_2(cmd_array, fd_start);
 	if (pid == 0)
-		execute_command(cmd_array, tree->sibling);
+		execute_command(cmd_array, fd_start);
 	if (pid != -1)
 	{
 		waitpid(pid, &status, 0);
@@ -73,7 +86,9 @@ void	run_subshell(t_tree *tree)
 {
 	t_executable_data	data;
 
-	init_executable_data(&data);
+	*ps_status() = false;
+
+	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree->sibling, &data) == -1)
 		exit(1);
 	if (data.fd_in != -1)

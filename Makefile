@@ -49,8 +49,12 @@ run: $(TARGET)
 	clear
 	./$(TARGET)
 
-valgrind:
-	valgrind --leak-check=full --leak-check=full -s ./$(TARGET)
+valgrind: re
+	valgrind --suppressions=readline.supp --leak-check=full  -s ./$(TARGET)
+
+
+fvalgrind: re
+	valgrind --suppressions=readline.supp --leak-check=full --track-fds=yes --track-origins=yes -s ./$(TARGET)
 
 test: $(MINITEST)
 

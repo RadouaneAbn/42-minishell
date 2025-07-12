@@ -12,6 +12,13 @@
 
 #include <minishell.h>
 
+bool *ps_status(void)
+{
+	static bool is_main = true;
+	
+	return (&is_main);
+}
+
 t_cmd_type	get_command_type(char *cmd)
 {
 	static char	*built_ins[8] = {"export", "env", "unset", "echo", "pwd", "cd",
@@ -36,14 +43,6 @@ t_func_ptr	*get_exec_functions(void)
 		run_echo, run_pwd, run_cd, run_exit, run_executable};
 
 	return (exec_functions);
-}
-
-void	init_executable_data(t_executable_data *data)
-{
-	data->fd_in = -1;
-	data->fd_out = -1;
-	data->fd_tree = NULL;
-	data->lst = NULL;
 }
 
 int	get_fd_out(t_tree *tree, t_fds fds)

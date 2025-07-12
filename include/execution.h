@@ -60,7 +60,6 @@ bool					is_piped(t_tree *tree);
 /* execution utils */
 t_cmd_type				get_command_type(char *cmd);
 t_func_ptr				*get_exec_functions(void);
-void					init_executable_data(t_executable_data *data);
 int						get_fd_out(t_tree *tree, t_fds fds);
 bool					sibling_is_and_or(t_tree *tree);
 bool					is_compound_command_or_pipeline(t_tree *tree);

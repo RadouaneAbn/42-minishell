@@ -57,9 +57,7 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 
 	cmd_type = get_command_type(cmdv[0]);
 	exec_functions = get_exec_functions();
-	init_executable_data(&data);
-	data.fd_in = fds.fd_in;
-	data.fd_out = fds.fd_out;
+	data = (t_executable_data){NULL, NULL, fds.fd_in, fds.fd_out};
 	if (handle_redirections(tree, &data) == -1)
 		exit(1);
 	if (data.fd_in == -1)
@@ -68,8 +66,6 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 		data.fd_out = fds.fd_out;
 	if (fds.pipe[0] != -1)
 		close(fds.pipe[0]);
-	// if (data.fd_out != fds.pipe[1] && fds.pipe[1] != -1)
-	// 	close(fds.pipe[1]);
 	data.lst = cmdv;
 	data.fd_tree = tree;
 	status = exec_functions[cmd_type](&data);
@@ -94,6 +90,7 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 	pid = fork();
 	if (pid == 0)
 	{
+		*ps_status() = false;
 		if (tree->data_type == T_CMD_ARG)
 			execute_command_piped(cmd_array, tree->sibling, fds);
 		else
