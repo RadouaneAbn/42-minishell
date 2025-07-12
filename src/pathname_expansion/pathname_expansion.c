@@ -50,7 +50,7 @@ bool	match_pattern(char *filename, char *pattern, char *star_mask, char **star_f
 	return (false);
 }
 
-void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
+void	get_match_patterns_childs(t_list **list, char *pattern, char *star_mask)
 {
 	struct dirent *child_file;
 	DIR *parent_dir;
@@ -64,30 +64,30 @@ void	get_match_patterns_childs(t_tree **tree, char *pattern, char *star_mask)
 		if (match_pattern(child_file->d_name, pattern, star_mask, star_fields))
 		{
 			match_found = true;
-			tree_add_back(tree, tree_create_new(0, ft_strdup(child_file->d_name)));
+			ft_lstadd_back(list, ft_lstnew(ft_strdup(child_file->d_name)));
 		}
 	}
 	if (!match_found)
-			tree_add_back(tree, tree_create_new(0, pattern));
+			ft_lstadd_back(list, ft_lstnew(ft_strdup(pattern)));
 	closedir (parent_dir);
 	free_strings(star_fields);
 }
 
-t_tree	*pathname_expansion(char **fields, t_list *star_mask)
+t_list	*pathname_expansion(char **fields, t_list *star_mask)
 {
-	t_tree	*tree;
+	t_list	*list;
 	size_t	index;
 
-	tree = NULL;
+	list = NULL;
 	index = 0;
 	while (fields[index])
 	{
 		if (star_mask->content)
-			get_match_patterns_childs(&tree, fields[index], star_mask->content);
+			get_match_patterns_childs(&list, fields[index], star_mask->content);
 		else
-			tree_add_back(&tree, tree_create_new(0, fields[index]));
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(fields[index])));
 		star_mask = star_mask->next;
 		index++;
 	}
-	return (tree);
+	return (list);
 }

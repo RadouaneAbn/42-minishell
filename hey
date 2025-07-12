@@ -1,8 +1,0 @@
-str = 'hey';
-'{
-	index: 1;
-	byte: 0;
-	bit: 7;
-	whole_byte: 1000 0000;
-}
-

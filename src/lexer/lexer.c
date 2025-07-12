@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/12 10:08:27 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/12 15:53:02 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	lexer(char *line)
 		return ;
 	}
 	free_token_list(&token_lst);
-	print_tree(tree, 0);
+	//print_tree(tree, 0);
+	expand_simple_command_lst(tree->next->next->next);
 	free_tree(tree);
-	//tree_expand_simple_command(tree->next->next->next);
 }

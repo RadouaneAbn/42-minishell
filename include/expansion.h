@@ -54,7 +54,7 @@ void	set_field(char **field, char *expand_str, char *quote_mask, t_range range, 
 void	fill_fields(char *expand_strs, char **fields, char *quote_mask, t_list **star_mask);
 char **get_fields(char **expand_strs, char **quote_mask, t_list **star_mask);
 
-t_tree	*tree_expand_simple_command(t_tree *simple_command);
+t_tree	*expand_simple_command_lst(t_tree *simple_command);
 void	parameter_expansion(char *str, char *complete_string, char *quote_array);
 
 /* HERE DOC FUNCTIONS */

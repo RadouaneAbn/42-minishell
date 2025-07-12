@@ -3,7 +3,7 @@
 char	*expand_env(char *key)
 {
 	if (strmatch(key, "var"))
-		return (" hey");
+		return ("$var");
 	if (strmatch(key, "blank"))
 		return ("              ");
 	else if (strmatch(key, "cwd"))

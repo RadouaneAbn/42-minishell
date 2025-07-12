@@ -61,33 +61,35 @@ t_fields_info expand_simple_command(char *str)
 	return ((t_fields_info){fields, star_mask});
 }
 
-t_tree *tree_expand_simple_command(t_tree *simple_command)
+t_tree *expand_simple_command_lst(t_tree *simple_command)
 {
-	t_tree				*tree;
+	t_list				*list;
 	t_fields_info	fields_info;
-	t_tree	*new_tree;
+	t_list	*new_list;
 
-	tree = NULL;
+	list = NULL;
 	while (simple_command)
 	{
 		fields_info = expand_simple_command(simple_command->data);
 		print_strings(fields_info.fields);
 		if (fields_info.fields)
 		{
-				new_tree = pathname_expansion(fields_info.fields, fields_info.star_mask);
-				tree_add_back(&tree, new_tree);
+				new_list = pathname_expansion(fields_info.fields, fields_info.star_mask);
+				ft_lstadd_back(&list, new_list);
 		}
 		simple_command = simple_command->next;
 	}
-	print_tree(tree, 0);
+	//print_tree(tree, 0);
 	free_strings(fields_info.fields);
 	free_list(&fields_info.star_mask);
+	print_list(list);
+	free_list(&list);
 	return (NULL);
 }
 
 void expand_redirection(char *filename, bool *ambiguous)
 {
-	t_tree	*tree;
+	t_list	*list;
 	t_fields_info	fields_info;
 
 	*ambiguous = false;
@@ -95,10 +97,10 @@ void expand_redirection(char *filename, bool *ambiguous)
 	if (get_strings_len(fields_info.fields) != 1)	
 	{
 		*ambiguous = true;
-		return;// (NULL);
+		return; // (NULL);
 	}
-	tree = pathname_expansion(fields_info.fields, fields_info.star_mask);
-	if (tree_get_size(tree) != 1)
+	list = pathname_expansion(fields_info.fields, fields_info.star_mask);
+	if (ft_lstsize(list) != 1)
 	{
 		*ambiguous = true;
 		return;
