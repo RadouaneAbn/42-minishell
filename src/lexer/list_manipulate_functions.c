@@ -4,7 +4,7 @@ t_token_lst	*token_lstnew(t_token token)
 {
 	t_token_lst	*new_node;
 
-	new_node = malloc(sizeof(t_token_lst));
+	new_node = gc_malloc(sizeof(t_token_lst));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->token = token;

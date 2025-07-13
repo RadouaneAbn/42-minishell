@@ -16,7 +16,7 @@ void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **sta
 		{
 			start = index;
 			len = get_field_len(expand_str, quote_mask, &index);
-			fields[fields_len] = malloc(sizeof(char) * (len + 1));
+			fields[fields_len] = gc_malloc(sizeof(char) * (len + 1));
 			set_field_info((t_expansion){fields[fields_len], expand_str, quote_mask, star_mask_list},
 					(t_range){start, len});
 			fields_len++;
@@ -34,7 +34,7 @@ char	**get_fields(char **expand_strs, char **quote_mask, t_list **star_mask_list
 	fields_len = get_fields_len(*expand_strs, *quote_mask);
 	if (fields_len == 0)
 		return (NULL);
-	fields = malloc(sizeof(char *) * (fields_len + 1));
+	fields = gc_malloc(sizeof(char *) * (fields_len + 1));
 	fill_fields(*expand_strs, fields, *quote_mask, star_mask_list);
 	fields[fields_len] = NULL;
 	return (fields);

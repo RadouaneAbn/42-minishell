@@ -60,7 +60,7 @@ t_expand_info	heredoc_expand_info(char *delimiter)
 	expand_info.should_expand = true;
 	index = 0;
 	len = get_unquoted_del_size(delimiter);
-	expand_info.unquoted_delimiter = malloc((len + 1) * sizeof(char));
+	expand_info.unquoted_delimiter = gc_malloc((len + 1) * sizeof(char));
 	while (*delimiter)
 	{
 		if (!is_removable_quote(*delimiter, RESUME))

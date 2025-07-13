@@ -31,7 +31,7 @@ char	*utoa(size_t num)
 
 	start = 0;
 	length = utoa_length(num);
-	ptr = (char *)malloc((length + 1) * sizeof(char));
+	ptr = gc_malloc((length + 1) * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
 	ptr[length] = '\0';
