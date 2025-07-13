@@ -13,7 +13,7 @@ $ cat
 ^C
 
 $ echo $?
-128
+130
 ```
 
 If a command is not found, the child process created to execute it returns a status of 127. If a command is found but is not executable, the return status is 126.
@@ -22,7 +22,7 @@ $ kajsldfjkalsdf
 kajsldfjkalsdf: command not found
 
 $ echo $?
-130
+127
 ```
 
 If a command fails because of an error during expansion or redirection, the exit status is greater than zero.

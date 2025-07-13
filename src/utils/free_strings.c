@@ -1,15 +1,5 @@
 #include <minishell.h>
 
-void gc_global_free(void *ptr)
-{
-	free(ptr);
-}
-
-void gc_local_free(void *ptr)
-{
-	free(ptr);
-}
-
 void	free_strings(char **strings)
 {
 	size_t	index;

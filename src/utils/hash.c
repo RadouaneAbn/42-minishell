@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:04:06 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:04:07 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/10 16:04:09 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:05:48 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <minishell.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+unsigned int	hash(const char *key)
 {
-	size_t	i;
+	unsigned int	hash;
+	int				i;
 
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
+	hash = 5381;
+	while (key[i])
+	{
+		hash = ((hash << 5) + hash) + key[i];
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (hash % MAP_SIZE);
 }

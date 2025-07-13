@@ -62,11 +62,10 @@ void	write_expand_var(char **line, int fd);
 void	write_expand_line(int fd, char *line);
 size_t	get_unquoted_del_size(char *delimiter);
 t_expand_info	heredoc_expand_info(char *delimiter);
-char	*heredoc(char *delimiter);
+char			*heredoc(char *delimiter);
 
 
 //temprory
-int	get_exit_code(void);
 char	*expand_env(char *key);
 char *expand_redirection(char *filename, bool *ambiguous);
 #endif

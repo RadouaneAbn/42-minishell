@@ -44,7 +44,8 @@ void	lexer(char *line)
 		return ;
 	}
 	free_token_list(&token_lst);
-	print_tree(tree, 0);
-	expand_simple_command_lst(tree->next->next->next);
-	free_tree(tree);
+	// print_tree(tree, 0);
+	execute_tree(tree);
+	// expand_simple_command_lst(tree->next->next->next);
+	// free_tree(tree);
 }

@@ -81,7 +81,6 @@ char **expand_simple_command_lst(t_tree *simple_command)
 		free_list(&fields_info.star_mask);
 		simple_command = simple_command->next;
 	}
-	//print_list(list);
 	all_args = lst_to_strings(list);
 	free_list(&list);
 	return (all_args);

@@ -14,21 +14,21 @@ typedef enum e_token_name
 	L_PAREN,
 	R_PAREN,
 	WORD
-}	t_token_type;
+}						t_token_type;
 
-typedef char*	t_token_value;
+typedef char			*t_token_value;
 
 typedef struct s_token
 {
-	int		type;
+	int					type;
 	char				*lexeme;
-}	t_token;
+}						t_token;
 
 typedef struct s_token_lst
 {
-	t_token	token;
+	t_token				token;
 	struct s_token_lst	*next;
-}	t_token_lst;
+}						t_token_lst;
 
 void	lexer(char *line);
 void	get_next_token(t_token *token, char *line);
@@ -46,8 +46,8 @@ void	token_printlst(t_token_lst *token_lst);
 void	check_unclosed_quote(bool unclosed_quote);
 
 /*======================== token list manipulation functions=====================*/
-t_token_lst	*token_lstnew(t_token token);
-t_token_lst	*token_lstlast(t_token_lst *lst);
-void	token_lstadd_back(t_token_lst	**lst, t_token_lst *new);
+t_token_lst				*token_lstnew(t_token token);
+t_token_lst				*token_lstlast(t_token_lst *lst);
+void					token_lstadd_back(t_token_lst **lst, t_token_lst *new);
 
 #endif

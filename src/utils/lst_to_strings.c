@@ -6,7 +6,7 @@ char	**lst_to_strings(t_list *list)
 	size_t	lst_size;
 	size_t	index;
 
-	if (*list)
+	if (!list)
 		return (NULL);
 	index = 0;
 	lst_size = ft_lstsize(list);

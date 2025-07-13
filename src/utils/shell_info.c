@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   shell_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:04:06 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:04:07 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/10 16:04:23 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 19:26:31 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <minishell.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_info	*get_info(void)
 {
-	size_t	i;
+	static t_info	*info;
 
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	if (info == NULL)
+	{
+		info = gc_malloc_lvl(sizeof(t_info), 0);
+		ft_bzero(info, sizeof(t_info));
+	}
+	return (info);
 }

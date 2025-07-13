@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:04:06 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:04:07 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/10 15:48:41 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:40:52 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <minishell.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	print_error(char *cmd, char *file, char *msg1, char *error_msg)
 {
-	size_t	i;
-
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	ft_putstr_fd("minishell: ", 2);
+	if (cmd)
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (file)
+	{
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (msg1)
+	{
+		ft_putstr_fd(msg1, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putendl_fd(error_msg, 2);
 }

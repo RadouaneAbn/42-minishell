@@ -38,7 +38,7 @@ void	set_parameter_expand_value(char **str, size_t *len, char *expand_str)
 
 	if (peakch(*str) == '?')
 	{
-		exit_code = ft_itoa(get_exit_code());
+		exit_code = ft_itoa(get_exit_status());
 		exit_code_len = ft_strlen(exit_code);
 		ft_memcpy(expand_str + *len, exit_code, exit_code_len);
 		*len += exit_code_len;

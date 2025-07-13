@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:04:06 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:04:07 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/10 15:37:25 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 15:37:26 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <minishell.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*expand_env(char *key)
 {
-	size_t	i;
+	t_map	*map;
+	t_node	*node;
 
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	map = get_map();
+	if (map == NULL)
+		return (NULL);
+	node = find_in_map(map, key);
+	if (node)
+		return (node->value);
+	return ("");
 }

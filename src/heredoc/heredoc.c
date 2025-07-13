@@ -46,5 +46,6 @@ char	*heredoc(char *delimiter)
 	file_name = ft_strdup("./file.txt");
 	fd = open(file_name, O_TRUNC | O_CREAT | O_RDWR, 0700);
 	run_heredoc(expand_info, fd);
+	close(fd);
 	return (file_name);
 }

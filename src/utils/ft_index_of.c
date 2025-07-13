@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_index_of.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 16:04:06 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:04:07 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/10 16:03:48 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/10 16:03:57 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_index_of(char *str, char c)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	while (s1[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (-1);
 }

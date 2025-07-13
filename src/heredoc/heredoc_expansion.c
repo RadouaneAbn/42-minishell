@@ -9,7 +9,7 @@ void	write_expand_var(char **line, int fd)
 	(*line)++;
 	if (**line == '?')
 	{
-		exit_code_str = ft_itoa(get_exit_code());
+		exit_code_str = ft_itoa(get_exit_status());
 		ft_putstr_fd(exit_code_str, fd);
 		gc_global_free(exit_code_str);
 	}
