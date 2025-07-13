@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/13 09:07:40 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/13 09:33:50 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	lexer(char *line)
 	if (*syntax_err_value())
 	{
 		free_token_list(&token_lst);
+		set_exit_status(2);
 		*syntax_err_value() = false;
 		return ;
 	}

@@ -81,11 +81,10 @@ char **expand_simple_command_lst(t_tree *simple_command)
 		free_list(&fields_info.star_mask);
 		simple_command = simple_command->next;
 	}
-	print_list(list);
+	//print_list(list);
 	all_args = lst_to_strings(list);
 	free_list(&list);
-	free_strings(all_args);
-	return (NULL);
+	return (all_args);
 }
 
 char *expand_redirection(char *filename, bool *ambiguous)
