@@ -47,6 +47,11 @@
 // 	return arr;
 // }
 
+void handler2(int sig)
+{
+	write(1, "\n", 1);
+}
+
 void	execute_command_tree(t_tree *tree)
 {
 	t_tree *fd_start;
@@ -70,7 +75,12 @@ void	execute_command_tree(t_tree *tree)
 	// cmd_array = tree_to_array(tree);
 	pid = -1;
 	if (get_command_type(cmd_array[0]) == RUN_EXECUTABLE)
+	{
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
+		if (pid == -1)
+			perror("fork");
+	}
 	else
 		execute_command_2(cmd_array, fd_start);
 	if (pid == 0)
@@ -79,7 +89,9 @@ void	execute_command_tree(t_tree *tree)
 	{
 		waitpid(pid, &status, 0);
 		store_child_exit_status(status);
+		signal(SIGINT, sigint_handler);
 	}
+
 }
 
 void	run_subshell(t_tree *tree)

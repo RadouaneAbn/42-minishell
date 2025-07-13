@@ -20,7 +20,10 @@
 # include <built_in.h>
 # include <utils.h>
 # include <garbage_collector.h>
+# include <signal.h>
 
 # define MALLOC_FAILURE 42
+
+void sigint_handler(int sig);
 
 #endif

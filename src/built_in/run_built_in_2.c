@@ -42,6 +42,11 @@ int	execute_command_exec(t_executable_data *data)
 	char	**vec;
 
 	vec = data->lst;
+	if (file_exist(data->lst[0]) == false)
+	{
+		print_error(data->lst[0], NULL, NULL, "No such file or directory");
+		exit(127);
+	}
 	if (has_exec_perm(data->lst[0]) == false)
 	{
 		print_error(data->lst[0], NULL, NULL, "Permission denied");

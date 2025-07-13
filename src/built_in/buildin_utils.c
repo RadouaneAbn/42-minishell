@@ -53,12 +53,12 @@ char	*join_path(char *path, char *cmd)
 	return (str);
 }
 
-bool	file_exist(char *path)
-{
-	if (access(path, F_OK) == 0)
-		return (TRUE);
-	return (FALSE);
-}
+// bool	file_exist(char *path)
+// {
+// 	if (access(path, F_OK) == 0)
+// 		return (TRUE);
+// 	return (FALSE);
+// }
 
 char	*find_file(char *cmd)
 {

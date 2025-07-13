@@ -53,3 +53,8 @@ bool	has_exec_perm(char *path)
 {
 	return (access(path, X_OK) == 0);
 }
+
+bool	file_exist(char *path)
+{
+	return (access(path, F_OK) == 0);
+}

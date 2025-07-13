@@ -15,6 +15,9 @@
 int	handle_redirections(t_tree *tree, t_executable_data *data)
 {
 	int	status;
+	char *filename;
+	bool imb;
+
 
 	if (data->fd_in != -1 && data->fd_in != STDIN_FILENO)
 	{
@@ -28,6 +31,13 @@ int	handle_redirections(t_tree *tree, t_executable_data *data)
 	}
 	while (tree)
 	{
+		filename = expand_redirection(tree->data, &imb);
+		if (imb)
+		{
+			write(2, "ambiguous redirect", 19);
+			free_full();
+			exit(1);
+		}
 		if (tree->data_type == RED_IN)
 			status = redirect_input((char *)tree->data, data);
 		else if (tree->data_type == RED_OUT)
@@ -50,6 +60,7 @@ void	execute_command(char **cmdv, t_tree *tree)
 	t_executable_data	data;
 	int					status;
 
+	signal(SIGINT, SIG_DFL);
 	cmd_type = get_command_type(cmdv[0]);
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, -1, -1};

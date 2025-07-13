@@ -60,6 +60,7 @@ char		*find_file(char *cmd);
 char		*node_to_string(t_node *node);
 char		**build_env(void);
 bool		has_exec_perm(char *path);
+bool	file_exist(char *path);
 
 int			print_env(int fd);
 int			print_exports(int fd);
