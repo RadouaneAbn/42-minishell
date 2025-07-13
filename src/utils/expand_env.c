@@ -4,8 +4,10 @@ char	*expand_env(char *key)
 {
 	if (strmatch(key, "var"))
 		return ("$var");
-	if (strmatch(key, "blank"))
+	else if (strmatch(key, "blank"))
 		return ("              ");
+	else if (strmatch(key, "quote"))
+		return ("\"");
 	else if (strmatch(key, "cwd"))
 		return ("hey hey hey");
 	else if (strmatch(key, "but"))

@@ -35,10 +35,7 @@ size_t	get_fields_len(char *expand_str, char *quote_mask)
 	while (expand_str[index])
 	{
 		current_ch_quoted = quoted_char(quote_mask, index);
-		if (expand_str[index + 1])
-			next_ch_quoted = quoted_char(quote_mask, index + 1);
-		else
-			next_ch_quoted = false;
+		next_ch_quoted = expand_str[index + 1] && quoted_char(quote_mask, index + 1);
 		if ((current_ch_quoted || (!current_ch_quoted && !is_space(expand_str[index])))
 				&& ((is_space(expand_str[index + 1]) && !next_ch_quoted) || !expand_str[index + 1]))
 			field_len++;

@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 20:48:17 by hsacr             #+#    #+#             */
-/*   Updated: 2024/11/15 20:01:54 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/13 08:34:54 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		return ;
 	}
 	ptr->next = new;
-	new->next = 0;
 }

@@ -28,4 +28,6 @@ void	free_list(t_list **list);
 void	free_token_list(t_token_lst **list);
 
 bool *syntax_err_value(void);
+
+char	**lst_to_strings(t_list *list);
 #endif

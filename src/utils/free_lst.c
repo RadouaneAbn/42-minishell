@@ -14,4 +14,3 @@ void	free_list(t_list **list)
 		*list = ptr;
 	}
 }
-

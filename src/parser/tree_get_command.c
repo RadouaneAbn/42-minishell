@@ -29,10 +29,7 @@ t_tree	*parse_subshell(t_token_lst	**token_lst)
 		consume(token_lst);
 		compound_command = tree_get_compound_command(token_lst);
 		if (compound_command == NULL)
-		{
 			return (NULL);
-			//printf("error expected '('");
-		}
 		if ((*token_lst) && (*token_lst)->token.type == R_PAREN)
 			consume(token_lst);
 		else
@@ -40,7 +37,7 @@ t_tree	*parse_subshell(t_token_lst	**token_lst)
 			if (!(*token_lst))
 			{
 				*syntax_err_value() = true;
-				ft_putendl_fd("minishell: syntax error: unclosed quote", 2);
+				ft_putendl_fd("minishell: syntax error: unclosed  bracket", 2);
 			}
 			free_tree(compound_command);
 			return (NULL);

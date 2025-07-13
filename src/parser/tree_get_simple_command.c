@@ -33,10 +33,7 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 			new_io_redirect = tree_create_new(data_type, parameter);
 		}
 		else
-		//{
-			//printf ("syntax error near unexpected token '%s'\n", (*token_lst)->token.lexeme);
 			return (NULL);
-		//}
 		*token_lst = (*token_lst)->next;
 	}
 	else
