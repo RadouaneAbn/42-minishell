@@ -67,5 +67,5 @@ DATE = $(shell date +%F/%H/%M)
 
 push:
 	git add .
-	git commit -m "automatic push (minishell $USER_NAME) $(DATE)"
+	git commit -m "automatic push (minishell $$USER_NAME) $(DATE)"
 	git push
