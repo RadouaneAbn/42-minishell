@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 22:30:02 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:42:53 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	run_exit(t_executable_data *data)
 	if (data->fd_out != -1)
 		close(data->fd_out);
 	clean_exit(exit_status);
+	return (0);
 }
 
 int	execute_command_exec(t_executable_data *data)
