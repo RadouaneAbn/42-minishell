@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 18:22:25 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 19:16:38 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lexer(char *line)
 	t_token_lst	*token_lst;
 	t_tree		*tree;
 
-	gc_level_init();	
+	gc_level_init();
 	token_lst = NULL;
 	while (true)
 	{
@@ -47,4 +47,5 @@ void	lexer(char *line)
 	free_token_list(&token_lst);
 	print_tree(tree, 0);
 	free_tree(tree);
+	free_level();
 }

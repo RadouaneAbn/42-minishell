@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 18:24:45 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 18:37:24 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char *argv[], char **env)
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
 		if (!line)
 		{
-			free_full();
+			//free_full();
+			free_gc();
 			break ;
 		}
 		if (str_blank(line))
