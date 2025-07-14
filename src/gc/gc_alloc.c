@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:37 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 19:45:23 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:07:15 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*gc_save(void *data, t_gc_level *level)
 
 	if (level == NULL)
 		level = get_current_level();
+	if (level == NULL)
+		return (NULL);
 	node = malloc(sizeof(t_gc_node));
 	if (node == NULL)
 	{
@@ -59,12 +61,6 @@ void	*gc_calloc(size_t nmemb, size_t size)
 	if (data == NULL)
 	{
 		perror(GC_MALLOC);
-		free_full();
-		exit(1);
-	}
-	if (gc_save(data, get_current_level()) == NULL)
-	{
-		free(data);
 		free_full();
 		exit(1);
 	}
