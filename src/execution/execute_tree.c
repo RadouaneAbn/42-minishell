@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/11 01:48:08 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:18:53 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ void	execute_command_tree(t_tree *tree)
 void	run_subshell(t_tree *tree)
 {
 	t_executable_data	data;
+	int status;
 
 	*ps_status() = false;
 
 	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree->sibling, &data) == -1)
-		exit(1);
+		clean_exit(1);
 	if (data.fd_in != -1)
 	{
 		dup2(data.fd_in, STDIN_FILENO);
@@ -112,7 +113,7 @@ void	run_subshell(t_tree *tree)
 		close(data.fd_out);
 	}
 	execute_tree(tree->next);
-	exit(get_exit_status());
+	clean_exit(get_exit_status());
 }
 
 void	execute_tree_subshell(t_tree *tree)

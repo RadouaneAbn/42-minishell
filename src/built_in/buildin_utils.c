@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:44:57 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 20:00:12 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:18:27 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ char	*find_file(char *cmd)
 		i++;
 	}
 	print_error(cmd, NULL, NULL, "command not found");
-	exit(127);
+	clean_exit(127);
 }

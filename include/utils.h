@@ -38,5 +38,6 @@ char *copy_string(char *src);
 bool *ps_status(void);
 void	print_error(char *cmd, char *file, char *msg1, char *error_msg);
 void	set_exit_status(int exit_status);
+void clean_exit(int exit_code);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 11:19:30 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:19:20 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,13 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, fds.fd_in, fds.fd_out};
 	if (handle_redirections(tree, &data) == -1)
-		exit(1);
-	// if (data.fd_in == -1)
-	// 	data.fd_in = fds.fd_in;
-	// if (data.fd_out == -1)
-	// 	data.fd_out = fds.fd_out;
+		clean_exit(1);
 	if (fds.pipe[0] != -1)
 		close(fds.pipe[0]);
 	data.lst = cmdv;
 	data.fd_tree = tree;
 	status = exec_functions[cmd_type](&data);
-	exit(status);
+	clean_exit(status);
 }
 
 // < /dev/stdin cat | ls > /dev/stdout
@@ -80,7 +76,6 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 	pid_t	pid;
 
 	if (tree->data_type == T_CMD_ARG)
-		// cmd_array = tree_to_array(tree);
 		cmd_array = expand_simple_command_lst(tree);
 	else
 	{

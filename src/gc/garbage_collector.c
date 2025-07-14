@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:11:55 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 19:45:14 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:19:45 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ t_gc_level	*gc_level_init(void)
 	new_level = malloc(sizeof(t_gc_level));
 	if (new_level == NULL)
 	{
-		free_full();
 		perror(GC_MALLOC);
-		exit(1);
+		clean_exit(1);
 	}
 	new_level->aloc_list = NULL;
 	new_level->parent = gc->current_level;

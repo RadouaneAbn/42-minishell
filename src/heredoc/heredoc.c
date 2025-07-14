@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 20:18:00 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 22:21:41 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	sig_heredoc_handler(int sig)
 	fd = *get_heredoc_fd();
 	(void)sig;
 	close(fd);
-	free_full();
-	exit (130);
+	clean_exit(130);
 }
 
 
@@ -66,9 +65,8 @@ void	run_heredoc(t_expand_info expand_info)
 			put_heredoc_line(expand_info.should_expand, line, fd);
 			free(line);
 		}
-		free_full();
 		close(fd);
-		exit(0);
+		clean_exit(0);
 	}
 	else
 	{

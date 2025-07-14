@@ -54,8 +54,8 @@ valgrind: re
 	valgrind --suppressions=readline.supp --leak-check=full  -s ./$(TARGET)
 
 
-fvalgrind: re
-	valgrind --suppressions=readline.supp --leak-check=full --track-fds=yes --track-origins=yes -s ./$(TARGET)
+fvalgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=readline.supp -s ./$(TARGET)
 
 test: $(MINITEST)
 
