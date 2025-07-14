@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:22 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:37:22 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:47:57 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int	echo(char **vec, int fd)
 
 	start = 0;
 	t_flag = get_flag(vec, &start);
-	if (fd == -1)
-		fd = 1;
+	// if (fd == -1)
+	// 	fd = 1;
 	while (vec[start])
 	{
-		write(fd, vec[start], ft_strlen(vec[start]));
+		write(1, vec[start], ft_strlen(vec[start]));
 		if (vec[start + 1] != NULL)
-			write(fd, " ", 1);
+			write(1, " ", 1);
 		start++;
 	}
 	if (t_flag != NO_NL)
-		write(fd, "\n", 1);
+		write(1, "\n", 1);
 	return (0);
 }

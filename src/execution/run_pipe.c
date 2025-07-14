@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/11 02:41:31 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:19:30 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 	data = (t_executable_data){NULL, NULL, fds.fd_in, fds.fd_out};
 	if (handle_redirections(tree, &data) == -1)
 		exit(1);
-	if (data.fd_in == -1)
-		data.fd_in = fds.fd_in;
-	if (data.fd_out == -1)
-		data.fd_out = fds.fd_out;
+	// if (data.fd_in == -1)
+	// 	data.fd_in = fds.fd_in;
+	// if (data.fd_out == -1)
+	// 	data.fd_out = fds.fd_out;
 	if (fds.pipe[0] != -1)
 		close(fds.pipe[0]);
 	data.lst = cmdv;
