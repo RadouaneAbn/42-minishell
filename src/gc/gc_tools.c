@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:12:05 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 19:01:44 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 19:33:35 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ void	free_level(void)
 {
 	t_gc		*gc;
 	t_gc_level	*current_level;
-	//t_gc_node	*node;
-	//t_gc_node	*tmp;
+	t_gc_node	*node;
+	t_gc_node	*tmp;
 
 	gc = *get_gc();
 	if (!gc || !gc->current_level)
 		return ;
 	current_level = get_current_level();
-	//node = current_level->aloc_list;
-	//while (node)
-	//{
-		//tmp = node;
-		//node = node->next;
-		//free(tmp->data);
-		//free(tmp);
-	//}
+	node = current_level->aloc_list;
+	while (node)
+	{
+		tmp = node;
+		node = node->next;
+		free(tmp->data);
+		free(tmp);
+	}
 	level_down();
 	free(current_level);
 }
