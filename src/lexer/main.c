@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 19:47:36 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:57:28 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char **env)
 			free_level();
 			break ;
 		}
-		if (str_blank(line))
+		if (!str_blank(line))
 		{
 			add_history(line);
 			lexer(line);

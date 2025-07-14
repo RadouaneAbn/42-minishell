@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:27 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:33:34 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:54:19 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ char	**split_export_args(char *arg)
 	if (idx != -1)
 	{
 		arr[0] = ft_substr(arg, 0, idx);
-		gc_save(arr[0], NULL);
+		// gc_save(arr[0], NULL);
 		arr[1] = ft_substr(arg, idx + 1, ft_strlen(arg) - idx);
-		gc_save(arr[1], NULL);
+		// gc_save(arr[1], NULL);
 		arr[2] = NULL;
 	}
 	else
 	{
 		arr[0] = ft_strdup(arg);
-		gc_save(arr[0], NULL);
+		// gc_save(arr[0], NULL);
 		arr[1] = NULL;
 		arr[2] = NULL;
 	}
