@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 19:46:20 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:58:29 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	lexer(char *line)
 	{
 		free_token_list(&token_lst);
 		*syntax_err_value() = false;
+		free_level();
 		return ;
 	}
 	tree = parser(token_lst);
@@ -42,6 +43,7 @@ void	lexer(char *line)
 		free_token_list(&token_lst);
 		set_exit_status(2);
 		*syntax_err_value() = false;
+		free_level();
 		return ;
 	}
 	free_token_list(&token_lst);
