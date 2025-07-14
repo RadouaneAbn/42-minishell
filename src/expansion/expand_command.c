@@ -52,8 +52,8 @@ t_fields_info expand_simple_command(char *str)
 	if (expand_len == 0)
 		return ((t_fields_info){NULL, NULL});
 	star_mask = NULL;
-	expand_str = ft_calloc(sizeof(char), (expand_len) + 1);
-	quote_mask = ft_calloc(get_byte_len(expand_len), sizeof(char));
+	expand_str = gc_calloc(sizeof(char), (expand_len) + 1);
+	quote_mask = gc_calloc(get_byte_len(expand_len), sizeof(char));
 	parameter_expansion(str, expand_str, quote_mask);
 	fields = get_fields(&expand_str, &quote_mask, &star_mask);
 	gc_global_free(quote_mask);

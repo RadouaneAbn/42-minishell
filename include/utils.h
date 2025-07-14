@@ -31,6 +31,7 @@ bool *syntax_err_value(void);
 
 char	**lst_to_strings(t_list *list);
 void *gc_malloc(size_t size);
+void *gc_calloc(size_t nmemb, size_t size);
 
 void	set_exit_status(int exit_status);
 

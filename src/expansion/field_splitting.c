@@ -56,7 +56,7 @@ void	set_field_info(t_expansion info ,t_range range)
 	star_mask = NULL;
 	if (has_unquoted_star(info.expand_str, info.quote_mask, range))
 	{
-			star_mask = ft_calloc(sizeof(char), get_byte_len(range.len));
+			star_mask = gc_calloc(sizeof(char), get_byte_len(range.len));
 			store_star_mask = true;
 	}
 	fill_field_info(info, range, store_star_mask, star_mask); 

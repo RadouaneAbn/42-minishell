@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (size > 0 && nmemb > SIZE_MAX / size)
 		return (NULL);
 	total_size = nmemb * size;
-	ptr = malloc(total_size);
+	ptr = gc_malloc(total_size);
 	if (ptr == 0)
 		return (0);
 	ft_memset(ptr, 0, total_size);
