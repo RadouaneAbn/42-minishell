@@ -101,8 +101,8 @@ char	**ft_split(char const *s, char c)
 		if (*(ptr + i) == 0)
 		{
 			while (i != 0)
-				free(*(ptr + --i));
-			free(ptr);
+				gc_global_free(*(ptr + --i));
+			gc_global_free(ptr);
 			return (0);
 		}
 		ft_split_store(s, *(ptr + i), c, i);
