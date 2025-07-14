@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gc_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:42 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/11 00:53:46 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:45:27 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <garbage_collector.h>
+#include <minishell.h>
 
 int	free_elem_from_lvl(t_gc_level *level, void *data)
 {

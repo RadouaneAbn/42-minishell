@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_token.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:53:22 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:53:41 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	set_operator_token(t_token *token, char *line, size_t *position)
@@ -50,10 +62,10 @@ void	get_token(t_token *token, char *line, size_t *position)
 		*position += 1;
 	if (line[*position])
 	{
-	if (token_is_operator(line, *position))
-		set_operator_token(token, line, position);
-	else
-		set_word_token(token, line, position);
+		if (token_is_operator(line, *position))
+			set_operator_token(token, line, position);
+		else
+			set_word_token(token, line, position);
 	}
 }
 

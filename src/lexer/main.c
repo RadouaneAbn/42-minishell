@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 19:47:36 by radouane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void sigint_handler(int sig)
@@ -25,16 +37,21 @@ int	main(int argc, char *argv[], char **env)
 		// printf("[%d]-", get_exit_status());
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
 		if (!line)
+		{
+			// free_full();
+			free_level();
 			break ;
-		gc_save(line, NULL);
-		if (str_blank(line) == false)
+		}
+		if (str_blank(line))
 		{
 			add_history(line);
 			lexer(line);
 		}
 		free_level();
 	}
+	free_level();
 	rl_clear_history();
-	free_full();
+	free_gc();
+	// free_full();
 	return (0);
 }

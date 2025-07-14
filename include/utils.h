@@ -20,7 +20,6 @@ void	token_free_list(t_token_lst *token_lst);
 //temprory
 // int	get_exit_code(void);
 
-void	gc_global_free(void *ptr);
 
 void	free_strings(char **strings);
 void	free_list(t_list **list);
@@ -38,5 +37,6 @@ bool	is_dir(char *filename);
 char *copy_string(char *src);
 bool *ps_status(void);
 void	print_error(char *cmd, char *file, char *msg1, char *error_msg);
+void	set_exit_status(int exit_status);
 
 #endif

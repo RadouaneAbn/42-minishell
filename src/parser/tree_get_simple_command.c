@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_get_simple_command.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:35:38 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 19:40:00 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_tree	*tree_get_argument(t_token_lst	**token_lst)
 {
 	t_tree	*new_arg;
-	int	data_type;
+	int		data_type;
 	char	*parameter;
 
 	data_type = T_CMD_ARG;
-	parameter = strdup((*token_lst)->token.lexeme);
+	parameter = ft_strdup((*token_lst)->token.lexeme);
 	new_arg = tree_create_new(data_type, parameter);
 	(*token_lst) = (*token_lst)->next;
 	return (new_arg);
@@ -16,7 +28,7 @@ t_tree	*tree_get_argument(t_token_lst	**token_lst)
 t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 {
 	t_tree	*new_io_redirect;
-	int	data_type;
+	int		data_type;
 	char	*parameter;
 
 	data_type = (*token_lst)->token.type;
@@ -27,9 +39,11 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 		if ((*token_lst)->token.type == WORD)
 		{
 			if (data_type == HERE_DOC)
+			{
 				parameter = heredoc((*token_lst)->token.lexeme);
+			}
 			else
-				parameter = strdup((*token_lst)->token.lexeme);
+				parameter = ft_strdup((*token_lst)->token.lexeme);
 			new_io_redirect = tree_create_new(data_type, parameter);
 		}
 		else
@@ -52,7 +66,7 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 	t_tree	*simple_command;
 	t_tree	*io_redirect;
 	t_tree	*argument;
-	bool	syntax_err;
+	bool		syntax_err;
 
 	syntax_err = false;
 	args = NULL;

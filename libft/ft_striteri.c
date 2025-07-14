@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 char	*ft_striteri(char *s, void (*f)(unsigned int, char *))
 {

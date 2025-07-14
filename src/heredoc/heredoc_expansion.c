@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_expansion.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:52:10 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:52:27 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	write_expand_var(char **line, int fd)
 {
-	char *exit_code_str;
+	char	*exit_code_str;
 	char	*key;
 	char	*value;
 
@@ -55,12 +67,12 @@ t_expand_info	heredoc_expand_info(char *delimiter)
 {
 	size_t					index;
 	size_t					len;
-	t_expand_info					expand_info;
+	t_expand_info			expand_info;
 
 	expand_info.should_expand = true;
 	index = 0;
 	len = get_unquoted_del_size(delimiter);
-	expand_info.unquoted_delimiter = malloc((len + 1) * sizeof(char));
+	expand_info.unquoted_delimiter = gc_malloc((len + 1) * sizeof(char));
 	while (*delimiter)
 	{
 		if (!is_removable_quote(*delimiter, RESUME))

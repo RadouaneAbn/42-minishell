@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gc_alloc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:15:37 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:30:01 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:45:23 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <garbage_collector.h>
+#include <minishell.h>
 
 void	*gc_save(void *data, t_gc_level *level)
 {
@@ -51,11 +51,11 @@ void	*gc_malloc(size_t size)
 	return (data);
 }
 
-void	*gc_calloc(size_t size)
+void	*gc_calloc(size_t nmemb, size_t size)
 {
 	void	*data;
 
-	data = malloc(size);
+	data = ft_calloc(nmemb, size);
 	if (data == NULL)
 	{
 		perror(GC_MALLOC);

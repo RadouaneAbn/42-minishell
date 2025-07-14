@@ -3,27 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:32:55 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:28:47 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:44:02 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GARBAGE_COLLECTOR_H
 # define GARBAGE_COLLECTOR_H
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <minishell.h>
 
 # define GC_MALLOC "minishell: garbage collector"
 
 typedef struct s_gc_node
 {
-	void				*data;
-	struct s_gc_node	*next;
+		void				*data;
+			struct s_gc_node	*next;
 }						t_gc_node;
 
 typedef struct s_gc_level
@@ -55,7 +52,7 @@ void					gc_global_free(void *data);
 void					free_to_lvl_zero(void);
 void					gc_free_from_level(void *data, int wanted_level);
 void					*gc_malloc_lvl(size_t size, int wanted_level);
-void					*gc_calloc(size_t size);
+void					*gc_calloc(size_t nmemb, size_t size);
 t_gc_node	*find_data(t_gc_node *head, void *data);
 /* Debug */
 int						gc_status(void);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gc_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:12:05 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:32:46 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:45:43 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <garbage_collector.h>
+#include <minishell.h>
 
 void	level_down(void)
 {
@@ -34,7 +34,6 @@ void	free_level(void)
 	if (!gc || !gc->current_level)
 		return ;
 	current_level = get_current_level();
-	// printf("freeing level %d\n", current_level->id);
 	node = current_level->aloc_list;
 	while (node)
 	{

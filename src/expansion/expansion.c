@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:44:38 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:44:55 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	parameter_expansion(char *str, char *expand_str, char *quote_mask)
@@ -17,7 +29,7 @@ void	parameter_expansion(char *str, char *expand_str, char *quote_mask)
 			set_mask_bit(quote_mask, len, 1);
 		}
 		if (((quoted && (quote == '"')) || !quoted) && *str == '$'
-				&& first_key_ch(peakch(str)))
+			&& first_key_ch(peakch(str)))
 			set_parameter_expand_value(&str, &len, expand_str);
 		else
 		{

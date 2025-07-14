@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_get_pipeline.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:35:15 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:35:25 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_tree	*tree_get_pipeline(t_token_lst **token_lst)
@@ -20,7 +32,7 @@ t_tree	*tree_get_pipeline(t_token_lst **token_lst)
 			}
 			tree_add_sibling_back(&commands, command);
 			if ((*token_lst) && (*token_lst)->token.type == PIPE
-					&& (*token_lst)->next)
+				&& (*token_lst)->next)
 				consume(token_lst);
 			else
 				break ;
