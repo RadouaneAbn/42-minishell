@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 11:46:54 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:38:33 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	handle_redirections(t_tree *tree, t_executable_data *data)
 {
 	int	status;
-	char *filename;
-	bool imb;
+	// char *filename;
+	// bool imb;
 
 
 	if (data->fd_in != -1 && data->fd_in != STDIN_FILENO)
@@ -39,13 +39,13 @@ int	handle_redirections(t_tree *tree, t_executable_data *data)
 		// 	exit(1);
 		// }
 		if (tree->data_type == RED_IN)
-			status = redirect_input((char *)tree->data, data);
+			status = redirect_input((char *)tree->data);
 		else if (tree->data_type == RED_OUT)
-			status = redirect_output((char *)tree->data, data);
+			status = redirect_output((char *)tree->data);
 		else if (tree->data_type == APPEND_OUT)
-			status = append_output((char *)tree->data, data);
+			status = append_output((char *)tree->data);
 		else if (tree->data_type == HERE_DOC)
-			status = here_doc_input((char *)tree->data, data);
+			status = here_doc_input((char *)tree->data);
 		if (status == -1)
 			return (-1);
 		tree = tree->next;

@@ -66,4 +66,6 @@ $(MINITEST): $(TEST_OBJECTS) $(OBJECT_FILES_2) $(UTILS_OBJECTS) libft/libft.a
 DATE = $(shell date +%F/%H/%M)
 
 push:
-	push "automatic push (minishell hsacr) $(DATE)"
+	git add .
+	git commit -m "automatic push (minishell $USER_NAME) $(DATE)"
+	git push

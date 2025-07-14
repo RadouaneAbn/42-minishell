@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:31:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:43:39 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:40:13 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef enum e_cmd_type
 # define CUR 0
 # define PAR 1
 
-int			echo(char **vec, int fd);
+int			echo(char **vec);
 int			export(char *key, char *value);
 int			unset(char *key);
 char		*expand_env(char *key);

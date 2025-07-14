@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:22 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 11:47:57 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:40:04 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,13 @@ int	get_flag(char **vec, int *start)
 	return (t_flag);
 }
 
-int	echo(char **vec, int fd)
+int	echo(char **vec)
 {
 	int	start;
 	int	t_flag;
 
 	start = 0;
 	t_flag = get_flag(vec, &start);
-	// if (fd == -1)
-	// 	fd = 1;
 	while (vec[start])
 	{
 		write(1, vec[start], ft_strlen(vec[start]));

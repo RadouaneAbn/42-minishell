@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:32:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:04:31 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:39:08 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void					set_exit_status(int status);
 void					store_child_exit_status(int status);
 
 /* Redirection handling functions */
-int						redirect_input(char *path, t_executable_data *data);
-int						redirect_output(char *path, t_executable_data *data);
-int						append_output(char *path, t_executable_data *data);
-int						here_doc_input(char *path, t_executable_data *data);
+int						redirect_input(char *path);
+int						redirect_output(char *path);
+int						append_output(char *path);
+int						here_doc_input(char *path);
 int						handle_redirections(t_tree *tree,
 							t_executable_data *data);
 

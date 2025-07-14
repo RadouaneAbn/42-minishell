@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_built_in.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:47:16 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:40:35 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	run_echo(t_executable_data *data)
 
 	vec = data->lst;
 	vec++;
-	return (echo(vec, data->fd_out));
+	return (echo(vec));
 }
 
 int	run_pwd(t_executable_data *data)
