@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:39:24 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:43:32 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **star_mask_list)
+void	fill_fields(char *expand_str, char **fields,
+		char *quote_mask, t_list **star_mask_list)
 {
-	size_t index;
+	size_t	index;
 	size_t	start;
 	size_t	len;
 	size_t	fields_len;
@@ -12,13 +25,13 @@ void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **sta
 	while (expand_str[index])
 	{
 		if (expand_str[index] && !(is_space(expand_str[index])
-					&& !quoted_char(quote_mask, index)))
+				&& !quoted_char(quote_mask, index)))
 		{
 			start = index;
 			len = get_field_len(expand_str, quote_mask, &index);
 			fields[fields_len] = gc_malloc(sizeof(char) * (len + 1));
-			set_field_info((t_expansion){fields[fields_len], expand_str, quote_mask, star_mask_list},
-					(t_range){start, len});
+			set_field_info((t_expansion){fields[fields_len], expand_str,
+				quote_mask, star_mask_list}, (t_range){start, len});
 			fields_len++;
 		}
 		else
@@ -26,7 +39,8 @@ void	fill_fields(char *expand_str, char **fields, char *quote_mask, t_list **sta
 	}
 }
 
-char	**get_fields(char **expand_strs, char **quote_mask, t_list **star_mask_list)
+char	**get_fields(char **expand_strs, char **quote_mask,
+	t_list **star_mask_list)
 {
 	size_t	fields_len;
 	char	**fields;
@@ -40,7 +54,7 @@ char	**get_fields(char **expand_strs, char **quote_mask, t_list **star_mask_list
 	return (fields);
 }
 
-t_fields_info expand_simple_command(char *str)
+t_fields_info	expand_simple_command(char *str)
 {
 	char	*expand_str;
 	char	*quote_mask;
@@ -61,10 +75,10 @@ t_fields_info expand_simple_command(char *str)
 	return ((t_fields_info){fields, star_mask});
 }
 
-char **expand_simple_command_lst(t_tree *simple_command)
+char	**expand_simple_command_lst(t_tree *simple_command)
 {
 	t_list				*list;
-	t_fields_info	fields_info;
+	t_fields_info		fields_info;
 	t_list	*new_list;
 	char	**all_args;
 
@@ -74,30 +88,30 @@ char **expand_simple_command_lst(t_tree *simple_command)
 		fields_info = expand_simple_command(simple_command->data);
 		if (fields_info.fields)
 		{
-				new_list = pathname_expansion(fields_info.fields, fields_info.star_mask);
-				ft_lstadd_back(&list, new_list);
+			new_list = pathname_expansion(fields_info.fields,
+					fields_info.star_mask);
+			ft_lstadd_back(&list, new_list);
 		}
 		free_strings(fields_info.fields);
 		free_list(&fields_info.star_mask);
 		simple_command = simple_command->next;
 	}
-	//print_list(list);
 	all_args = lst_to_strings(list);
 	free_list(&list);
 	return (all_args);
 }
 
-char *expand_redirection(char *filename, bool *ambiguous)
+char	*expand_redirection(char *filename, bool *ambiguous)
 {
 	t_list	*list;
-	t_fields_info	fields_info;
-	char	*expanded_filename;
+	t_fields_info		fields_info;
+	char		*expanded_filename;
 
 	*ambiguous = false;
 	list = NULL;
 	expanded_filename = NULL;
 	fields_info = expand_simple_command(filename);
-	if (get_strings_len(fields_info.fields) != 1)	
+	if (get_strings_len(fields_info.fields) != 1)
 		*ambiguous = true;
 	if (!(*ambiguous))
 		list = pathname_expansion(fields_info.fields, fields_info.star_mask);

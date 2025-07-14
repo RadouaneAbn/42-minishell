@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_in_set.c                                      :+:      :+:    :+:   */
+/*   print_bits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 17:25:20 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:25:21 by hsacr            ###   ########.fr       */
+/*   Created: 2025/07/14 17:37:51 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:37:52 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	char_in_set(char c, char *set)
+void	print_bit(unsigned char byte)
 {
-	size_t	index;
+	int				index;
+	unsigned char	bit;
 
 	index = 0;
-	while (set[index])
+	while (index < 8)
 	{
-		if (c == set[index])
-			return (true);
+		bit = byte >> 7;
+		byte = byte << 1;
+		printf("%d ", bit);
 		index++;
 	}
-	return (false);
+}
+
+void	print_bits(char *quote_array, int size)
+{
+	int	index;
+
+	index = 0;
+	while (index < size)
+	{
+		print_bit(quote_array[index]);
+		index++;
+	}
 }

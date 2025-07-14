@@ -1,7 +1,8 @@
 SOURCE_FILES = $(wildcard src/lexer/*.c)  $(wildcard src/parser/*.c)\
 							 $(wildcard src/heredoc/*.c)  $(wildcard src/expansion/*.c)\
 							 $(wildcard src/utils/*.c) $(wildcard src/pathname_expansion/*.c)\
-							 $(wildcard src/tree_utils/*.c)
+							 $(wildcard src/tree_utils/*.c)\
+							$(wildcard src/gc/*.c)
 OBJECT_FILES = $(SOURCE_FILES:%.c=%.o)
 
 CC = cc

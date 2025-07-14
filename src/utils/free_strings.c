@@ -1,14 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_strings.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:25:49 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 18:17:29 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
-
-void gc_global_free(void *ptr)
-{
-	free(ptr);
-}
-
-void gc_local_free(void *ptr)
-{
-	free(ptr);
-}
 
 void	free_strings(char **strings)
 {

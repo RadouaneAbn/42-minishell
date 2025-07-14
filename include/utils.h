@@ -21,7 +21,6 @@ void	token_free_list(t_token_lst *token_lst);
 //temprory
 int	get_exit_code(void);
 
-void	gc_global_free(void *ptr);
 
 void	free_strings(char **strings);
 void	free_list(t_list **list);
@@ -30,8 +29,6 @@ void	free_token_list(t_token_lst **list);
 bool *syntax_err_value(void);
 
 char	**lst_to_strings(t_list *list);
-void *gc_malloc(size_t size);
-void *gc_calloc(size_t nmemb, size_t size);
 
 void	set_exit_status(int exit_status);
 

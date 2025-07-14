@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <garbage_collector.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdbool.h>

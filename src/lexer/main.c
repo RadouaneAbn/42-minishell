@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 18:24:45 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 int	main(int argc, char *argv[], char **env)
@@ -10,9 +22,11 @@ int	main(int argc, char *argv[], char **env)
 	while (true)
 	{
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
-		//rl_redisplay();
 		if (!line)
+		{
+			free_full();
 			break ;
+		}
 		if (str_blank(line))
 		{
 			free(line);

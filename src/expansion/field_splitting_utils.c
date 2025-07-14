@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   field_splitting_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:46:32 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:48:31 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 bool	quoted_char(char *quote_mask, size_t size)
@@ -5,7 +17,7 @@ bool	quoted_char(char *quote_mask, size_t size)
 	size_t	index;
 	char	tmp_char;
 	bool	quoted;
-	bool is_quote;
+	bool	is_quote;
 
 	index = 0;
 	quoted = false;
@@ -27,17 +39,20 @@ size_t	get_fields_len(char *expand_str, char *quote_mask)
 {
 	size_t	field_len;
 	size_t	index;
-	bool current_ch_quoted;
-	bool next_ch_quoted;
+	bool		current_ch_quoted;
+	bool		next_ch_quoted;
 
 	field_len = 0;
 	index = 0;
 	while (expand_str[index])
 	{
 		current_ch_quoted = quoted_char(quote_mask, index);
-		next_ch_quoted = expand_str[index + 1] && quoted_char(quote_mask, index + 1);
-		if ((current_ch_quoted || (!current_ch_quoted && !is_space(expand_str[index])))
-				&& ((is_space(expand_str[index + 1]) && !next_ch_quoted) || !expand_str[index + 1]))
+		next_ch_quoted = expand_str[index + 1]
+			&& quoted_char(quote_mask, index + 1);
+		if ((current_ch_quoted
+				|| (!current_ch_quoted && !is_space(expand_str[index])))
+			&& ((is_space(expand_str[index + 1])
+					&& !next_ch_quoted) || !expand_str[index + 1]))
 			field_len++;
 		index++;
 	}
@@ -50,7 +65,7 @@ size_t	get_field_len(char *expand_str, char *quote_mask, size_t *start)
 
 	len = 0;
 	while (expand_str[*start] && !(is_space(expand_str[*start])
-				&& !quoted_char(quote_mask, *start)))
+			&& !quoted_char(quote_mask, *start)))
 	{
 		if (!get_bit(quote_mask, *start))
 			len++;

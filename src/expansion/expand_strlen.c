@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_strlen.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:43:39 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:44:28 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 size_t	expand_word_len(char **str)
@@ -5,8 +17,8 @@ size_t	expand_word_len(char **str)
 	size_t	len;
 	char	*key;
 	int		exit_code_len;
-	char	*exit_code;
-	char	*value;
+	char			*exit_code;
+	char		*value;
 
 	len = 0;
 	if (peakch(*str) == '?')
