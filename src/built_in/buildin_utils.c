@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buildin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:44:57 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/11 02:39:14 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:00:12 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,6 @@ char	*find_file(char *cmd)
 		return (cmd);
 	path = ft_split(path_env, ':');
 	i = 0;
-	while (path[i])
-	{
-		gc_save(path[i], NULL);
-		i++;
-	}
-	i = 0;
-	gc_save(path, NULL);
 	while (path[i])
 	{
 		cmd_abs_path = join_path(path[i], cmd);
