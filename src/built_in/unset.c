@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:35 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:37:36 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/14 23:37:02 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void	remove_env_variable(t_map *map, char *key)
 		return ;
 	remove_from_ordered_list(map, key);
 	remove_from_map(map, key);
-	free(wanted_node->key);
-	free(wanted_node->value);
-	free(wanted_node);
+	gc_free_from_level(wanted_node->key, 0);
+	gc_free_from_level(wanted_node->value, 0);
+	gc_free_from_level(wanted_node, 0);
 	map->size--;
 }
 

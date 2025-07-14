@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:44:38 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:44:55 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 23:40:52 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	set_parameter_expand_value(char **str, size_t *len, char *expand_str)
 		ft_memcpy(expand_str + *len, exit_code, exit_code_len);
 		*len += exit_code_len;
 		(*str) += 2;
-		free(exit_code);
+		gc_local_free(exit_code);
 		return ;
 	}
 	(*str)++;
 	key = get_key(str);
 	value = expand_env(key);
 	ft_memcpy(expand_str + *len, value, ft_strlen(value));
-	free(key);
+	gc_local_free(key);
 	*len += ft_strlen(value);
 }

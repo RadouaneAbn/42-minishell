@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_strlen.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:43:39 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:44:28 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/14 23:39:54 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	expand_word_len(char **str)
 		exit_code_len = ft_strlen(exit_code);
 		len += exit_code_len;
 		*str += 2;
-		free(exit_code);
+		gc_local_free(exit_code);
 		return (len);
 	}
 	(*str)++;
@@ -35,7 +35,7 @@ size_t	expand_word_len(char **str)
 	value = expand_env(key);
 	if (key == NULL)
 		return (0);
-	free(key);
+	gc_local_free(key);
 	return (ft_strlen(value));
 }
 
