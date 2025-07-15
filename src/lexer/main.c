@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 11:12:03 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/15 16:37:22 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,14 @@ int	main(int argc, char *argv[], char **env)
 	set_exit_status(0);
 	while (true)
 	{
-		gc_level_init();
-		// printf("[%d]-", get_exit_status());
 		line = readline("\001"BLUE"\002minishell$ \001"RESET"\002");
 		if (!line)
-		{
-			// free_full();
-			free_level();
 			break ;
-		}
 		if (!str_blank(line))
 		{
 			add_history(line);
 			lexer(line);
 		}
-		free_level();
 	}
 	free_level();
 	rl_clear_history();
