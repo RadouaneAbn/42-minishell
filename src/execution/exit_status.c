@@ -3,26 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:37 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:51:50 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:29:28 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+int *exit_code(void)
+{
+	static int exit_code = 0;
+
+	return (&exit_code);
+}
+
 int	get_exit_status(void)
 {
-	return (get_info()->last_exit_status);
+	return (*exit_code());
 }
 
 void	set_exit_status(int status)
 {
-	t_info	*info;
-
-	info = get_info();
-	info->last_exit_status = status;
+	*exit_code() = status;
 }
 
 void	store_child_exit_status(int status)

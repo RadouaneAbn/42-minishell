@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 22:42:53 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:30:25 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	run_exit(t_executable_data *data)
 	vec = data->lst;
 	exit_str = vec[1];
 	if (*ps_status() == true && isatty(0))
-		printf("exit\n");
+		write(2, "exit\n", 6);
 	if (exit_str == NULL)
 		exit_status = get_exit_status();
 	else
@@ -33,9 +33,9 @@ int	run_exit(t_executable_data *data)
 			exit_status = 2;
 		}
 	}
-	if (data->fd_in != -1)
+	if (data->fd_in != -1 && data->fd_in != STDIN_FILENO)
 		close(data->fd_in);
-	if (data->fd_out != -1)
+	if (data->fd_out != -1 && data->fd_out != STDOUT_FILENO)
 		close(data->fd_out);
 	clean_exit(exit_status);
 	return (0);
