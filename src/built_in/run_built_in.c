@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 20:40:35 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:38:18 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	run_export(t_executable_data *data)
 	vec = data->lst;
 	vec++;
 	if (vec[0] == NULL)
-		return (print_exports(data->fd_out));
+		return (print_exports());
 	status = EXIT_SUCCESS;
 	while (*vec)
 	{
@@ -36,7 +36,7 @@ int	run_env(t_executable_data *data)
 
 	vec = data->lst;
 	vec++;
-	return (print_env(data->fd_out));
+	return (print_env());
 }
 
 int	run_unset(t_executable_data *data)
@@ -69,18 +69,16 @@ int	run_pwd(t_executable_data *data)
 	char	*path;
 
 	(void)data;
-	if (data->fd_out == -1)
-		data->fd_out = STDOUT_FILENO;
 	path = expand_env("PWD");
 	if (path[0] == '\0')
 	{
 		path = getcwd(NULL, 0);
 		if (path == NULL)
 			return (perror("minishell: getcwd"), EXIT_FAILURE);
-		ft_putendl_fd(path, data->fd_out);
+		ft_putendl_fd(path, 1);
 		free(path);
 	}
 	else
-		ft_putendl_fd(path, data->fd_out);
+		ft_putendl_fd(path, 1);
 	return (EXIT_SUCCESS);
 }

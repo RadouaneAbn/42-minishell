@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:31:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 20:40:13 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:38:25 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char		**build_env(void);
 bool		has_exec_perm(char *path);
 bool	file_exist(char *path);
 
-int			print_env(int fd);
-int			print_exports(int fd);
+int			print_env(void);
+int			print_exports(void);
 
 int			run_export(t_executable_data *data);
 int			run_env(t_executable_data *data);

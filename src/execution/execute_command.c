@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 04:28:44 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:33:54 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	handle_redirections(t_tree *tree, t_executable_data *data)
 		dup2(data->fd_out, STDOUT_FILENO);
 		close(data->fd_out);
 	}
-	if (!node_isfile(tree->data_type))
+	if (tree && !node_isfile(tree->data_type))
 		return (-1);
 	while (tree)
 	{

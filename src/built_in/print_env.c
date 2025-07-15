@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:29 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 15:37:30 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:38:43 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	print_env(int fd)
+int	print_env()
 {
 	t_map	*map;
 	t_node	*node;
@@ -20,23 +20,21 @@ int	print_env(int fd)
 	map = get_map();
 	if (map == NULL)
 		return (1);
-	if (fd == -1)
-		fd = STDOUT_FILENO;
 	node = map->ordered_list;
 	while (node)
 	{
 		if (node->value)
 		{
-			ft_putstr_fd(node->key, fd);
-			ft_putstr_fd("=", fd);
-			ft_putendl_fd(node->value, fd);
+			ft_putstr_fd(node->key, 1);
+			ft_putstr_fd("=", 1);
+			ft_putendl_fd(node->value, 1);
 		}
 		node = node->ordered_next;
 	}
 	return (0);
 }
 
-int	print_exports(int fd)
+int	print_exports()
 {
 	t_map	*map;
 	t_node	*node;
@@ -44,20 +42,18 @@ int	print_exports(int fd)
 	map = get_map();
 	if (map == NULL)
 		return (EXIT_FAILURE);
-	if (fd == -1)
-		fd = STDOUT_FILENO;
 	node = map->ordered_list;
 	while (node)
 	{
-		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(node->key, fd);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(node->key, 1);
 		if (node->value)
 		{
-			ft_putstr_fd("=\"", fd);
-			ft_putstr_fd(node->value, fd);
-			ft_putstr_fd("\"", fd);
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(node->value, 1);
+			ft_putstr_fd("\"", 1);
 		}
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\n", 1);
 		node = node->ordered_next;
 	}
 	return (EXIT_SUCCESS);
