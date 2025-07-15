@@ -3,6 +3,9 @@
 
 #define REINITIALIZE true
 #define RESUME false
+#define UID_SIZE 23
+#define ID_UNIQ_CHARS_SIZE 12
+#define READ_SIZE (ID_UNIQ_CHARS_SIZE * sizeof(unsigned short int))
 
 bool	char_in_set(char c, char *set);
 bool	is_quote(char character);
