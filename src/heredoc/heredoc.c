@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 19:11:34 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/15 21:54:52 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,20 @@ void	run_heredoc(t_expand_info expand_info)
 	}
 }
 
+//void	handler(int sig)
+//{
+	//(void)sig;
+	//printf("\n");
+//}
+
 char	*heredoc(char *delimiter)
 {
 	int				fd;
-	char			*addr;
 	char			*file_name;
 	t_expand_info	expand_info;
 
-	addr = utoa((size_t)(&fd));
 	expand_info = (t_expand_info)heredoc_expand_info(delimiter);
-	file_name = ft_strjoin("/tmp/file-minishell--", addr);
+	file_name = id();
 	fd = open(file_name, O_TRUNC | O_CREAT | O_RDWR, 0700);
 	if (fd == -1)
 	{

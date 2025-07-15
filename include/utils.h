@@ -3,7 +3,7 @@
 
 #define REINITIALIZE true
 #define RESUME false
-#define UID_SIZE 23
+#define UID_SIZE 28
 #define ID_UNIQ_CHARS_SIZE 12
 #define READ_SIZE (ID_UNIQ_CHARS_SIZE * sizeof(unsigned short int))
 
@@ -42,5 +42,6 @@ bool *ps_status(void);
 void	print_error(char *cmd, char *file, char *msg1, char *error_msg);
 void	set_exit_status(int exit_status);
 void clean_exit(int exit_code);
+char * id(void);
 
 #endif

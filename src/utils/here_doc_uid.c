@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-static char *create_new_id(char *id, char *buf)
+static char *create_new_id(char *id, char *buf, int size)
 {
     unsigned short int *int_buf;
     int int_index;
@@ -9,25 +9,26 @@ static char *create_new_id(char *id, char *buf)
     int_buf = (unsigned short int *)buf;
     int_index = 0;
     i = 7;
-    while (i < 22)
+    while (id[i])
     {
         if (id[i] == '*')
-        {
-            char c = 'a' + (int_buf[int_index++] % 26);
-            id[i] = c;
-        }
+            id[i] = 'a' + (int_buf[int_index++] % 26);
         i++;
     }
     return (id);
 }
 
-char * id()
+char * id(void)
 {
+    char *pattern;
+    int size;
     int fd;
     char *id;
     char buf[READ_SIZE];
 
-    id = gc_malloc(UID_SIZE);
+    pattern = "/tmp/heredoc-****-********";
+    size = ft_strlen(pattern);
+    id = ft_strdup(pattern);
     if (!id)
         return (NULL);
     fd = open("/dev/random", O_RDONLY);
@@ -36,7 +37,6 @@ char * id()
         free(id);
         return (NULL);
     }
-    strcpy(id, "heredoc-****-********");    
     if (read(fd, buf, READ_SIZE) <= 0)
     {
         close(fd);
@@ -44,5 +44,5 @@ char * id()
         return (NULL);
     }
     close(fd);
-    return (create_new_id(id, buf));
+    return (create_new_id(id, buf, size));
 }
