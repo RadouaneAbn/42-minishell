@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   load_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:04:20 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 19:33:36 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:40:55 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void create_new_env(void)
+{
+	char *s;
+	char *tmp;
+	char *tmp_2;
+
+	pre_export("OLDPWD");
+	tmp = getcwd(NULL, 0);
+	if (tmp == NULL)
+	{
+		perror("minishell: getcwd");
+		return ;
+	}
+	s = ft_strjoin("PWD=", tmp);
+	gc_local_free(tmp);
+	pre_export(s);
+	gc_local_free(s);
+}
 
 void	load_env(char **env)
 {
@@ -18,10 +37,15 @@ void	load_env(char **env)
 
 	gc_level_init();
 	i = 0;
-	while (env[i])
+	if (env[0] != NULL)
 	{
-		pre_export(env[i]);
-		i++;
+		while (env[i])
+		{
+			pre_export(env[i]);
+			i++;
+		}
 	}
+	else
+		create_new_env();
 	free_level();
 }
