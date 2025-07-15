@@ -1,5 +1,0 @@
-$PATH
-$USER
-'$USER'
-"$USER"
-'"$USER"'

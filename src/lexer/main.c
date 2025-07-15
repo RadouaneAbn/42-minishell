@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 23:44:45 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:12:03 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	main(int argc, char *argv[], char **env)
 	rl_clear_history();
 	free_gc();
 	// free_full();
-	return (0);
+	return (get_exit_status());
 }

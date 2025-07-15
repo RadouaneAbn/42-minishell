@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 04:23:44 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 09:50:17 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ pid_t	execute_tree_subshell(t_tree *tree)
 
 	pid = fork();
 	if (pid == -1)
-		return ;
+		return (-1);
 	if (pid == 0)
 		run_subshell(tree);
 	else

@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 22:58:29 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/15 11:08:45 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	lexer(char *line)
 	if (*syntax_err_value())
 	{
 		free_token_list(&token_lst);
+		set_exit_status(2);
 		*syntax_err_value() = false;
 		free_level();
 		return ;
