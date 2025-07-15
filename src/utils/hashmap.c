@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:04:15 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 17:01:26 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/16 00:35:21 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char *copy_string(char *src)
-{
-	char *value;
-	int slen;
-
-	if (src == NULL)
-		return (NULL);
-	slen = ft_strlen(src);
-	value = gc_malloc_lvl(slen + 1, 0);
-	ft_strlcpy(value, src, slen + 1);
-	return (value);
-}
 
 t_node	*create_new_node(char *key, char *value)
 {

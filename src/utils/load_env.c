@@ -12,11 +12,11 @@
 
 #include <minishell.h>
 
-void create_new_env(void)
+void	create_new_env(void)
 {
-	char *s;
-	char *tmp;
-	char *tmp_2;
+	char	*s;
+	char	*tmp;
+	char	*tmp_2;
 
 	pre_export("OLDPWD");
 	tmp = getcwd(NULL, 0);

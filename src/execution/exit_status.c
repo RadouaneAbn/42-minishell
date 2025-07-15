@@ -12,9 +12,9 @@
 
 #include <minishell.h>
 
-int *exit_code(void)
+int	*exit_code(void)
 {
-	static int exit_code = 0;
+	static int	exit_code = 0;
 
 	return (&exit_code);
 }

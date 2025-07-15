@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/10 15:31:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 04:38:25 by radouane         ###   ########.fr       */
+/*   Created: 2025/07/15 23:38:40 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/15 23:38:43 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char		*find_file(char *cmd);
 char		*node_to_string(t_node *node);
 char		**build_env(void);
 bool		has_exec_perm(char *path);
-bool	file_exist(char *path);
+bool		file_exist(char *path);
 
 int			print_env(void);
 int			print_exports(void);

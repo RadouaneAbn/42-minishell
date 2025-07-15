@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_exit.c                                       :+:      :+:    :+:   */
+/*   copy_string.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 00:34:05 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:34:06 by rabounou         ###   ########.fr       */
+/*   Created: 2025/07/16 00:36:08 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/16 00:36:11 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	clean_exit(int exit_code)
+char	*copy_string(char *src)
 {
-	free_full();
-	exit(exit_code);
+	char	*value;
+	int		slen;
+
+	if (src == NULL)
+		return (NULL);
+	slen = ft_strlen(src);
+	value = gc_malloc_lvl(slen + 1, 0);
+	ft_strlcpy(value, src, slen + 1);
+	return (value);
 }

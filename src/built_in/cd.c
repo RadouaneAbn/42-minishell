@@ -6,13 +6,13 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:19 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 18:02:46 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 23:42:55 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int get_path(char **vec, char **path)
+static int	get_path(char **vec, char **path)
 {
 	*path = NULL;
 	if (vec[1] != NULL && vec[2] != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:32:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 20:39:08 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/16 00:31:45 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,11 @@ bool					sibling_is_and_or(t_tree *tree);
 bool					is_compound_command_or_pipeline(t_tree *tree);
 bool					should_execute_next_tree(int pipe_type);
 bool					tree_is_subshell(t_tree *tree);
-
+int						handle_redirections(t_tree *tree,
+							t_executable_data *data);
+void					run_subshell(t_tree *tree);
+pid_t					execute_tree_subshell(t_tree *tree);
+void					execute_subshell_piped(t_tree *tree, t_fds fds);
+void					wait_for_children(pid_t last_pid);
+t_tree			*get_command_from_tree(t_tree *tree, char ***cmdv);
 #endif

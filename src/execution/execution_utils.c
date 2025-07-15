@@ -6,16 +6,16 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/10 16:03:10 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 00:23:39 by rabounou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool *ps_status(void)
+bool	*ps_status(void)
 {
-	static bool is_main = true;
-	
+	static bool	is_main = true;
+
 	return (&is_main);
 }
 
@@ -51,4 +51,18 @@ int	get_fd_out(t_tree *tree, t_fds fds)
 		return (fds.pipe[1]);
 	else
 		return (STDOUT_FILENO);
+}
+
+void	wait_for_children(pid_t last_pid)
+{
+	int		status;
+	pid_t	wpid;
+
+	wpid = waitpid(-1, &status, 0);
+	while (wpid > 0)
+	{
+		if (wpid == last_pid)
+			store_child_exit_status(status);
+		wpid = waitpid(-1, &status, 0);
+	}
 }
