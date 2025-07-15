@@ -6,13 +6,13 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:29 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 04:38:43 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:02:22 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	print_env()
+int	print_env(void)
 {
 	t_map	*map;
 	t_node	*node;
@@ -34,7 +34,7 @@ int	print_env()
 	return (0);
 }
 
-int	print_exports()
+int	print_exports(void)
 {
 	t_map	*map;
 	t_node	*node;

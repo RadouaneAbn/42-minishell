@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:04:15 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 23:01:36 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:01:26 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char *copy_string(char *src)
 	char *value;
 	int slen;
 
+	if (src == NULL)
+		return (NULL);
 	slen = ft_strlen(src);
 	value = gc_malloc_lvl(slen + 1, 0);
 	ft_strlcpy(value, src, slen + 1);
@@ -35,7 +37,7 @@ t_node	*create_new_node(char *key, char *value)
 	{
 		node->value = copy_string(value);
 		if (value != NULL && node->value == NULL)
-			free(node->key);
+			gc_free_from_level(node->key, 0);
 		else
 		{
 			node->next = NULL;
@@ -43,7 +45,7 @@ t_node	*create_new_node(char *key, char *value)
 			return (node);
 		}
 	}
-	free(node);
+	gc_free_from_level(node, 0);
 	return (NULL);
 }
 
