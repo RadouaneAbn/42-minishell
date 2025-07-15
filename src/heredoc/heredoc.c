@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 11:40:31 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/15 19:11:34 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	run_heredoc(t_expand_info expand_info)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, sig_heredoc_handler);
 		while (true)
 		{
 			line = readline("> ");
