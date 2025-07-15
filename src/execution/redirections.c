@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:43 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 20:38:03 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 22:52:34 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	here_doc_input(char *path)
 	{
 		dup2(fd, STDIN_FILENO);
 		close(fd);
+		unlink(path);
 	}
 	else
 		perror(path);
