@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:19 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 17:58:25 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:02:46 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int get_path(char **vec, char **path)
 	if (vec[1] && ft_strcmp(vec[1], "-") == 0)
 	{
 		*path = expand_env("OLDPWD");
-		if ((*path)[0] == '\0')
+		if (*path == NULL || (*path)[0] == '\0')
 			return (print_error("cd", NULL, NULL, "OLDPWD not set"), 1);
 	}
 	else if (vec[1])
@@ -28,7 +28,7 @@ static int get_path(char **vec, char **path)
 	else if (vec[1] == NULL)
 	{
 		*path = expand_env("HOME");
-		if (*path[0] == '\0')
+		if (*path == NULL || *path[0] == '\0')
 			return (print_error("cd", NULL, NULL, "HOME not set"), 1);
 	}
 	return (0);
