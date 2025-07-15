@@ -6,11 +6,21 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 22:51:38 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:28:44 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+bool node_isfile(int data_type)
+{
+	if (data_type == T_FILE_APPEND ||
+		data_type == T_FILE_HERE_DOC ||
+		data_type == T_FILE_READ ||
+		data_type == T_FILE_TRUNCATE)
+		return (true);
+	return (false);
+}
 
 int	handle_redirections(t_tree *tree, t_executable_data *data)
 {
@@ -28,6 +38,8 @@ int	handle_redirections(t_tree *tree, t_executable_data *data)
 		dup2(data->fd_out, STDOUT_FILENO);
 		close(data->fd_out);
 	}
+	if (!node_isfile(tree->data_type))
+		return (-1);
 	while (tree)
 	{
 		filename = expand_redirection(tree->data, &ambiguous);

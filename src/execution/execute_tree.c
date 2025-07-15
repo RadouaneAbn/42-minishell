@@ -6,46 +6,11 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/14 22:18:53 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/15 04:23:44 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// static char *copy_string2(char *src)
-// {
-// 	char *value;
-// 	int slen;
-
-// 	slen = ft_strlen(src);
-// 	value = gc_malloc(slen + 1);
-// 	ft_strlcpy(value, src, slen + 1);
-// 	return (value);
-// }
-
-// static char **tree_to_array(t_tree *tree)
-// {
-// 	char **arr;
-// 	int i;
-// 	t_tree *tmp;
-
-// 	tmp = tree;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// 	arr = gc_malloc((sizeof(char *)) * (i + 1));
-// 	i = 0;
-// 	while (tree)
-// 	{
-// 		arr[i++] = copy_string2(tree->data);
-// 		tree = tree->next;
-// 	}
-// 	arr[i] = NULL;
-// 	return arr;
-// }
 
 void handler2(int sig)
 {
@@ -102,21 +67,11 @@ void	run_subshell(t_tree *tree)
 	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree->sibling, &data) == -1)
 		clean_exit(1);
-	if (data.fd_in != -1)
-	{
-		dup2(data.fd_in, STDIN_FILENO);
-		close(data.fd_in);
-	}
-	if (data.fd_out != -1)
-	{
-		dup2(data.fd_out, STDOUT_FILENO);
-		close(data.fd_out);
-	}
 	execute_tree(tree->next);
 	clean_exit(get_exit_status());
 }
 
-void	execute_tree_subshell(t_tree *tree)
+pid_t	execute_tree_subshell(t_tree *tree)
 {
 	pid_t	pid;
 	int		status;
@@ -131,22 +86,18 @@ void	execute_tree_subshell(t_tree *tree)
 		waitpid(pid, &status, 0);
 		store_child_exit_status(status);
 	}
+	return (pid);
 }
 
 void	start_tree_execution(t_tree *tree)
 {
 	gc_level_init();
-	if (tree_is_subshell(tree))
-	{
-		execute_tree_subshell(tree->next);
-	}
-	else
-	{
-		if (is_piped(tree) == TRUE)
+	if (is_piped(tree) == TRUE)
 			run_pipe_line(tree);
-		else
-			execute_command_tree(tree->next);
-	}
+	else if (tree_is_subshell(tree))
+		execute_tree_subshell(tree->next);
+	else
+		execute_command_tree(tree->next);
 	free_level();
 }
 
