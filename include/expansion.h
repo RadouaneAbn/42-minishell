@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 12:45:53 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 12:49:15 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 13:58:59 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,20 @@ bool				quoted_char(char *quote_mask, size_t size);
 /* field splitting functions */
 bool				field_char_quoted(char *quote_mask, int size);
 size_t				get_fields_len(char *expand_strs, char *quote_mask);
-unsigned char			get_bit(char *quote_mask, size_t size);
-void				set_field_info(t_expansion info ,t_range range);
+unsigned char		get_bit(char *quote_mask, size_t size);
+void				set_field_info(t_expansion info, t_range range);
 size_t				get_field_len(char *expand_str,
 						char *quote_mask, size_t *start);
-void				set_field(char **field, char *expand_str, char *quote_mask, t_range range, t_list **star_mask);
+void				set_field(char **field, char *expand_str,
+						char *quote_mask, t_range range, t_list **star_mask);
 void				fill_fields(char *expand_strs, char **fields,
-				char *quote_mask, t_list **star_mask);
+						char *quote_mask, t_list **star_mask);
 char				**get_fields(char **expand_strs,
-		char **quote_mask, t_list **star_mask);
+						char **quote_mask, t_list **star_mask);
 
 char				**expand_simple_command_lst(t_tree *simple_command);
-void				parameter_expansion(char *str, char *complete_string, char *quote_array);
+void				parameter_expansion(char *str,
+						char *complete_string, char *quote_array);
 
 /* HERE DOC FUNCTIONS */
 void				write_expand_var(char **line, int fd);
