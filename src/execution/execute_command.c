@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 23:57:30 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:44:05 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_command(char **cmdv, t_tree *tree)
 	int					status;
 
 	signal(SIGINT, SIG_DFL);
-	cmd_type = get_command_type(cmdv[0]);
+	cmd_type = get_command_type(cmdv);
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, -1, -1};
 	if (handle_redirections(tree, &data) != -1)
@@ -42,7 +42,7 @@ void	execute_command_2(char **cmdv, t_tree *tree)
 	t_fds				bak;
 	int					status;
 
-	cmd_type = get_command_type(cmdv[0]);
+	cmd_type = get_command_type(cmdv);
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, -1, -1};
 	bak.fd_in = dup(STDIN_FILENO);

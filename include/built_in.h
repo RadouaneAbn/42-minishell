@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 23:38:40 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 23:38:43 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:26:19 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,5 @@ int			run_exit(t_executable_data *data);
 
 long		convert_exist_status(char *arg);
 
-t_cmd_type	get_command_type(char *cmd);
 
 #endif

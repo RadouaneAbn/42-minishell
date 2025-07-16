@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:31:31 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:23:59 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// static t_tree	*get_command_from_tree(t_tree *tree, char ***cmdv)
-// {
-// 	t_tree	*fd_start;
-
-// 	fd_start = NULL;
-// 	if (tree->data_type == T_CMD_ARG)
-// 	{
-// 		*cmdv = expand_simple_command_lst(tree);
-// 		fd_start = tree->sibling;
-// 	}
-// 	else
-// 	{
-// 		*cmdv = gc_malloc(sizeof(char *));
-// 		*cmdv[0] = NULL;
-// 		fd_start = tree;
-// 	}
-// 	return (fd_start);
-// }
 
 void	execute_command_tree(t_tree *tree)
 {
@@ -40,7 +21,7 @@ void	execute_command_tree(t_tree *tree)
 
 	fd_start = get_command_from_tree(tree, &cmd_array);
 	pid = -1;
-	if (get_command_type(cmd_array[0]) == RUN_EXECUTABLE)
+	if (get_command_type(cmd_array) == RUN_EXECUTABLE)
 	{
 		signal(SIGINT, SIG_IGN);
 		pid = fork();

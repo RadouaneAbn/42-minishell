@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 16:09:06 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 16:26:03 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_command_piped(char **cmdv, t_tree *tree, t_fds fds)
 	t_executable_data	data;
 	int					status;
 
-	cmd_type = get_command_type(cmdv[0]);
+	cmd_type = get_command_type(cmdv);
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, fds.fd_in, fds.fd_out};
 	if (handle_redirections(tree, &data) == -1)

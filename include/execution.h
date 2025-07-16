@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:32:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:31:45 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:26:11 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void					run_pipe_line(t_tree *tree);
 bool					is_piped(t_tree *tree);
 
 /* execution utils */
-t_cmd_type				get_command_type(char *cmd);
+t_cmd_type				get_command_type(char **cmd);
 t_func_ptr				*get_exec_functions(void);
 int						get_fd_out(t_tree *tree, t_fds fds);
 bool					sibling_is_and_or(t_tree *tree);
