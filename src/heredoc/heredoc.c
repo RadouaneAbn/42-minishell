@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 14:57:40 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 16:36:23 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	run_heredoc(t_expand_info expand_info)
 				ft_putstr_fd("minishell: warning: \
 here-document delimited by end-of-file (wanted`", 2);
 				ft_putstr_fd(expand_info.unquoted_delimiter, 2);
-				ft_putstr_fd("'", 2);
+				ft_putstr_fd("'\n", 2);
 				break ;
 			}
 			if (strmatch(line, expand_info.unquoted_delimiter))
