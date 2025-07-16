@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:43:39 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 23:39:54 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:24:08 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ size_t	expand_word_len(char **str)
 	size_t	len;
 	char	*key;
 	int		exit_code_len;
-	char			*exit_code;
-	char		*value;
+	char	*exit_code;
+	char	*value;
 
 	len = 0;
 	if (peakch(*str) == '?')

@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:53:55 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:53:56 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 12:28:12 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	*get_operator(int index)
 
 t_token_type	get_operator_type(char *line, size_t *position)
 {
-	size_t	len;
-	char	*token_value;
+	size_t			len;
+	char			*token_value;
 	t_token_type	index;
 
 	index = 0;
@@ -73,6 +73,5 @@ void	check_unclosed_quote(bool unclosed_quote)
 	{
 		ft_putendl_fd("minishell: unclosed quote", 2);
 		*syntax_err_value() = true;
-		//free and set a var inside a function
 	}
 }

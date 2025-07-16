@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:39:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:43:32 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 12:22:42 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ t_fields_info	expand_simple_command(char *str)
 
 char	**expand_simple_command_lst(t_tree *simple_command)
 {
-	t_list				*list;
-	t_fields_info		fields_info;
-	t_list	*new_list;
-	char	**all_args;
+	t_list			*list;
+	t_fields_info	fields_info;
+	t_list			*new_list;
+	char			**all_args;
 
 	list = NULL;
 	while (simple_command)
@@ -103,9 +103,9 @@ char	**expand_simple_command_lst(t_tree *simple_command)
 
 char	*expand_redirection(char *filename, bool *ambiguous)
 {
-	t_list	*list;
-	t_fields_info		fields_info;
-	char		*expanded_filename;
+	t_list			*list;
+	t_fields_info	fields_info;
+	char			*expanded_filename;
 
 	*ambiguous = false;
 	list = NULL;

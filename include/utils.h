@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 23:40:02 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 23:41:14 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:11:40 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	print_error(char *cmd, char *file, char *msg1, char *error_msg);
 void	set_exit_status(int exit_status);
 void	clean_exit(int exit_code);
 char	*id(void);
-
+bool	*heredoc_signaled(void);
 #endif

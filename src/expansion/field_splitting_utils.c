@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:46:32 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 17:48:31 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 12:23:59 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ size_t	get_fields_len(char *expand_str, char *quote_mask)
 {
 	size_t	field_len;
 	size_t	index;
-	bool		current_ch_quoted;
-	bool		next_ch_quoted;
+	bool	current_ch_quoted;
+	bool	next_ch_quoted;
 
 	field_len = 0;
 	index = 0;

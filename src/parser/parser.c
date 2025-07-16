@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:32:53 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 19:00:46 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 15:14:58 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_tree	*parser(t_token_lst *token_lst)
 	t_tree	*compound_command;
 
 	compound_command = tree_get_compound_command(&token_lst);
-	if (token_lst)
+	if (token_lst || *syntax_err_value() || *heredoc_signaled())
 	{
-		if (!*syntax_err_value())
+		if (!*heredoc_signaled() && !*syntax_err_value())
 		{
 			*syntax_err_value() = true;
-			free_tree(compound_command);
 			put_unexpected_token_err(token_lst->token.lexeme);
 		}
+		free_tree(&compound_command);
 		return (NULL);
 	}
 	return (compound_command);

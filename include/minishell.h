@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 14:12:56 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/16 14:12:57 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <readline/readline.h>
@@ -31,6 +43,6 @@
 
 # define MALLOC_FAILURE 42
 
-void sigint_handler(int sig);
+void		sigint_handler(int sig);
 
 #endif

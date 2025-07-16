@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 00:15:13 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:15:25 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:03:12 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	handle_file_redirection(t_tree *tree, char *filename)
 
 int	handle_redirections(t_tree *tree, t_executable_data *data)
 {
-	int		status;
 	char	*filename;
 	bool	ambiguous;
 

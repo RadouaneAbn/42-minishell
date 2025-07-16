@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 21:54:52 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 14:57:40 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	put_heredoc_line(bool should_expand, char *line, int fd)
 
 static int	*get_heredoc_fd(void)
 {
-	static int fd;
+	static int	fd;
 
-	return (&fd);	
+	return (&fd);
 }
 
 void	sig_heredoc_handler(int sig)
@@ -37,12 +37,12 @@ void	sig_heredoc_handler(int sig)
 	clean_exit(130);
 }
 
-
-void	run_heredoc(t_expand_info expand_info)
+bool	run_heredoc(t_expand_info expand_info)
 {
 	char	*line;
 	pid_t	pid;
-	int	fd;
+	int		fd;
+	int	status;
 
 	fd = *get_heredoc_fd();
 	pid = fork();
@@ -54,8 +54,8 @@ void	run_heredoc(t_expand_info expand_info)
 			line = readline("> ");
 			if (line == NULL)
 			{
-				ft_putstr_fd("minishell: warning: ", 2);
-				ft_putstr_fd("here-document delimited by end-of-file (wanted`", 2);
+				ft_putstr_fd("minishell: warning: \
+here-document delimited by end-of-file (wanted`", 2);
 				ft_putstr_fd(expand_info.unquoted_delimiter, 2);
 				ft_putstr_fd("'", 2);
 				break ;
@@ -71,21 +71,19 @@ void	run_heredoc(t_expand_info expand_info)
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
+		if (WEXITSTATUS(status) == 130)
+			return (true);
 	}
+	return (false);
 }
-
-//void	handler(int sig)
-//{
-	//(void)sig;
-	//printf("\n");
-//}
 
 char	*heredoc(char *delimiter)
 {
 	int				fd;
 	char			*file_name;
 	t_expand_info	expand_info;
+	bool	is_signaled;
 
 	expand_info = (t_expand_info)heredoc_expand_info(delimiter);
 	file_name = id();
@@ -96,7 +94,9 @@ char	*heredoc(char *delimiter)
 		return (NULL);
 	}
 	*get_heredoc_fd() = fd;
-	run_heredoc(expand_info);
+	is_signaled = run_heredoc(expand_info);
 	close(fd);
+	if (is_signaled)
+		return (NULL);
 	return (file_name);
 }

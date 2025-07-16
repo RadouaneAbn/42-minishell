@@ -6,14 +6,15 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 16:37:22 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 16:00:00 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
+	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -24,7 +25,7 @@ void sigint_handler(int sig)
 int	main(int argc, char *argv[], char **env)
 {
 	char	*line;
-	
+
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, sigint_handler);
@@ -45,6 +46,5 @@ int	main(int argc, char *argv[], char **env)
 	free_level();
 	rl_clear_history();
 	free_gc();
-	// free_full();
 	return (get_exit_status());
 }

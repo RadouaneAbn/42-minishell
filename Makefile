@@ -18,7 +18,7 @@ TEST_FILES = $(wildcard tests_2/*.c)
 TEST_OBJECTS = $(TEST_FILES:%.c=%.o)
 
 CC = cc -g
-# CFLAGS = -Wall -Werror -Wextra -g 
+CFLAGS = -Wall -Werror -Wextra -g 
 
 INCLUDE = include
 TARGET = minishell
