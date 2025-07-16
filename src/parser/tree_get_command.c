@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:34:52 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 11:46:12 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 11:52:03 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ bool	tree_set_subshell_redirect(t_token_lst	**token_lst, t_tree **subshell)
 	if (!io_redirect_list)
 		return (false);
 	tree_add_sibling_back(subshell, io_redirect_list);
+	return (true);
 }
 
 void	throw_unclosed_brace_err(void)

@@ -43,7 +43,7 @@ void	parameter_expansion(char *str, char *expand_str, char *quote_mask)
 
 void	set_parameter_expand_value(char **str, size_t *len, char *expand_str)
 {
-	int	exit_code_len;
+	int		exit_code_len;
 	char	*exit_code;
 	char	*key;
 	char	*value;
