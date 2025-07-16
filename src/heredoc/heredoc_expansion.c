@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:52:10 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 12:36:21 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 19:36:09 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	write_expand_var(char **line, int fd)
 		exit_code_str = ft_itoa(get_exit_status());
 		ft_putstr_fd(exit_code_str, fd);
 		gc_global_free(exit_code_str);
+		(*line)++;
 	}
 	else
 	{

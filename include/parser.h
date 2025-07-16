@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:12:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 14:12:06 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 19:33:38 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool					is_output_redirection_operator(int operator);
 bool					is_input_redirection_operator(int operator);
 bool					is_redirect_operator(int operator);
 bool					is_token_word(int operator);
-t_tree					*parse_simple_command(t_token_lst **token_lst);
+t_tree					*tree_get_simple_command(t_token_lst **token_lst);
 void					print_tree(t_tree *tree, int n);
 
 void					consume(t_token_lst **token_lst);
