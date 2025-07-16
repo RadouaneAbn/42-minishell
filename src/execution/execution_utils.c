@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:23:39 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:26:46 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ bool	*ps_status(void)
 	return (&is_main);
 }
 
-t_cmd_type	get_command_type(char *cmd)
+t_cmd_type	get_command_type(char **cmd)
 {
 	static char	*built_ins[8] = {"export", "env", "unset", "echo", "pwd", "cd",
 		"exit", NULL};
 	int			i;
 
-	if (cmd == NULL)
+	if (cmd == NULL || cmd[0] == NULL)
 		return (RUN_EXECUTABLE);
 	i = RUN_EXPORT;
 	while (built_ins[i])
 	{
-		if (ft_strcmp(built_ins[i], cmd) == 0)
+		if (ft_strcmp(built_ins[i], cmd[0]) == 0)
 			break ;
 		i++;
 	}

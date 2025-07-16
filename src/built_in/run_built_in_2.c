@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 17:30:25 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:27:56 by radouane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	run_executable(t_executable_data *data)
 	char	**vec;
 
 	vec = data->lst;
-	if (vec[0] == NULL)
+	if (vec == NULL || vec[0] == NULL)
 		clean_exit(0);
 	if (command_is_empty(vec[0]))
 		clean_exit(127);
