@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 21:54:52 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 12:39:22 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	put_heredoc_line(bool should_expand, char *line, int fd)
 
 static int	*get_heredoc_fd(void)
 {
-	static int fd;
+	static int	fd;
 
-	return (&fd);	
+	return (&fd);
 }
 
 void	sig_heredoc_handler(int sig)
@@ -37,12 +37,11 @@ void	sig_heredoc_handler(int sig)
 	clean_exit(130);
 }
 
-
 void	run_heredoc(t_expand_info expand_info)
 {
 	char	*line;
 	pid_t	pid;
-	int	fd;
+	int		fd;
 
 	fd = *get_heredoc_fd();
 	pid = fork();
@@ -54,8 +53,8 @@ void	run_heredoc(t_expand_info expand_info)
 			line = readline("> ");
 			if (line == NULL)
 			{
-				ft_putstr_fd("minishell: warning: ", 2);
-				ft_putstr_fd("here-document delimited by end-of-file (wanted`", 2);
+				ft_putstr_fd("minishell: warning: \
+here-document delimited by end-of-file (wanted`", 2);
 				ft_putstr_fd(expand_info.unquoted_delimiter, 2);
 				ft_putstr_fd("'", 2);
 				break ;
@@ -74,12 +73,6 @@ void	run_heredoc(t_expand_info expand_info)
 		wait(NULL);
 	}
 }
-
-//void	handler(int sig)
-//{
-	//(void)sig;
-	//printf("\n");
-//}
 
 char	*heredoc(char *delimiter)
 {
