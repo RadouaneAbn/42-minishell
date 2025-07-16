@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:35:38 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 15:12:49 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 19:24:19 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,24 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 	return (new_io_redirect);
 }
 
+bool	tree_set_simple_command(t_token_lst **token_lst, t_tree **tree_ptr, t_tree *(tree_func)(t_token_lst **))
+{
+	t_tree	*new_tree;
+
+	new_tree = tree_func(token_lst);
+	if (!new_tree)
+		return (true);	
+	tree_add_back(tree_ptr, new_tree);
+	return (false);
+}
+
 t_tree	*parse_simple_command(t_token_lst	**token_lst)
 {
 	t_tree	*args;
 	t_tree	*io_files;
 	t_tree	*simple_command;
-	t_tree	*io_redirect;
-	t_tree	*argument;
+	//t_tree	*io_redirect;
+	//t_tree	*argument;
 	bool		syntax_err;
 
 	syntax_err = false;
@@ -79,17 +90,19 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 	{
 		if (is_redirect_operator((*token_lst)->token.type))
 		{
-			io_redirect = tree_get_io_redirect(token_lst);
-			if (!io_redirect)
-				syntax_err = true;
-			tree_add_back(&io_files, io_redirect);
+			syntax_err = tree_set_simple_command(token_lst, &io_files, tree_get_io_redirect);
+			//io_redirect = tree_get_io_redirect(token_lst);
+			//if (!io_redirect)
+				//syntax_err = true;
+			//tree_add_back(&io_files, io_redirect);
 		}
 		else if (is_token_word((*token_lst)->token.type))
 		{
-			argument = tree_get_argument(token_lst);
-			if (!argument)
-				syntax_err = true;
-			tree_add_back(&args, argument);
+			syntax_err = tree_set_simple_command(token_lst, &args, tree_get_argument);
+			//argument = tree_get_argument(token_lst);
+			//if (!argument)
+				//syntax_err = true;
+			//tree_add_back(&args, argument);
 		}
 		else
 			break ;

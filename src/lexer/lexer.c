@@ -6,11 +6,12 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 16:47:02 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 16:49:11 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
 
 void	lexer(char *line)
 {
