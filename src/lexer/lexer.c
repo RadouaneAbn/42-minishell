@@ -6,12 +6,27 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 16:49:11 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 21:30:30 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void	syntax_err_signal_setup(int exit_status, bool *func(void))
+{
+	*func() = false;
+	set_exit_status(exit_status);
+	free_level();
+}
+
+bool	check_err_and_heredoc_signal()
+{
+	if (*heredoc_signaled())
+		return (syntax_err_signal_setup(130, heredoc_signaled), true);
+	if (*syntax_err_value())
+		return (syntax_err_signal_setup(2, syntax_err_value), true);
+	return (false);
+}
 
 void	lexer(char *line)
 {
@@ -32,29 +47,11 @@ void	lexer(char *line)
 		token_lstadd_back(&token_lst, new_node);
 	}
 	if (*syntax_err_value())
-	{
-		set_exit_status(2);
-		*syntax_err_value() = false;
-		free_level();
-		return ;
-	}
+		return (syntax_err_signal_setup(2, syntax_err_value));
 	tree = parser(token_lst);
-	if (*heredoc_signaled())
-	{
-		set_exit_status(130);
-		*heredoc_signaled() = false;
-		free_level();
+	if (check_err_and_heredoc_signal())
 		return ;
-	}
-	if (*syntax_err_value())
-	{
-		set_exit_status(2);
-		*syntax_err_value() = false;
-		free_level();
-		return ;
-	}
 	free_token_list(&token_lst);
-	//print_tree(tree, 0);
 	execute_tree(tree);
 	free_level();
 }

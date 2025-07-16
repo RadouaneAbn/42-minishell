@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 12:45:53 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 13:58:59 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 21:41:11 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ t_expand_info		heredoc_expand_info(char *delimiter);
 char				*heredoc(char *delimiter);
 
 char				*expand_redirection(char *filename, bool *ambiguous);
+void	fill_heredoc(t_expand_info expand_info, int fd);
 #endif
