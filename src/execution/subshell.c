@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 00:16:43 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:16:44 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:04:38 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	execute_subshell_piped(t_tree *tree, t_fds fds)
 {
-	t_cmd_type			cmd_type;
-	t_func_ptr			*exec_functions;
 	t_executable_data	data;
-	int					status;
 
 	data = (t_executable_data){NULL, NULL, fds.fd_in, fds.fd_out};
 	if (handle_redirections(tree->sibling, &data) == -1)
@@ -31,7 +28,6 @@ void	execute_subshell_piped(t_tree *tree, t_fds fds)
 void	run_subshell(t_tree *tree)
 {
 	t_executable_data	data;
-	int					status;
 
 	*ps_status() = false;
 	data = (t_executable_data){NULL, NULL, -1, -1};

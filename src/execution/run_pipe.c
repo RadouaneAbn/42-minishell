@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:45 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:31:20 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:09:06 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 	char	**cmd_array;
 	t_tree	*fd_start;
 	pid_t	pid;
-	int		status;
 
 	fd_start = get_command_from_tree(tree, &cmd_array);
 	if (tree->data_type == T_SUBSHELL)
@@ -52,10 +51,7 @@ pid_t	execute_command_tree_piped(t_tree *tree, t_fds fds)
 		if (pid == 0)
 		{
 			*ps_status() = false;
-			if (tree->data_type == T_CMD_ARG)
-				execute_command_piped(cmd_array, tree->sibling, fds);
-			else
-				execute_command_piped(cmd_array, tree, fds);
+			execute_command_piped(cmd_array, fd_start, fds);
 		}
 	}
 	return (pid);

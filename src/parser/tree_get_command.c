@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:34:52 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 12:32:48 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 16:01:00 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	throw_unclosed_brace_err(void)
 bool	tree_set_subshell(t_token_lst	**token_lst, t_tree **subshell)
 {
 	t_tree	*compound_command;
-	t_tree	*io_redirect_list;
 	bool	check_err;
 
 	consume(token_lst);

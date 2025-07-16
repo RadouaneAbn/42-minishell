@@ -6,13 +6,13 @@
 /*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 00:38:12 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 00:38:13 by rabounou         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:02:32 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*create_new_id(char *id, char *buf, int size)
+static char	*create_new_id(char *id, char *buf)
 {
 	unsigned short int	*int_buf;
 	int					int_index;
@@ -33,13 +33,11 @@ static char	*create_new_id(char *id, char *buf, int size)
 char	*id(void)
 {
 	char	*pattern;
-	int		size;
 	int		fd;
 	char	*id;
 	char	buf[READ_SIZE];
 
 	pattern = "/tmp/heredoc-****-********";
-	size = ft_strlen(pattern);
 	id = ft_strdup(pattern);
 	if (!id)
 		return (NULL);
@@ -56,5 +54,5 @@ char	*id(void)
 		return (NULL);
 	}
 	close(fd);
-	return (create_new_id(id, buf, size));
+	return (create_new_id(id, buf));
 }

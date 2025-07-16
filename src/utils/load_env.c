@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:04:20 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/15 17:40:55 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:02:49 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	create_new_env(void)
 {
 	char	*s;
 	char	*tmp;
-	char	*tmp_2;
 
 	pre_export("OLDPWD");
 	tmp = getcwd(NULL, 0);
