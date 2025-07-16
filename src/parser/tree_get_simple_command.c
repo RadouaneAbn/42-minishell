@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:35:38 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 10:57:24 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 15:12:49 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ t_tree	*tree_get_io_redirect(t_token_lst	**token_lst)
 			if (data_type == HERE_DOC)
 			{
 				parameter = heredoc((*token_lst)->token.lexeme);
+				if (parameter == NULL)
+				{
+					*heredoc_signaled() = true;
+					return (NULL);
+				}
 			}
 			else
 				parameter = ft_strdup((*token_lst)->token.lexeme);
