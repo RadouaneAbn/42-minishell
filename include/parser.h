@@ -83,5 +83,5 @@ char	*here_doc(char *delimiter);
 
 
 // free tree
-void	free_tree(t_tree *tree);
+void	free_tree(t_tree **tree);
 #endif

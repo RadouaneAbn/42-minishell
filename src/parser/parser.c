@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:32:53 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/14 19:00:46 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 10:55:32 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_tree	*parser(t_token_lst *token_lst)
 		if (!*syntax_err_value())
 		{
 			*syntax_err_value() = true;
-			free_tree(compound_command);
+			free_tree(&compound_command);
 			put_unexpected_token_err(token_lst->token.lexeme);
 		}
 		return (NULL);

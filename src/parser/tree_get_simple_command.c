@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:35:38 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/15 11:41:58 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/16 10:57:24 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ t_tree	*parse_simple_command(t_token_lst	**token_lst)
 			break ;
 		if (syntax_err)
 		{
-			free_tree(args);
-			free_tree(io_files);
+			free_tree(&args);
+			free_tree(&io_files);
 			return (NULL);
 		}
 	}
