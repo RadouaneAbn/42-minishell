@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:49:05 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 21:41:58 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:51 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	sig_heredoc_handler(int sig)
 	fd = *get_heredoc_fd();
 	(void)sig;
 	close(fd);
+	write(1, "\n", 1);
 	clean_exit(130);
 }
 
@@ -36,6 +37,7 @@ bool	run_heredoc(t_expand_info expand_info)
 	int		status;
 
 	fd = *get_heredoc_fd();
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -45,6 +47,7 @@ bool	run_heredoc(t_expand_info expand_info)
 	else
 	{
 		wait(&status);
+		signal(SIGINT, sigint_handler);
 		if (WEXITSTATUS(status) == 130)
 			return (true);
 	}
