@@ -16,7 +16,7 @@ MY_OBJECTS = ${MY_FILES:.c=.o}
 
 CC = cc
 
-CC_FLAGS = -c -Wall -Werror -Wextra -g -I ../include
+CC_FLAGS = -c -Wall -Werror -Wextra -I ../include
 
 NAME = libft.a
 

@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 21:10:14 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/17 10:21:53 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 15:21:47 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	get_match_patterns_childs(t_list **list, char *pattern, char *star_mask)
 			match_found = true;
 			ft_lstadd_back(list, ft_lstnew(ft_strdup(child_file->d_name)));
 		}
-	child_file = readdir(parent_dir);
+		child_file = readdir(parent_dir);
 	}
 	if (!match_found)
 		ft_lstadd_back(list, ft_lstnew(ft_strdup(pattern)));

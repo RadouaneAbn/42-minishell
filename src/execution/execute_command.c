@@ -20,6 +20,7 @@ void	execute_command(char **cmdv, t_tree *tree)
 	int					status;
 
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	cmd_type = get_command_type(cmdv);
 	exec_functions = get_exec_functions();
 	data = (t_executable_data){NULL, NULL, -1, -1};

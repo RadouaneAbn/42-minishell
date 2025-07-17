@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:55:24 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/17 10:48:32 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 15:30:54 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char *argv[], char **env)
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	gc_level_init();
 	load_env(env);
 	set_exit_status(0);

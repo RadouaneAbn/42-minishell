@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:37:27 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 16:13:14 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:21:00 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	pre_export(char *exported)
 	{
 		print_export_error(exported, NULL);
 		return (EXIT_FAILURE);
-	}	
+	}
 	args = split_export_args(exported);
 	if (key_isvalid(args[0]) == FALSE)
 	{

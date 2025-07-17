@@ -6,11 +6,17 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:48:34 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 16:23:59 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:47:38 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	print_new_line_ifsig(int status)
+{
+	if (WIFSIGNALED(status))
+		write(1, "\n", 1);
+}
 
 void	execute_command_tree(t_tree *tree)
 {
@@ -35,6 +41,7 @@ void	execute_command_tree(t_tree *tree)
 	if (pid != -1)
 	{
 		waitpid(pid, &status, 0);
+		print_new_line_ifsig(status);
 		store_child_exit_status(status);
 		signal(SIGINT, sigint_handler);
 	}
