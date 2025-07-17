@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:12:56 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 14:12:57 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 10:09:54 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sys/wait.h>
 # include <lexer.h>
 # include <parser.h>
+# include <tree_utils.h>
 # include <expansion.h>
 # include <pathname_expansion.h>
 # include <unistd.h>

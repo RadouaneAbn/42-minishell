@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:56:08 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 14:05:21 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 09:51:18 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,20 @@ typedef struct s_token_lst
 	struct s_token_lst	*next;
 }						t_token_lst;
 
-void			lexer(char *line);
-void			get_next_token(t_token *token, char *line);
-void			print_token(t_token token);
-bool			is_space(char character);
-
-//lexer util functions
-char			*get_operator(int index);
-void			set_word_token(t_token *token, char *line, size_t *position);
 void			set_operator_token(t_token *token,
 					char *line, size_t *position);
-t_token_type	get_operator_type(char *line, size_t *position);
+void			set_word_token(t_token *token, char *line, size_t *position);
 void			get_token(t_token *token, char *line, size_t *position);
+void			get_next_token(t_token *token, char *line);
+char			*get_operator(int index);
+t_token_type	get_operator_type(char *line, size_t *position);
 bool			token_is_operator(char *line, size_t position);
-void			token_printlst(t_token_lst *token_lst);
 void			check_unclosed_quote(bool unclosed_quote);
-
-/*===== token list manipulation functions =======*/
+void			syntax_err_signal_setup(int exit_status, bool *func(void));
+bool			check_err_and_heredoc_signal(void);
+void			lexer(char *line);
 t_token_lst		*token_lstnew(t_token token);
 t_token_lst		*token_lstlast(t_token_lst *lst);
-void			token_lstadd_back(t_token_lst **lst, t_token_lst *new);
-
+void			token_lstadd_back(t_token_lst	**lst, t_token_lst *new);
+void			sigint_handler(int sig);
 #endif

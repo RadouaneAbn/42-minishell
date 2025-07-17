@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:40 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 14:15:30 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 09:40:50 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 char	get_last_char(char *str);
 bool	check_pattern(char *filename, char *pattern, char *star_mask);
-void	print_list(t_list *list);
 void	get_child_files(t_tree **tree, char *pattern, char *star_mask);
 t_list	*pathname_expansion(char **fields, t_list *star_mask);
 size_t	get_star_fields_len(char *str, char *star_mask);

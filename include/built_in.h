@@ -75,5 +75,4 @@ int			run_exit(t_executable_data *data);
 
 long		convert_exist_status(char *arg);
 
-
 #endif

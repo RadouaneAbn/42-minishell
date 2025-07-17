@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 21:30:30 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 09:49:05 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	syntax_err_signal_setup(int exit_status, bool *func(void))
 	free_level();
 }
 
-bool	check_err_and_heredoc_signal()
+bool	check_err_and_heredoc_signal(void)
 {
 	if (*heredoc_signaled())
 		return (syntax_err_signal_setup(130, heredoc_signaled), true);

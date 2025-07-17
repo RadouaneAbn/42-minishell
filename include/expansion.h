@@ -6,7 +6,7 @@
 /*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 12:45:53 by hsacr             #+#    #+#             */
-/*   Updated: 2025/07/16 21:41:11 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 09:48:40 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char				*get_key(char **str);
 bool				valid_key_char(char c);
 size_t				expand_word_len(char **str);
 size_t				expand_str_len(char *str);
-void				print_bits(char *quote_array, int size);
 int					get_byte_len(int len);
 void				add_bits(char *quote_array, int size);
 bool				first_key_ch(char c);
@@ -63,8 +62,6 @@ unsigned char		get_bit(char *quote_mask, size_t size);
 void				set_field_info(t_expansion info, t_range range);
 size_t				get_field_len(char *expand_str,
 						char *quote_mask, size_t *start);
-void				set_field(char **field, char *expand_str,
-						char *quote_mask, t_range range, t_list **star_mask);
 void				fill_fields(char *expand_strs, char **fields,
 						char *quote_mask, t_list **star_mask);
 char				**get_fields(char **expand_strs,
@@ -82,5 +79,5 @@ t_expand_info		heredoc_expand_info(char *delimiter);
 char				*heredoc(char *delimiter);
 
 char				*expand_redirection(char *filename, bool *ambiguous);
-void	fill_heredoc(t_expand_info expand_info, int fd);
+void				fill_heredoc(t_expand_info expand_info, int fd);
 #endif

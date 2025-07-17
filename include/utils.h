@@ -6,7 +6,7 @@
 /*   By: rabounou <rabounou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 23:40:02 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 15:11:40 by hsacr            ###   ########.fr       */
+/*   Updated: 2025/07/17 10:16:21 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,12 @@ char	peakch(char *str);
 bool	str_blank(char *str);
 void	print_strings(char **strings);
 size_t	get_strings_len(char **strings);
-char	*utoa(size_t num);
 void	token_free_list(t_token_lst *token_lst);
-
-// temprory
-// int	get_exit_code(void);
-
 void	free_strings(char **strings);
 void	free_list(t_list **list);
 void	free_token_list(t_token_lst **list);
-
 bool	*syntax_err_value(void);
-
 char	**lst_to_strings(t_list *list);
-
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_index_of(char *str, char c);
 t_info	*get_info(void);

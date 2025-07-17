@@ -6,7 +6,7 @@
 /*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:32:32 by rabounou          #+#    #+#             */
-/*   Updated: 2025/07/16 16:26:11 by radouane         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:17:55 by hsacr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void					run_subshell(t_tree *tree);
 pid_t					execute_tree_subshell(t_tree *tree);
 void					execute_subshell_piped(t_tree *tree, t_fds fds);
 void					wait_for_children(pid_t last_pid);
-t_tree			*get_command_from_tree(t_tree *tree, char ***cmdv);
+t_tree					*get_command_from_tree(t_tree *tree, char ***cmdv);
 #endif
