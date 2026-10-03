@@ -14,11 +14,9 @@ BONUS_OBJECTS = ${BONUS_FILES:.c=.o}
  
 MY_OBJECTS = ${MY_FILES:.c=.o}
 
-
-
 CC = cc
 
-CC_FLAGS = -c -Wall -Werror -Wextra
+CC_FLAGS = -c -Wall -Werror -Wextra -I ../include
 
 NAME = libft.a
 
@@ -31,7 +29,7 @@ ${NAME}: ${MY_OBJECTS}
 	ar rcs ${NAME} $?
 
 %.o: %.c libft.h
-	${CC} ${CC_FLAGS} $<
+	${CC} ${CC_FLAGS} $< -o $@
 
 clean:
 	rm -rf  ${MY_OBJECTS} ${BONUS_OBJECTS}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_token_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:53:55 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/16 12:28:12 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 char	*get_operator(int index)
@@ -19,11 +31,11 @@ char	*get_operator(int index)
 	return (fully[index]);
 }
 
-int	get_operator_type(char *line, size_t *position)
+t_token_type	get_operator_type(char *line, size_t *position)
 {
-	size_t	len;
-	char	*token_value;
-	int		index;
+	size_t			len;
+	char			*token_value;
+	t_token_type	index;
 
 	index = 0;
 	while (index < 9)
@@ -55,52 +67,11 @@ bool	token_is_operator(char *line, size_t position)
 	return (false);
 }
 
-void	set_operator_token(t_token *token, char *line, size_t *position)
+void	check_unclosed_quote(bool unclosed_quote)
 {
-	size_t	len;
-	int		index;
-	int		is_operator;
-	char	*token_value;
-
-	is_operator = token_is_operator(line, *position);
-	if (is_operator)
+	if (unclosed_quote)
 	{
-		index = get_operator_type(line, position);
-		token_value = get_operator(index);
-		len = ft_strlen(token_value);
-		token->type = index;
-		token->lexeme = ft_strdup(token_value);
-		*position += len;
-		return ;
+		ft_putendl_fd("minishell: unclosed quote", 2);
+		*syntax_err_value() = true;
 	}
-}
-
-void	set_word_token(t_token *token, char *line, size_t *position)
-{
-	bool	quoted;
-	size_t	start;
-	char	quote;
-
-	quoted = false;
-	start = *position;
-	while (((!quoted && !(token_is_operator(line, *position)
-						|| is_space(line[*position], "\t \n")))
-				|| (quoted)) && line[*position] != '\0')
-	{
-		if (char_in_set(line[*position], "'\"") && !quoted)
-		{
-			quote = line[*position];
-			quoted = true;
-		}
-		else if (char_in_set(line[*position], "'\"") && quote == line[*position])
-			quoted = false;
-		(*position)++;
-	}
-	if (start != *position)
-	{
-		token->lexeme = ft_substr(line, start, *position - start);
-		token->type = WORD;
-	}
-	if (quoted)
-		printf("WARNING: quote");
 }

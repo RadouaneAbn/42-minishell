@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
@@ -24,7 +24,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		del((*lst)->content);
 		ptr = (*lst)->next;
-		free((*lst));
+		gc_global_free((*lst));
 		*lst = ptr;
 	}
 }

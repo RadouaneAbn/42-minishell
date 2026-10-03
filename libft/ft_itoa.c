@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static int	ft_itoa_length(long number)
 {
@@ -50,7 +50,7 @@ char	*ft_itoa(int n)
 	start = 0;
 	number = n;
 	length = ft_itoa_length(number);
-	ptr = (char *)malloc((length + 1) * sizeof(char));
+	ptr = (char *)gc_malloc((length + 1) * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	*(ptr + length) = '\0';

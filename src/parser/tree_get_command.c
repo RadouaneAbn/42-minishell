@@ -1,74 +1,77 @@
-#include <minishell.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_get_command.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:34:52 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/17 10:05:55 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include <minishell.h>
 
 t_tree	*tree_get_io_redirect_list(t_token_lst	**token_lst)
 {
+	t_tree	*io_files_list;
 	t_tree	*io_files;
 
-	io_files = NULL;
+	io_files_list = NULL;
 	while ((*token_lst))
 	{
 		if (is_redirect_operator((*token_lst)->token.type))
-			tree_add_back(&io_files, tree_get_io_redirect(token_lst));
+		{
+			io_files = tree_get_io_redirect(token_lst);
+			if (!io_files)
+			{
+				free_tree(&io_files_list);
+				return (NULL);
+			}
+			tree_add_back(&io_files_list, io_files);
+		}
 		else
 			break ;
 	}
-	return (io_files);
+	return (io_files_list);
 }
 
-t_tree	*parse_subshell(t_token_lst	**token_lst)
+bool	tree_set_command(t_token_lst **token_lst, t_tree **command)
 {
-	t_tree	*compound_command;
-	t_tree	*io_redirect_list;
 	t_tree	*subshell;
+	t_tree	*simple_command;
 
-	subshell = NULL;
-	if ((*token_lst))
+	*command = tree_create_new(T_COMMAND, NULL);
+	if ((*token_lst)->token.type == L_PAREN)
 	{
-		consume(token_lst);
-		compound_command = tree_get_compound_command(token_lst);
-		if (compound_command == NULL)
-			printf("error expected '('");
-		if ((*token_lst) && (*token_lst)->token.type == R_PAREN)
-			consume(token_lst);
-		else
-			printf("error expected '('");
-		subshell = tree_create_new(T_SUBSHELL, NULL);
-		if ((*token_lst))
-		{
-			io_redirect_list = tree_get_io_redirect_list(token_lst);
-			tree_add_sibling_back(&subshell, io_redirect_list);
-		}
-		tree_add_back(&subshell, compound_command);
+		subshell = parse_subshell(token_lst);
+		if (subshell == NULL)
+			return (free_tree(command), false);
+		tree_add_back(command, subshell);
 	}
-	return (subshell);
+	else
+	{
+		simple_command = tree_get_simple_command(token_lst);
+		if (simple_command == NULL)
+			return (free_tree(command), false);
+		tree_add_back(command, simple_command);
+	}
+	return (true);
 }
 
 t_tree	*tree_get_command(t_token_lst **token_lst)
 {
 	t_tree	*command;
-	t_tree	*subshell;
-	t_tree	*simple_command;
+	bool	check_err;
 
 	command = NULL;
-	if ((*token_lst))
+	if ((*token_lst) && (*token_lst)->token.type != AND
+		&& (*token_lst)->token.type != OR
+		&& (*token_lst)->token.type != PIPE)
 	{
-		command = tree_create_new(T_COMMAND, NULL);
-		simple_command = NULL;
-		//for subshell: consume '(' and call tree_getcommand_list and then consume ')'
-		if ((*token_lst)->token.type == L_PAREN)
-		{
-			subshell = parse_subshell(token_lst);
-			tree_add_back(&command, subshell);
-		}
-		//for simple command: 
-		else
-		{
-			simple_command = parse_simple_command(token_lst);
-			if (simple_command == NULL)
-				return (NULL);
-			tree_add_back(&command, simple_command);
-		}
+		check_err = tree_set_command(token_lst, &command);
+		if (!check_err)
+			return (NULL);
 	}
 	return (command);
 }

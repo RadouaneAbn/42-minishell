@@ -1,0 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_to_strings.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:27:43 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:27:52 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <minishell.h>
+
+char	**lst_to_strings(t_list *list)
+{
+	char	**strings;
+	size_t	lst_size;
+	size_t	index;
+
+	if (!list)
+		return (NULL);
+	index = 0;
+	lst_size = ft_lstsize(list);
+	strings = gc_malloc((lst_size + 1) * sizeof(char *));
+	while (index < lst_size)
+	{
+		strings[index] = ft_strdup(list->content);
+		list = list->next;
+		index++;
+	}
+	strings[index] = NULL;
+	return (strings);
+}

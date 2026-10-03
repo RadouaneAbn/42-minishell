@@ -1,34 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:44:38 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 23:40:52 by radouane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-size_t	expand_word_len(char **str)
-{
-	size_t	len;
-	char	*key;
-
-	len = 0;
-	if (peakch(*str) == '?')
-	{
-		len += ft_strlen("0");
-		*str += 2;
-		return (len);
-	}
-	if (!ft_isalpha(peakch(*str)) && peakch(*str) != '_')
-	{
-		(*str) += 2;
-		return (2);
-	}
-	(*str)++;
-	key = get_key(str);
-	if (key == NULL)
-		return (0);
-	free(key);
-	return (7);
-}
-
-//this function return the size of a str that has expanded words
-//gets the string: (char *)
-//returns len (size_t)
-size_t	expand_str_len(char *str)
+void	parameter_expansion(char *str, char *expand_str, char *quote_mask)
 {
 	bool	quoted;
 	char	quote;
@@ -38,19 +22,46 @@ size_t	expand_str_len(char *str)
 	len = 0;
 	while (*str)
 	{
-		if (char_in_set(*str, "'\"") && !quoted)
-			quote = *str;
-		if (quote == *str)
+		if (is_removable_quote(*str, RESUME))
+		{
 			quoted = !quoted;
-		if (!quoted && *str == '$' && char_in_set(peakch(str), "'\""))
-			str++;
-		else if (((quoted && (quote == '"')) || !quoted) && *str == '$' && peakch(str))
-			len += expand_word_len(&str);
+			quote = *str;
+			set_mask_bit(quote_mask, len, 1);
+		}
+		if (((quoted && (quote == '"')) || !quoted) && *str == '$'
+			&& first_key_ch(peakch(str)))
+			set_parameter_expand_value(&str, &len, expand_str);
 		else
 		{
+			expand_str[len] = *(str);
 			len++;
 			str++;
 		}
 	}
-	return (len);
+	is_removable_quote(0, REINITIALIZE);
+}
+
+void	set_parameter_expand_value(char **str, size_t *len, char *expand_str)
+{
+	int		exit_code_len;
+	char	*exit_code;
+	char	*key;
+	char	*value;
+
+	if (peakch(*str) == '?')
+	{
+		exit_code = ft_itoa(get_exit_status());
+		exit_code_len = ft_strlen(exit_code);
+		ft_memcpy(expand_str + *len, exit_code, exit_code_len);
+		*len += exit_code_len;
+		(*str) += 2;
+		gc_local_free(exit_code);
+		return ;
+	}
+	(*str)++;
+	key = get_key(str);
+	value = expand_env(key);
+	ft_memcpy(expand_str + *len, value, ft_strlen(value));
+	gc_local_free(key);
+	*len += ft_strlen(value);
 }

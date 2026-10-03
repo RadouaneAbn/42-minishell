@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 15:48:43 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/15 22:52:34 by radouane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <minishell.h>
+
+int	redirect_input(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd != -1)
+	{
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	else
+		perror(path);
+	return (fd);
+}
+
+int	redirect_output(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (fd != -1)
+	{
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	else
+		perror(path);
+	return (fd);
+}
+
+int	append_output(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	if (fd != -1)
+	{
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	else
+		perror(path);
+	return (fd);
+}
+
+int	here_doc_input(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd != -1)
+	{
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		unlink(path);
+	}
+	else
+		perror(path);
+	return (fd);
+}

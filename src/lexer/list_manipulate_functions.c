@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_manipulate_functions.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:55:51 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/14 17:56:22 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_token_lst	*token_lstnew(t_token token)
 {
 	t_token_lst	*new_node;
 
-	new_node = malloc(sizeof(t_token_lst));
+	new_node = gc_malloc(sizeof(t_token_lst));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->token = token;
@@ -35,4 +47,4 @@ void	token_lstadd_back(t_token_lst	**lst, t_token_lst *new)
 		return ;
 	}
 	last_node->next = new;
-}	
+}

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static size_t	ft_split_word_length(char const *s, char c, int index);
 
@@ -91,18 +91,18 @@ char	**ft_split(char const *s, char c)
 	if (s == 0)
 		return (0);
 	i = 0;
-	ptr = (char **)malloc((ft_split_length(s, c) + 1) * sizeof(char *));
+	ptr = (char **)gc_malloc((ft_split_length(s, c) + 1) * sizeof(char *));
 	if (ptr == 0)
 		return (0);
 	while (i < ft_split_length(s, c))
 	{
-		*(ptr + i) = (char *)malloc((ft_split_word_length(s, c, i) + 1)
+		*(ptr + i) = (char *)gc_malloc((ft_split_word_length(s, c, i) + 1)
 				*sizeof(char));
 		if (*(ptr + i) == 0)
 		{
 			while (i != 0)
-				free(*(ptr + --i));
-			free(ptr);
+				gc_global_free(*(ptr + --i));
+			gc_global_free(ptr);
 			return (0);
 		}
 		ft_split_store(s, *(ptr + i), c, i);

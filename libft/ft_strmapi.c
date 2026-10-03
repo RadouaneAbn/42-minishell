@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
@@ -20,7 +20,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	i = 0;
 	if (s == 0 || f == 0)
 		return (0);
-	ptr = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	ptr = (char *)gc_malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	while (*(s + i) != '\0')

@@ -1,11 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsacr <hsacr@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/14 17:32:53 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/16 15:14:58 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-t_tree *parser(t_token_lst *token_lst)
+void	put_unexpected_token_err(char *error)
 {
-	t_tree *compound_command = tree_get_compound_command(&token_lst);
-	if (token_lst)
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("syntax error near unexpected token `", 2);
+	ft_putstr_fd(error, 2);
+	ft_putendl_fd("'", 2);
+}
+
+t_tree	*parser(t_token_lst *token_lst)
+{
+	t_tree	*compound_command;
+
+	compound_command = tree_get_compound_command(&token_lst);
+	if (token_lst || *syntax_err_value() || *heredoc_signaled())
 	{
-		printf("error [%s]\n", token_lst->token.lexeme);
+		if (!*heredoc_signaled() && !*syntax_err_value())
+		{
+			*syntax_err_value() = true;
+			put_unexpected_token_err(token_lst->token.lexeme);
+		}
+		free_tree(&compound_command);
 		return (NULL);
 	}
 	return (compound_command);

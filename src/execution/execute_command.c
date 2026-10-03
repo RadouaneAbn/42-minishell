@@ -1,54 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 15:48:31 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/16 16:44:05 by radouane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-t_cmd_type get_command_type (char *cmd)
+void	execute_command(char **cmdv, t_tree *tree)
 {
-    char *built_ins[] = {
-        "export",
-        "env",
-        "unset",
-        "echo",
-        "pwd",
-        "cd",
-        "exit",
-        NULL
-    };
-    int i;
+	t_cmd_type			cmd_type;
+	t_func_ptr			*exec_functions;
+	t_executable_data	data;
+	int					status;
 
-    if (cmd == NULL)
-        return (FALSE);
-    i = RUN_EXPORT;
-    while (built_ins[i])
-    {
-        if (ft_strcmp(built_ins[i], cmd) == 0)
-            break;
-        i++;
-    }
-    return (i);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	cmd_type = get_command_type(cmdv);
+	exec_functions = get_exec_functions();
+	data = (t_executable_data){NULL, NULL, -1, -1};
+	if (handle_redirections(tree, &data) != -1)
+	{
+		data.lst = cmdv;
+		data.fd_tree = tree;
+		status = exec_functions[cmd_type](&data);
+	}
+	else
+		status = 1;
+	clean_exit(status);
 }
 
-t_func_ptr *get_exec_functions(void)
+void	execute_command_2(char **cmdv, t_tree *tree)
 {
-    static t_func_ptr exec_functions[8] = {
-        run_export,
-        run_env,
-        run_unset,
-        run_echo,
-        run_pwd,
-        run_cd,
-        run_exit,
-        run_executable
-    };
-    return (exec_functions);
-}
+	t_cmd_type			cmd_type;
+	t_func_ptr			*exec_functions;
+	t_executable_data	data;
+	t_fds				bak;
+	int					status;
 
-int execute_command(char **cmdv)
-{
-    t_cmd_type cmd_type;
-    t_func_ptr *exec_functions;
-    int i;
-
-    cmd_type = get_command_type(cmdv[0]);
-    exec_functions = get_exec_functions();
-    i = 0;
-    return (exec_functions[cmd_type](cmdv));
+	cmd_type = get_command_type(cmdv);
+	exec_functions = get_exec_functions();
+	data = (t_executable_data){NULL, NULL, -1, -1};
+	bak.fd_in = dup(STDIN_FILENO);
+	bak.fd_out = dup(STDOUT_FILENO);
+	if (handle_redirections(tree, &data) != -1)
+	{
+		data = (t_executable_data){cmdv, tree, bak.fd_in, bak.fd_out};
+		status = exec_functions[cmd_type](&data);
+	}
+	else
+		status = 1;
+	dup2(bak.fd_in, STDIN_FILENO);
+	dup2(bak.fd_out, STDOUT_FILENO);
+	close(bak.fd_in);
+	close(bak.fd_out);
+	set_exit_status(status);
 }

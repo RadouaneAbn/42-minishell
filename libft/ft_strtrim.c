@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static	int	ft_strtrim_valid(char c, char const *set)
 {
@@ -61,7 +61,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (set == 0)
 		return (ft_strdup(s1));
 	i = 0;
-	ptr = (char *)malloc((ft_strtrim_length(s1, set) + 1) * sizeof(char));
+	ptr = (char *)gc_malloc((ft_strtrim_length(s1, set) + 1) * sizeof(char));
 	if (ptr == 0)
 		return (ft_strdup(""));
 	while (!ft_strtrim_valid(*s1, set))

@@ -1,12 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/11 09:50:27 by hsacr             #+#    #+#             */
+/*   Updated: 2025/07/17 09:49:05 by hsacr            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-void	token_free_list(t_token_lst *token_lst);
+void	syntax_err_signal_setup(int exit_status, bool *func(void))
+{
+	*func() = false;
+	set_exit_status(exit_status);
+	free_level();
+}
+
+bool	check_err_and_heredoc_signal(void)
+{
+	if (*heredoc_signaled())
+		return (syntax_err_signal_setup(130, heredoc_signaled), true);
+	if (*syntax_err_value())
+		return (syntax_err_signal_setup(2, syntax_err_value), true);
+	return (false);
+}
+
 void	lexer(char *line)
 {
-	t_token	token;
+	t_token		token;
 	t_token_lst	*new_node;
 	t_token_lst	*token_lst;
+	t_tree		*tree;
 
+	gc_level_init();
 	token_lst = NULL;
 	while (true)
 	{
@@ -17,32 +46,12 @@ void	lexer(char *line)
 		new_node = token_lstnew(token);
 		token_lstadd_back(&token_lst, new_node);
 	}
-	//token_printlst(token_lst);
-	t_tree *tree = parser(token_lst);
-	// print_tree(tree, 0);
+	if (*syntax_err_value())
+		return (syntax_err_signal_setup(2, syntax_err_value));
+	tree = parser(token_lst);
+	if (check_err_and_heredoc_signal())
+		return ;
+	free_token_list(&token_lst);
 	execute_tree(tree);
-	// tree_expand_simple_command(tree->next->next->next);
-	token_free_list(token_lst);
-}
-
-void	token_printlst(t_token_lst *token_lst)
-{
-	while (token_lst)
-	{
-		print_token(token_lst->token);
-		token_lst = token_lst->next;
-	}
-}
-
-void	token_free_list(t_token_lst *token_lst)
-{
-	t_token_lst	*tmp;
-
-	while (token_lst)
-	{
-		tmp = token_lst->next;
-		free(token_lst->token.lexeme);
-		free(token_lst);
-		token_lst = tmp;
-	}
+	free_level();
 }

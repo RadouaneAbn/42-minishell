@@ -1,70 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_built_in.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radouane <radouane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 15:37:32 by rabounou          #+#    #+#             */
+/*   Updated: 2025/07/15 04:38:18 by radouane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-int run_export(char **vec)
+int	run_export(t_executable_data *data)
 {
-    int status;
+	int		status;
+	char	**vec;
 
-    vec++;
-    if (vec[0] == NULL)
-        return (print_exports());
-    status = EXIT_SUCCESS;
-    while (*vec)
-    {
-        status |= pre_export(*vec);
-        vec++;
-    }
-    return (status);
+	vec = data->lst;
+	vec++;
+	if (vec[0] == NULL)
+		return (print_exports());
+	status = EXIT_SUCCESS;
+	while (*vec)
+	{
+		status |= pre_export(*vec);
+		vec++;
+	}
+	return (status);
 }
 
-int run_env(char **vec)
+int	run_env(t_executable_data *data)
 {
-    vec++;
-    return (print_env());
+	char	**vec;
+
+	vec = data->lst;
+	vec++;
+	return (print_env());
 }
 
-int run_unset(char **vec)
+int	run_unset(t_executable_data *data)
 {
-    int status;
+	int		status;
+	char	**vec;
 
-    vec++;
-    status = EXIT_SUCCESS;
-    while (*vec)
-    {
-        status |= unset(*vec);
-        vec++;
-    }
-    return (status);
+	vec = data->lst;
+	vec++;
+	status = EXIT_SUCCESS;
+	while (*vec)
+	{
+		status |= unset(*vec);
+		vec++;
+	}
+	return (status);
 }
 
-int run_echo(char **vec)
+int	run_echo(t_executable_data *data)
 {
-    vec++;
-    return (echo(vec));
+	char	**vec;
+
+	vec = data->lst;
+	vec++;
+	return (echo(vec));
 }
 
-int run_pwd(char **vec)
+int	run_pwd(t_executable_data *data)
 {
-    vec++;
-    printf("%s\n", expand_env("PWD"));
-    return (EXIT_SUCCESS);
-}
+	char	*path;
 
-int run_cd(char **vec)
-{
-    vec++;
-    printf("running cd\n");
-    return (EXIT_SUCCESS);
-}
-
-int run_exit(char **vec)
-{
-    vec++;
-    printf("running exit\n");
-    return (EXIT_SUCCESS);
-}
-
-int run_executable(char **vec)
-{
-    printf("running %s\n", vec[0]);
-    return (EXIT_SUCCESS);
+	(void)data;
+	path = expand_env("PWD");
+	if (path[0] == '\0')
+	{
+		path = getcwd(NULL, 0);
+		if (path == NULL)
+			return (perror("minishell: getcwd"), EXIT_FAILURE);
+		ft_putendl_fd(path, 1);
+		free(path);
+	}
+	else
+		ft_putendl_fd(path, 1);
+	return (EXIT_SUCCESS);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1 == 0 && s2 == 0)
 		return (0);
 	len = ft_strlen(s1) + ft_strlen(s2);
-	ptr = (char *)malloc((len + 1) * sizeof(char));
+	ptr = (char *)gc_malloc((len + 1) * sizeof(char));
 	if (ptr == 0)
 		return (0);
 	if (s1 == 0)
